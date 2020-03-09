@@ -1,16 +1,26 @@
 ########################################################################################################################
 #!!
-#! @description: Schedules all flows under Library/Micro Focus/Misc folder; each with a random number of occurrences (5-50) and a random ROI input parameter (10-1000).
+#! @description: Schedules all flows under the given folder; each with a random number of occurrences and a random ROI input parameter.
+#!
+#! @input path: Path to a folder where to take the flows from.
+#! @input trigger_expression: How often to trigger the flow. */60000 = every minute;*/3600000 = every hour
+#! @input num_of_occurences_range: How many times to schedule; provide a range of min-max value; each flow will be scheduled with a random number of occurrences within the range
+#! @input roi_range: Return On Investment for each flow; provide a range of min-max value; each flow will get a random ROI in the range
 #!!#
 ########################################################################################################################
 namespace: demo
 flow:
   name: generate_roi_numbers
+  inputs:
+    - path: Library/Micro Focus/Misc
+    - trigger_expression: '*/60000'
+    - num_of_occurences_range: 5-50
+    - roi_range: 10-100
   workflow:
     - get_flows:
         do:
           rpa.rest.library.get_flows:
-            - path: Library/Micro Focus/Misc
+            - path: '${path}'
         publish:
           - flows_json
         navigate:
@@ -33,6 +43,9 @@ flow:
             demo.sub_flows.schedule_flow:
               - flows_json: '${flows_json}'
               - flow_uuid: '${flow_id[1:-1]}'
+              - trigger_expression: '${trigger_expression}'
+              - num_of_occurrences_range: '${num_of_occurences_range}'
+              - roi_range: '${roi_range}'
           break:
             - FAILURE
         navigate:

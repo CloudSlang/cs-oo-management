@@ -4,6 +4,9 @@ flow:
   inputs:
     - flows_json
     - flow_uuid
+    - trigger_expression
+    - num_of_occurrences_range
+    - roi_range
   workflow:
     - get_flow_name:
         do:
@@ -18,8 +21,8 @@ flow:
     - get_random_roi:
         do:
           io.cloudslang.base.math.random_number_generator:
-            - min: '10'
-            - max: '1000'
+            - min: "${roi_range.split('-')[0]}"
+            - max: "${roi_range.split('-')[1]}"
         publish:
           - roi: '${random_number}'
         navigate:
@@ -30,7 +33,7 @@ flow:
           rpa.rest.scheduler.schedule_flow:
             - name: '${flow_name}'
             - uuid: '${flow_uuid}'
-            - trigger_expression: '*/60000'
+            - trigger_expression: '${trigger_expression}'
             - start_date: '${date}'
             - inputs: "${'\"count\": \"%s\"' % roi}"
             - time_zone: Etc/GMT
@@ -42,8 +45,8 @@ flow:
     - get_random_occurences:
         do:
           io.cloudslang.base.math.random_number_generator:
-            - min: '5'
-            - max: '50'
+            - min: "${num_of_occurrences_range.split('-')[0]}"
+            - max: "${num_of_occurrences_range.split('-')[1]}"
         publish:
           - num_of_occurences: '${random_number}'
         navigate:
@@ -64,12 +67,12 @@ flow:
 extensions:
   graph:
     steps:
-      get_time:
-        x: 42
-        'y': 275
       get_flow_name:
         x: 49
         'y': 102
+      get_random_roi:
+        x: 215
+        'y': 104
       schedule_flow:
         x: 221
         'y': 277
@@ -77,12 +80,12 @@ extensions:
           05455070-7bec-581c-f76b-67db96bca3c3:
             targetId: 53907060-cec6-b5bd-1d79-ae7c7ef26bfb
             port: SUCCESS
-      get_random_roi:
-        x: 215
-        'y': 104
       get_random_occurences:
         x: 376
         'y': 109
+      get_time:
+        x: 42
+        'y': 275
     results:
       SUCCESS:
         53907060-cec6-b5bd-1d79-ae7c7ef26bfb:
