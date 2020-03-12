@@ -14,6 +14,10 @@ flow:
     - method
     - body:
         required: false
+    - headers:
+        required: false
+    - use_cookies:
+        required: true
   workflow:
     - http_client_action:
         do:
@@ -26,17 +30,20 @@ flow:
                 sensitive: true
             - trust_all_roots: 'true'
             - x_509_hostname_verifier: allow_all
-            - use_cookies: 'false'
+            - use_cookies: '${use_cookies}'
+            - headers: '${headers}'
             - body: '${body}'
             - content_type: application/json
             - method: '${method}'
         publish:
           - return_result
+          - response_headers
         navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
   outputs:
     - return_result: '${return_result}'
+    - response_headers: '${response_headers}'
   results:
     - FAILURE
     - SUCCESS
