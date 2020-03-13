@@ -3,7 +3,7 @@
 #! @description: Returns flows and folders under the given path.
 #!!#
 ########################################################################################################################
-namespace: rpa.rest.library
+namespace: central.rest.library
 flow:
   name: get_flows
   inputs:

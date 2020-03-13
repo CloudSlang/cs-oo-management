@@ -9,7 +9,7 @@
 #! @input num_of_occurences: 0 = infinite
 #!!#
 ########################################################################################################################
-namespace: rpa.rest.scheduler
+namespace: central.rest.scheduler
 flow:
   name: schedule_flow
   inputs:
