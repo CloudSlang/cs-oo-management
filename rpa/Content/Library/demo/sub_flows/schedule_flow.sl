@@ -30,7 +30,7 @@ flow:
           - FAILURE: on_failure
     - schedule_flow:
         do:
-          rpa.rest.scheduler.schedule_flow:
+          central.rest.scheduler.schedule_flow:
             - name: '${flow_name}'
             - uuid: '${flow_uuid}'
             - trigger_expression: '${trigger_expression}'

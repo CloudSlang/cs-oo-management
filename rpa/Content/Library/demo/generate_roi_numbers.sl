@@ -19,7 +19,7 @@ flow:
   workflow:
     - get_flows:
         do:
-          rpa.rest.library.get_flows:
+          central.rest.library.get_flows:
             - path: '${path}'
         publish:
           - flows_json

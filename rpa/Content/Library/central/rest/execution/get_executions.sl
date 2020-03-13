@@ -3,7 +3,7 @@
 #! @description: Get flow executions.
 #!!#
 ########################################################################################################################
-namespace: rpa.rest.execution
+namespace: central.rest.execution
 flow:
   name: get_executions
   inputs:
