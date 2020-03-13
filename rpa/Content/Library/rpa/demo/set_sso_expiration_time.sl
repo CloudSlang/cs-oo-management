@@ -5,7 +5,7 @@
 #! @input timeout: For how long the SSO token should be valid (in minutes)
 #!!#
 ########################################################################################################################
-namespace: rpa.idm.demo
+namespace: rpa.demo
 flow:
   name: set_sso_expiration_time
   inputs:
