@@ -11,9 +11,18 @@ flow:
   inputs:
     - timeout: '1500'
   workflow:
+    - get_token:
+        do:
+          rpa.idm.rest.authenticate.get_token: []
+        publish:
+          - token
+        navigate:
+          - FAILURE: on_failure
+          - SUCCESS: set_sso_expiration_period
     - set_sso_expiration_period:
         do:
           rpa.idm.rest.configuration.set_property:
+            - token: '${token}'
             - property_name: lwssoConfig.expirationPeriod
             - property_value: '${timeout}'
         navigate:
@@ -22,6 +31,7 @@ flow:
     - set_idm_token_lifetime:
         do:
           rpa.idm.rest.configuration.set_property:
+            - token: '${token}'
             - property_name: idm.token.lifetime.minutes
             - property_value: '${timeout}'
         navigate:
@@ -34,17 +44,20 @@ extensions:
   graph:
     steps:
       set_sso_expiration_period:
-        x: 76
-        'y': 110
+        x: 189
+        'y': 108
       set_idm_token_lifetime:
-        x: 234
-        'y': 112
+        x: 342
+        'y': 110
         navigate:
           d8821c5d-4c02-16d4-71be-b0ee6f5b6f0d:
             targetId: a82959e3-8c41-7ca8-8278-efb41b398048
             port: SUCCESS
+      get_token:
+        x: 33
+        'y': 110
     results:
       SUCCESS:
         a82959e3-8c41-7ca8-8278-efb41b398048:
-          x: 381
-          'y': 111
+          x: 508
+          'y': 117

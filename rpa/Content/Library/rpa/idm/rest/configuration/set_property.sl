@@ -7,17 +7,10 @@ namespace: rpa.idm.rest.configuration
 flow:
   name: set_property
   inputs:
+    - token
     - property_name
     - property_value
   workflow:
-    - get_token:
-        do:
-          rpa.idm.rest.authenticate.get_token: []
-        publish:
-          - token
-        navigate:
-          - FAILURE: on_failure
-          - SUCCESS: http_client_action
     - http_client_action:
         do:
           io.cloudslang.base.http.http_client_action:
@@ -49,12 +42,9 @@ flow:
 extensions:
   graph:
     steps:
-      get_token:
-        x: 101
-        'y': 116
       http_client_action:
-        x: 283
-        'y': 112
+        x: 78
+        'y': 108
         navigate:
           35cecb75-1eb7-4601-a70d-5b6975cfe32b:
             targetId: 23abcc90-f29e-69b6-9dd3-c3e49052f211
@@ -62,5 +52,5 @@ extensions:
     results:
       SUCCESS:
         23abcc90-f29e-69b6-9dd3-c3e49052f211:
-          x: 454
-          'y': 112
+          x: 263
+          'y': 113
