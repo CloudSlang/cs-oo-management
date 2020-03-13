@@ -21,7 +21,7 @@ flow:
     - http_client_action:
         do:
           tools.http_client_action:
-            - url: "${'%s/rest/latest/flows/tree/level?path=%s' % (get_sp('rpa_url'), path_enc)}"
+            - url: "${'%s/rest/latest/flows/tree/level?path=%s' % (get_sp('central_url'), path_enc)}"
             - method: GET
             - use_cookies: 'false'
         publish:

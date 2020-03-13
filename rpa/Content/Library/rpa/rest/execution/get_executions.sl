@@ -13,7 +13,7 @@ flow:
     - http_client_action:
         do:
           tools.http_client_action:
-            - url: "${'%s/rest/latest/executions?pageSize=%s&pageNum=%s' % (get_sp('rpa_url'), page_size, page_num)}"
+            - url: "${'%s/rest/latest/executions?pageSize=%s&pageNum=%s' % (get_sp('central_url'), page_size, page_num)}"
             - method: GET
             - use_cookies: 'false'
         publish:
