@@ -5,3 +5,4 @@ properties:
   - rpa_password:
       value: ''
       sensitive: true
+  - ssx_url: 'https://rpa.mf-te.com:8446/oo-ssx'

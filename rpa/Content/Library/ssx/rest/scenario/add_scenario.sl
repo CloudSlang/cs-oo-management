@@ -1,45 +1,36 @@
 ########################################################################################################################
 #!!
-#! @description: Adds an SSX category.
+#! @description: Adds an SSX scenario.
 #!
-#! @input token: X-CSRF-TOKEN obtained from get_token flow
+#! @input category_id: Under which category to add the scenario
+#! @input scenario_json: JSON doc fully describing the scenario (including all flow inputs). On category ID, %s needs to be placed.
 #!!#
 ########################################################################################################################
-namespace: ssx.rest.category
+namespace: ssx.rest.scenario
 flow:
-  name: add_category
+  name: add_scenario
   inputs:
     - token
-    - name
-    - description
-    - background_id
-    - icon_id
+    - category_id
+    - scenario_json
   workflow:
     - http_client_action:
         do:
           tools.http_client_action:
-            - url: "${'%s/rest/v0/categories' % get_sp('ssx_url')}"
+            - url: "${'%s/rest/v0/scenarios' % get_sp('ssx_url')}"
             - method: POST
-            - body: |-
-                ${'''
-                  {
-                    "name": "%s",
-                    "description": "%s",
-                    "backgroundId": %s,
-                    "iconId": %s
-                  }
-                ''' % (name, description, background_id, icon_id)}
-            - headers: "${'''X-CSRF-TOKEN: %s''' % token}"
+            - body: '${scenario_json % category_id}'
+            - headers: "${'X-CSRF-TOKEN: %s' % token}"
             - use_cookies: 'true'
         publish:
-          - category_json: '${return_result}'
+          - scenario_json: '${return_result}'
         navigate:
           - FAILURE: on_failure
           - SUCCESS: json_path_query
     - json_path_query:
         do:
           io.cloudslang.base.json.json_path_query:
-            - json_object: '${category_json}'
+            - json_object: '${scenario_json}'
             - json_path: $.id
         publish:
           - id: '${return_result}'
@@ -55,17 +46,17 @@ extensions:
   graph:
     steps:
       http_client_action:
-        x: 80
-        'y': 80
+        x: 77
+        'y': 129
       json_path_query:
-        x: 226
-        'y': 87
+        x: 232
+        'y': 128
         navigate:
-          4390a84b-69ef-f916-11a3-8a745f6ef87f:
-            targetId: 0fc33028-6982-ffb4-682f-4b28028d19fe
+          703043ee-eb1c-de8f-096c-51bde07ef1ce:
+            targetId: 95dfb3ec-a5cd-6574-d06a-da1e85b158de
             port: SUCCESS
     results:
       SUCCESS:
-        0fc33028-6982-ffb4-682f-4b28028d19fe:
-          x: 381
-          'y': 83
+        95dfb3ec-a5cd-6574-d06a-da1e85b158de:
+          x: 394
+          'y': 137
