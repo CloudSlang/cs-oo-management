@@ -26,6 +26,7 @@ flow:
                 sensitive: true
             - trust_all_roots: 'true'
             - x_509_hostname_verifier: allow_all
+            - use_cookies: 'false'
             - body: '${body}'
             - content_type: application/json
             - method: '${method}'
