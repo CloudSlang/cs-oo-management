@@ -1,14 +1,17 @@
 ########################################################################################################################
 #!!
-#! @description: Get flow executions.
+#! @description: Sets content pack settings.
+#!
+#! @input settings: List of settings to be changed
+#! @input values: List of value of changed settings
 #!!#
 ########################################################################################################################
 namespace: rpa.central.rest.settings
 flow:
   name: set_cp_settings
   inputs:
-    - settings: 'cpStatisticsJobEnabled,cpExport'
-    - values: 'true,true'
+    - settings
+    - values
   workflow:
     - get_cp_settings:
         do:

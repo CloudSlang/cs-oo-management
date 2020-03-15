@@ -1,6 +1,9 @@
 ########################################################################################################################
 #!!
-#! @description: Get flow executions.
+#! @description: Sets general settings.
+#!
+#! @input settings: List of settings to be changed
+#! @input values: List of value of changed settings
 #!!#
 ########################################################################################################################
 namespace: rpa.central.rest.settings
@@ -47,6 +50,9 @@ flow:
 extensions:
   graph:
     steps:
+      get_general_settings:
+        x: 65
+        'y': 89
       central_http_action:
         x: 408
         'y': 90
@@ -54,9 +60,6 @@ extensions:
           5edf02c6-ae29-10d7-cac2-15de9a10a702:
             targetId: 758cfec6-ce01-09da-81b8-ff6bfe5c6032
             port: SUCCESS
-      get_general_settings:
-        x: 65
-        'y': 89
       set_json_properties:
         x: 245
         'y': 87

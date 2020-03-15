@@ -1,3 +1,13 @@
+########################################################################################################################
+#!!
+#! @description: Configures a freshly installed RPA demo instance. It
+#!                 - sets content pack settings
+#!                 - sets general settings
+#!                 - schedules flows to generate ROI in Dashboard
+#!                 - deletes password lock policy
+#!                 - creates SSX categories and scenarios
+#!!#
+########################################################################################################################
 namespace: rpa.demo
 flow:
   name: configure_rpa_demo_instance
@@ -30,7 +40,9 @@ flow:
           - SUCCESS: SUCCESS
     - set_cp_settings:
         do:
-          rpa.central.rest.settings.set_cp_settings: []
+          rpa.central.rest.settings.set_cp_settings:
+            - settings: 'cpStatisticsJobEnabled,cpExport'
+            - values: 'true,true'
         navigate:
           - FAILURE: on_failure
           - SUCCESS: generate_roi_numbers
