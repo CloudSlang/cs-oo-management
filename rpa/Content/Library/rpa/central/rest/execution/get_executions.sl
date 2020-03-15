@@ -10,9 +10,9 @@ flow:
     - page_size: '200'
     - page_num: '1'
   workflow:
-    - http_client_action:
+    - central_http_action:
         do:
-          rpa.tools.http_client_action:
+          rpa.tools.central_http_action:
             - url: "${'%s/rest/latest/executions?pageSize=%s&pageNum=%s' % (get_sp('central_url'), page_size, page_num)}"
             - method: GET
             - use_cookies: 'false'
@@ -29,7 +29,7 @@ flow:
 extensions:
   graph:
     steps:
-      http_client_action:
+      central_http_action:
         x: 90
         'y': 99
         navigate:

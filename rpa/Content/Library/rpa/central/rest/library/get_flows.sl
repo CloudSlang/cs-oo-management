@@ -16,11 +16,11 @@ flow:
         publish:
           - path_enc: '${result}'
         navigate:
-          - SUCCESS: http_client_action
+          - SUCCESS: central_http_action
           - FAILURE: on_failure
-    - http_client_action:
+    - central_http_action:
         do:
-          rpa.tools.http_client_action:
+          rpa.tools.central_http_action:
             - url: "${'%s/rest/latest/flows/tree/level?path=%s' % (get_sp('central_url'), path_enc)}"
             - method: GET
             - use_cookies: 'false'
@@ -40,7 +40,7 @@ extensions:
       url_encoder:
         x: 75
         'y': 104
-      http_client_action:
+      central_http_action:
         x: 228
         'y': 107
         navigate:

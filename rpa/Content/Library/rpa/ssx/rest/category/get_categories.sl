@@ -7,9 +7,9 @@ namespace: rpa.ssx.rest.category
 flow:
   name: get_categories
   workflow:
-    - http_client_action:
+    - ssx_http_action:
         do:
-          rpa.tools.http_client_action:
+          rpa.tools.ssx_http_action:
             - url: "${'%s/rest/v0/categories' % get_sp('ssx_url')}"
             - method: GET
             - use_cookies: 'false'
@@ -26,7 +26,7 @@ flow:
 extensions:
   graph:
     steps:
-      http_client_action:
+      ssx_http_action:
         x: 118
         'y': 115
         navigate:

@@ -21,9 +21,9 @@ flow:
     - time_zone: Etc/GMT
     - num_of_occurences: '0'
   workflow:
-    - http_client_action:
+    - central_http_action:
         do:
-          rpa.tools.http_client_action:
+          rpa.tools.central_http_action:
             - url: "${'%s/rest/latest/schedules' % get_sp('central_url')}"
             - method: POST
             - body: |-
@@ -55,7 +55,7 @@ flow:
 extensions:
   graph:
     steps:
-      http_client_action:
+      central_http_action:
         x: 125
         'y': 127
         navigate:

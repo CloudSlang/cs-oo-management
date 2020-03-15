@@ -8,7 +8,7 @@
 ########################################################################################################################
 namespace: rpa.tools
 flow:
-  name: http_client_action
+  name: central_http_action
   inputs:
     - url
     - method

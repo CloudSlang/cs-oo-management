@@ -9,9 +9,9 @@ namespace: rpa.ssx.rest.authenticate
 flow:
   name: get_token
   workflow:
-    - http_client_action:
+    - ssx_http_action:
         do:
-          rpa.tools.http_client_action:
+          rpa.tools.ssx_http_action:
             - url: "${get_sp('ssx_url')}"
             - method: HEAD
             - use_cookies: 'true'
@@ -28,7 +28,7 @@ flow:
 extensions:
   graph:
     steps:
-      http_client_action:
+      ssx_http_action:
         x: 49
         'y': 86
         navigate:

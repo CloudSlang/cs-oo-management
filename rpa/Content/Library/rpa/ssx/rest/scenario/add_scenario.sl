@@ -14,9 +14,9 @@ flow:
     - category_id
     - scenario_json
   workflow:
-    - http_client_action:
+    - ssx_http_action:
         do:
-          rpa.tools.http_client_action:
+          rpa.tools.ssx_http_action:
             - url: "${'%s/rest/v0/scenarios' % get_sp('ssx_url')}"
             - method: POST
             - body: '${scenario_json % category_id}'
@@ -45,7 +45,7 @@ flow:
 extensions:
   graph:
     steps:
-      http_client_action:
+      ssx_http_action:
         x: 77
         'y': 129
       json_path_query:

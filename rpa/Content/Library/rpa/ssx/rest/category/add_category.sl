@@ -15,9 +15,9 @@ flow:
     - background_id
     - icon_id
   workflow:
-    - http_client_action:
+    - ssx_http_action:
         do:
-          rpa.tools.http_client_action:
+          rpa.tools.ssx_http_action:
             - url: "${'%s/rest/v0/categories' % get_sp('ssx_url')}"
             - method: POST
             - body: |-
@@ -54,7 +54,7 @@ flow:
 extensions:
   graph:
     steps:
-      http_client_action:
+      ssx_http_action:
         x: 80
         'y': 80
       json_path_query:
