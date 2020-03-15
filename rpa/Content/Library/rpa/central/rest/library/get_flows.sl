@@ -23,7 +23,6 @@ flow:
           rpa.tools.central_http_action:
             - url: "${'%s/rest/latest/flows/tree/level?path=%s' % (get_sp('central_url'), path_enc)}"
             - method: GET
-            - use_cookies: 'false'
         publish:
           - flows_json: '${return_result}'
         navigate:

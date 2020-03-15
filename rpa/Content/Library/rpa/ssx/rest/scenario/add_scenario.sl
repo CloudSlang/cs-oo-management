@@ -18,10 +18,9 @@ flow:
         do:
           rpa.tools.ssx_http_action:
             - url: "${'%s/rest/v0/scenarios' % get_sp('ssx_url')}"
+            - token: '${token}'
             - method: POST
             - body: '${scenario_json % category_id}'
-            - headers: "${'X-CSRF-TOKEN: %s' % token}"
-            - use_cookies: 'true'
         publish:
           - scenario_json: '${return_result}'
         navigate:

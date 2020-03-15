@@ -19,6 +19,7 @@ flow:
         do:
           rpa.tools.ssx_http_action:
             - url: "${'%s/rest/v0/categories' % get_sp('ssx_url')}"
+            - token: '${token}'
             - method: POST
             - body: |-
                 ${'''
@@ -29,8 +30,6 @@ flow:
                     "iconId": %s
                   }
                 ''' % (name, description, background_id, icon_id)}
-            - headers: "${'''X-CSRF-TOKEN: %s''' % token}"
-            - use_cookies: 'true'
         publish:
           - category_json: '${return_result}'
         navigate:

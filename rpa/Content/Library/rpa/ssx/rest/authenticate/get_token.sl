@@ -14,7 +14,6 @@ flow:
           rpa.tools.ssx_http_action:
             - url: "${get_sp('ssx_url')}"
             - method: HEAD
-            - use_cookies: 'true'
         publish:
           - token: "${response_headers.split('X-CSRF-TOKEN:')[1].split('\\n')[0].strip()}"
         navigate:

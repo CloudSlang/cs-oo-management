@@ -45,7 +45,6 @@ flow:
                     "numOfOccurrences": "%s"
                   }
                 ''' % (name, uuid, trigger_expression, start_date, inputs, time_zone, num_of_occurences)}
-            - use_cookies: 'false'
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS

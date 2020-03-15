@@ -11,13 +11,11 @@ flow:
   name: ssx_http_action
   inputs:
     - url
+    - token:
+        required: false
     - method
     - body:
         required: false
-    - headers:
-        required: false
-    - use_cookies:
-        required: true
   workflow:
     - http_client_action:
         do:
@@ -30,8 +28,8 @@ flow:
                 sensitive: true
             - trust_all_roots: 'true'
             - x_509_hostname_verifier: allow_all
-            - use_cookies: '${use_cookies}'
-            - headers: '${headers}'
+            - use_cookies: 'true'
+            - headers: "${'X-CSRF-TOKEN: %s' % token}"
             - body: '${body}'
             - content_type: application/json
             - method: '${method}'

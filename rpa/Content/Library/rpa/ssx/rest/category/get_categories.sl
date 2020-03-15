@@ -12,7 +12,6 @@ flow:
           rpa.tools.ssx_http_action:
             - url: "${'%s/rest/v0/categories' % get_sp('ssx_url')}"
             - method: GET
-            - use_cookies: 'false'
         publish:
           - categories_json: '${return_result}'
         navigate:
