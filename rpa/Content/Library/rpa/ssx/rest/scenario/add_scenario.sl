@@ -17,7 +17,7 @@ flow:
     - ssx_http_action:
         do:
           rpa.tools.ssx_http_action:
-            - url: "${'%s/rest/v0/scenarios' % get_sp('ssx_url')}"
+            - url: /rest/v0/scenarios
             - token: '${token}'
             - method: POST
             - body: '${scenario_json % category_id}'

@@ -13,7 +13,7 @@ flow:
     - central_http_action:
         do:
           rpa.tools.central_http_action:
-            - url: "${'%s/rest/latest/executions?pageSize=%s&pageNum=%s' % (get_sp('central_url'), page_size, page_num)}"
+            - url: "${'/rest/latest/executions?pageSize=%s&pageNum=%s' % (page_size, page_num)}"
             - method: GET
         publish:
           - executions_json: '${return_result}'

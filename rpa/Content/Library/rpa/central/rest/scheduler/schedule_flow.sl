@@ -24,7 +24,7 @@ flow:
     - central_http_action:
         do:
           rpa.tools.central_http_action:
-            - url: "${'%s/rest/latest/schedules' % get_sp('central_url')}"
+            - url: /rest/latest/schedules
             - method: POST
             - body: |-
                 ${'''

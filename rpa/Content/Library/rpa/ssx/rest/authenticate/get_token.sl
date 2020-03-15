@@ -9,16 +9,24 @@ namespace: rpa.ssx.rest.authenticate
 flow:
   name: get_token
   workflow:
-    - ssx_http_action:
+    - http_client_action:
         do:
-          rpa.tools.ssx_http_action:
+          io.cloudslang.base.http.http_client_action:
             - url: "${get_sp('ssx_url')}"
+            - auth_type: basic
+            - username: "${get_sp('rpa_username')}"
+            - password:
+                value: "${get_sp('rpa_password')}"
+                sensitive: true
+            - trust_all_roots: 'true'
+            - x_509_hostname_verifier: allow_all
+            - content_type: application/json
             - method: HEAD
         publish:
           - token: "${response_headers.split('X-CSRF-TOKEN:')[1].split('\\n')[0].strip()}"
         navigate:
-          - FAILURE: on_failure
           - SUCCESS: SUCCESS
+          - FAILURE: on_failure
   outputs:
     - token: '${token}'
   results:
@@ -27,11 +35,11 @@ flow:
 extensions:
   graph:
     steps:
-      ssx_http_action:
-        x: 49
-        'y': 86
+      http_client_action:
+        x: 84
+        'y': 77
         navigate:
-          cdbf304b-e021-391e-f4bc-77246c744d56:
+          0dbc8b33-8888-6463-1780-afd3d09b49cc:
             targetId: 3a5d00ef-7493-21f2-bcf9-a60215f85b92
             port: SUCCESS
     results:

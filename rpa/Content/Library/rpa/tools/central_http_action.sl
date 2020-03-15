@@ -18,7 +18,7 @@ flow:
     - http_client_action:
         do:
           io.cloudslang.base.http.http_client_action:
-            - url: '${url}'
+            - url: "${'%s%s' % (get_sp('central_url'), url)}"
             - auth_type: basic
             - username: "${get_sp('rpa_username')}"
             - password:
