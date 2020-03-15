@@ -3,33 +3,25 @@
 #! @description: Sets the IDM configuration property.
 #!!#
 ########################################################################################################################
-namespace: rpa.idm.rest.configuration
+namespace: rpa.idm.rest.organization
 flow:
-  name: set_property
+  name: get_organizations
   inputs:
     - token
-    - property_name
-    - property_value
   workflow:
     - idm_http_action:
         do:
           rpa.tools.idm_http_action:
-            - url: /api/system/configurations/items
+            - url: /api/scim/organizations
             - token: '${token}'
-            - method: PATCH
-            - body: |-
-                ${'''{
-                  "resourceconfig": [
-                   {
-                      "name": "%s",
-                      "value": "%s"
-
-                   }
-                   ]
-                }''' % (property_name, property_value)}
+            - method: GET
+        publish:
+          - organizations_json: '${return_result}'
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
+  outputs:
+    - organizations_json: '${organizations_json}'
   results:
     - FAILURE
     - SUCCESS
