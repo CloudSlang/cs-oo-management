@@ -16,6 +16,7 @@ operation:
     - values
     - delimiter:
         required: false
+        default: ','
   python_action:
     script: |-
       import json
