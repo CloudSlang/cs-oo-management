@@ -22,10 +22,13 @@ flow:
                     "lockoutThreshold": 5,
                     "lockoutDuration": 90,
                     "idleDay": 90,
-                    "unlockToDisabledThreshold": 2
+                    "unlockToDisabledThreshold": 2,
+                    "dbConf" : {
+                        "name" : "PSQL"
+                    }
                   }'''}
-            - properties: name
-            - values: TestPolicy
+            - properties: 'name,dbConf.name'
+            - values: 'TestPolicy,ORACLE'
         publish:
           - result_json
         navigate:
@@ -47,6 +50,25 @@ flow:
             - second_string: TestPolicy
             - ignore_case: null
         navigate:
+          - SUCCESS: json_path_query_1
+          - FAILURE: on_failure
+    - json_path_query_1:
+        do:
+          io.cloudslang.base.json.json_path_query:
+            - json_object: '${result_json}'
+            - json_path: $.dbConf.name
+        publish:
+          - dbName: '${return_result[1:-1]}'
+        navigate:
+          - SUCCESS: string_equals_1
+          - FAILURE: on_failure
+    - string_equals_1:
+        do:
+          io.cloudslang.base.strings.string_equals:
+            - first_string: '${dbName}'
+            - second_string: ORACLE
+            - ignore_case: null
+        navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
   results:
@@ -62,14 +84,20 @@ extensions:
         x: 241
         'y': 101
       string_equals:
-        x: 442
-        'y': 92
+        x: 424
+        'y': 99
+      json_path_query_1:
+        x: 241
+        'y': 256
+      string_equals_1:
+        x: 417
+        'y': 257
         navigate:
-          3c882620-069e-5455-a72c-84b1304aea54:
+          51083df6-7a83-14dc-6f23-182b0fed196a:
             targetId: b689c4a6-1ea4-4b2e-3abe-55f519240a9e
             port: SUCCESS
     results:
       SUCCESS:
         b689c4a6-1ea4-4b2e-3abe-55f519240a9e:
-          x: 539
-          'y': 116
+          x: 602
+          'y': 99

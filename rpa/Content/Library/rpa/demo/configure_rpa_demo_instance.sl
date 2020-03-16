@@ -1,11 +1,11 @@
 ########################################################################################################################
 #!!
 #! @description: Configures a freshly installed RPA demo instance. It
-#!                 - sets content pack settings
-#!                 - sets general settings
-#!                 - schedules flows to generate ROI in Dashboard
-#!                 - deletes password lock policy
-#!                 - creates SSX categories and scenarios
+#!               - sets content pack settings
+#!               - sets general settings
+#!               - schedules flows to generate ROI in Dashboard
+#!               - deletes password lock policy
+#!               - creates SSX categories and scenarios
 #!!#
 ########################################################################################################################
 namespace: rpa.demo
@@ -25,7 +25,7 @@ flow:
           rpa.demo.generate_roi_numbers: []
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: delete_password_lock_policy
+          - SUCCESS: set_insight_settings
     - delete_password_lock_policy:
         do:
           rpa.demo.delete_password_lock_policy: []
@@ -46,6 +46,20 @@ flow:
         navigate:
           - FAILURE: on_failure
           - SUCCESS: generate_roi_numbers
+    - set_insight_settings:
+        do:
+          rpa.central.rest.insight.set_insight_settings:
+            - settings: 'host,port,dbConfiguration.dbType,dbConfiguration.host,dbConfiguration.port,dbConfiguration.username,dbConfiguration.password,dbConfiguration.dbName,dbConfiguration.passwordChanged'
+            - values: 'rpa.mf-te.com,8458,POSTGRESQL,rpa.mf-te.com,5432,insight,Cloud@123,insight,true'
+        navigate:
+          - FAILURE: on_failure
+          - SUCCESS: enable_insight_service
+    - enable_insight_service:
+        do:
+          rpa.central.rest.insight.enable_insight_service: []
+        navigate:
+          - FAILURE: on_failure
+          - SUCCESS: delete_password_lock_policy
   results:
     - FAILURE
     - SUCCESS
@@ -71,6 +85,12 @@ extensions:
       set_cp_settings:
         x: 249
         'y': 71
+      set_insight_settings:
+        x: 585
+        'y': 65
+      enable_insight_service:
+        x: 747
+        'y': 70
     results:
       SUCCESS:
         5bd93ad7-c706-1240-ecdc-927475693aa5:
