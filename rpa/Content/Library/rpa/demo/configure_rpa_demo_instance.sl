@@ -4,6 +4,8 @@
 #!               - sets content pack settings
 #!               - sets general settings
 #!               - schedules flows to generate ROI in Dashboard
+#!               - configures Insight service
+#!               - enables Insight service
 #!               - deletes password lock policy
 #!               - creates SSX categories and scenarios
 #!!#
