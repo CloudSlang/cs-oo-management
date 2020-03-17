@@ -18,7 +18,7 @@ operation:
         required: false
         default: ','
   python_action:
-    script: "import json\ndata = json.loads(json_string)\n\nfor property, value in zip(properties.split(delimiter), values.split(delimiter)):\n    if '.' in property:\n        parent = property.split('.')[0]\n        child = property.split('.')[1]\n        data[parent][child] = value\n    else:    \n        data[property] = value\n\nresult_json = json.dumps(data)"
+    script: "import json\ndata = json.loads(json_string)\n\nfor property, value in zip(properties.split(delimiter), values.split(delimiter)):\n    if '.' in property:\n        parent = property.split('.')[0]\n        child = property.split('.')[1]\n        if (data[parent] == None):\n            data[parent] = {}\n        data[parent][child] = value\n    else:    \n        data[property] = value\n\nresult_json = json.dumps(data)"
   outputs:
     - result_json: '${result_json}'
   results:
