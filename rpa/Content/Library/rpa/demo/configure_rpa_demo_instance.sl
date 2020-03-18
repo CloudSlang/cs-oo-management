@@ -14,6 +14,14 @@ namespace: rpa.demo
 flow:
   name: configure_rpa_demo_instance
   workflow:
+    - set_insight_settings:
+        do:
+          rpa.central.rest.insight.set_insight_settings:
+            - settings: 'host,port,dbConfiguration.dbType,dbConfiguration.host,dbConfiguration.port,dbConfiguration.username,dbConfiguration.password,dbConfiguration.dbName,dbConfiguration.passwordChanged'
+            - values: 'rpa.mf-te.com,8458,POSTGRESQL,rpa.mf-te.com,5432,insight,Cloud@123,insight,true'
+        navigate:
+          - FAILURE: on_failure
+          - SUCCESS: enable_insight_service
     - set_general_settings:
         do:
           rpa.central.rest.settings.set_general_settings:
@@ -27,7 +35,7 @@ flow:
           rpa.demo.generate_roi_numbers: []
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: set_insight_settings
+          - SUCCESS: SUCCESS
     - delete_password_lock_policy:
         do:
           rpa.demo.delete_password_lock_policy: []
@@ -39,7 +47,7 @@ flow:
           rpa.demo.create_ssx_categories_and_scenarios: []
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: SUCCESS
+          - SUCCESS: generate_roi_numbers
     - set_cp_settings:
         do:
           rpa.central.rest.settings.set_cp_settings:
@@ -47,21 +55,13 @@ flow:
             - values: 'true,true'
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: generate_roi_numbers
-    - set_insight_settings:
-        do:
-          rpa.central.rest.insight.set_insight_settings:
-            - settings: 'host,port,dbConfiguration.dbType,dbConfiguration.host,dbConfiguration.port,dbConfiguration.username,dbConfiguration.password,dbConfiguration.dbName,dbConfiguration.passwordChanged'
-            - values: 'rpa.mf-te.com,8458,POSTGRESQL,rpa.mf-te.com,5432,insight,Cloud@123,insight,true'
-        navigate:
-          - FAILURE: on_failure
-          - SUCCESS: enable_insight_service
+          - SUCCESS: delete_password_lock_policy
     - enable_insight_service:
         do:
           rpa.central.rest.insight.enable_insight_service: []
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: delete_password_lock_policy
+          - SUCCESS: set_general_settings
     - set_sso_expiration_time:
         do:
           rpa.demo.set_sso_expiration_time: []
@@ -75,35 +75,35 @@ extensions:
   graph:
     steps:
       set_general_settings:
-        x: 104
+        x: 390
         'y': 65
       generate_roi_numbers:
-        x: 402
-        'y': 72
-      delete_password_lock_policy:
-        x: 103
-        'y': 261
-      create_ssx_categories_and_scenarios:
-        x: 477
-        'y': 258
+        x: 628
+        'y': 262
         navigate:
-          4047378a-1bc2-5248-824e-ab6deebdb8e3:
+          94c5ba29-62d2-5b1a-e0e9-5bcdf47814b0:
             targetId: 5bd93ad7-c706-1240-ecdc-927475693aa5
             port: SUCCESS
+      delete_password_lock_policy:
+        x: 96
+        'y': 260
+      create_ssx_categories_and_scenarios:
+        x: 463
+        'y': 258
       set_cp_settings:
-        x: 249
-        'y': 71
+        x: 573
+        'y': 59
       set_insight_settings:
-        x: 585
-        'y': 65
+        x: 90
+        'y': 69
       enable_insight_service:
-        x: 747
-        'y': 70
+        x: 233
+        'y': 66
       set_sso_expiration_time:
-        x: 305
+        x: 301
         'y': 260
     results:
       SUCCESS:
         5bd93ad7-c706-1240-ecdc-927475693aa5:
-          x: 668
-          'y': 265
+          x: 802
+          'y': 269
