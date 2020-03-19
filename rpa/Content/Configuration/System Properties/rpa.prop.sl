@@ -13,3 +13,4 @@ properties:
   - rpa_password:
       value: ''
       sensitive: true
+  - insights_url: 'https://rpa.mf-te.com:8458/oo-insights'
