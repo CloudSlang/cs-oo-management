@@ -97,6 +97,35 @@ flow:
             - first_string: '${dbType}'
             - second_string: POSTGRESQL
         navigate:
+          - SUCCESS: set_json_properties_2
+          - FAILURE: on_failure
+    - set_json_properties_2:
+        do:
+          rpa.tools.set_json_properties:
+            - json_string: '{ "id" : "" }'
+            - properties: id
+            - values: '{"key" : "value"}'
+            - evaluate: 'true'
+        publish:
+          - result_json
+        navigate:
+          - SUCCESS: json_path_query_3
+    - json_path_query_3:
+        do:
+          io.cloudslang.base.json.json_path_query:
+            - json_object: '${result_json}'
+            - json_path: $.id.key
+        publish:
+          - value: '${return_result[1:-1]}'
+        navigate:
+          - SUCCESS: string_equals_3
+          - FAILURE: on_failure
+    - string_equals_3:
+        do:
+          io.cloudslang.base.strings.string_equals:
+            - first_string: '${value}'
+            - second_string: value
+        navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
   results:
@@ -105,36 +134,45 @@ flow:
 extensions:
   graph:
     steps:
-      set_json_properties:
-        x: 57
-        'y': 94
+      string_equals_2:
+        x: 775
+        'y': 268
+      set_json_properties_2:
+        x: 600
+        'y': 271
+      string_equals_3:
+        x: 295
+        'y': 262
+        navigate:
+          d5801c0d-45a4-edd3-d773-94288a392692:
+            targetId: b689c4a6-1ea4-4b2e-3abe-55f519240a9e
+            port: SUCCESS
       json_path_query:
         x: 226
         'y': 92
+      set_json_properties:
+        x: 57
+        'y': 94
       string_equals:
         x: 421
         'y': 80
       json_path_query_1:
-        x: 75
-        'y': 271
-      string_equals_1:
-        x: 294
-        'y': 258
-      set_json_properties_1:
-        x: 433
-        'y': 274
+        x: 607
+        'y': 80
       json_path_query_2:
-        x: 593
-        'y': 273
-      string_equals_2:
-        x: 767
-        'y': 258
-        navigate:
-          7be4932c-def0-940c-6d55-a3ce5a3a670e:
-            targetId: b689c4a6-1ea4-4b2e-3abe-55f519240a9e
-            port: SUCCESS
+        x: 977
+        'y': 256
+      json_path_query_3:
+        x: 434
+        'y': 270
+      string_equals_1:
+        x: 787
+        'y': 91
+      set_json_properties_1:
+        x: 968
+        'y': 90
     results:
       SUCCESS:
         b689c4a6-1ea4-4b2e-3abe-55f519240a9e:
-          x: 735
-          'y': 85
+          x: 118
+          'y': 270
