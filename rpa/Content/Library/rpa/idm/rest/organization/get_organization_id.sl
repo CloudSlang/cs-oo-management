@@ -1,6 +1,6 @@
 ########################################################################################################################
 #!!
-#! @description: Sets the IDM configuration property.
+#! @description: Receives the organization ID.
 #!
 #! @input org_name: Organization name
 #!!#

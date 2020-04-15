@@ -1,6 +1,8 @@
 ########################################################################################################################
 #!!
-#! @description: Sets the IDM configuration property.
+#! @description: Receives the policy ID.
+#!
+#! @input org_id: Organization ID the policy belongs to.
 #!!#
 ########################################################################################################################
 namespace: rpa.idm.rest.policy

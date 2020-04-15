@@ -1,3 +1,11 @@
+########################################################################################################################
+#!!
+#! @description: Deletes the given policy.
+#!
+#! @input org_id: Organization ID the policy belongs to.
+#! @input policy_id: ID of policy to be deleted.
+#!!#
+########################################################################################################################
 namespace: rpa.idm.rest.policy
 flow:
   name: delete_policy
