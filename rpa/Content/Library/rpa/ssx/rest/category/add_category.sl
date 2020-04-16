@@ -10,10 +10,7 @@ flow:
   name: add_category
   inputs:
     - token
-    - name
-    - description
-    - background_id
-    - icon_id
+    - category_json
   workflow:
     - ssx_http_action:
         do:
@@ -21,15 +18,7 @@ flow:
             - url: /rest/v0/categories
             - token: '${token}'
             - method: POST
-            - body: |-
-                ${'''
-                  {
-                    "name": "%s",
-                    "description": "%s",
-                    "backgroundId": %s,
-                    "iconId": %s
-                  }
-                ''' % (name, description, background_id, icon_id)}
+            - body: '${category_json}'
         publish:
           - category_json: '${return_result}'
         navigate:

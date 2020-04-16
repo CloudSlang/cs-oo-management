@@ -2,16 +2,54 @@
 #!!
 #! @description: Creates demo categories.
 #!
-#! @input categories: A list of categories to be created; each category contains name, description, background ID and icon ID. The name must be unique.
+#! @input categories_json: JSON with a list of categories to be created; each category contains name, description, background ID and icon ID. The name must be unique. Null values need to be enclosed in quotes.
 #!!#
 ########################################################################################################################
 namespace: rpa.demo
 flow:
   name: create_ssx_categories
   inputs:
-    - categories: 'AOS3,Advantage Online Shopping,null,200026|HR3,Human Resources,200055,200007|INSURANCE3,Insurance & Assurance,200070,200005|IT3,Information Technology,200068,200021|SALESFORCE3,Sales & Force,200071,200025|SAP3,System Analysis and Program Development,200061,200047'
-    - category_delimiter: '|'
-    - value_delimiter: ','
+    - categories_json: |-
+        ${'''
+        [
+          {
+            "name": "AOS3",
+            "description": "Advantage Online Shopping",
+            "backgroundId": "null",
+            "iconId": 200026
+          },
+          {
+            "name": "HR3",
+            "description": "Human Resources",
+            "backgroundId": 200055,
+            "iconId": 200007
+          },
+          {
+            "name": "INSURANCE3",
+            "description": "Insurance & Assurance",
+            "backgroundId": 200070,
+            "iconId": 200005
+          },
+          {
+            "name": "IT3",
+            "description": "Information Technology",
+            "backgroundId": 200068,
+            "iconId": 200021
+          },
+          {
+            "name": "SALESFORCE3",
+            "description": "Sales & Force",
+            "backgroundId": 200071,
+            "iconId": 200025
+          },
+          {
+            "name": "SAP3",
+            "description": "System Analysis and Program Development",
+            "backgroundId": 200061,
+            "iconId": 200047
+          }
+        ]
+        '''}
   workflow:
     - get_token:
         do:
@@ -23,14 +61,11 @@ flow:
           - SUCCESS: add_category
     - add_category:
         loop:
-          for: category in categories.split(category_delimiter)
+          for: category_json in eval(categories_json)
           do:
             rpa.ssx.rest.category.add_category:
               - token: '${token}'
-              - name: '${category.split(value_delimiter)[0]}'
-              - description: '${category.split(value_delimiter)[1]}'
-              - background_id: '${category.split(value_delimiter)[2]}'
-              - icon_id: '${category.split(value_delimiter)[3]}'
+              - category_json: "${str(category_json).replace(\"'null'\", \"null\").replace(\"'\", '\"')}"
           break:
             - FAILURE
         navigate:

@@ -14,10 +14,15 @@ flow:
         do:
           rpa.ssx.rest.category.add_category:
             - token: '${token}'
-            - name: Test Cat
-            - description: Test Desc
-            - background_id: '200061'
-            - icon_id: '200047'
+            - category_json: |-
+                ${'''
+                  {
+                    "name": "Test Cat",
+                    "description": "Test Desc",
+                    "backgroundId": 200061,
+                    "iconId": 200047
+                  }
+                '''}
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
@@ -27,6 +32,9 @@ flow:
 extensions:
   graph:
     steps:
+      get_token:
+        x: 81
+        'y': 104
       add_category:
         x: 252
         'y': 109
@@ -34,9 +42,6 @@ extensions:
           a00bd6fb-6f31-5724-4227-38f8d78ded08:
             targetId: 73c29f2d-bc78-7f47-b090-6d8e17fde685
             port: SUCCESS
-      get_token:
-        x: 81
-        'y': 104
     results:
       SUCCESS:
         73c29f2d-bc78-7f47-b090-6d8e17fde685:
