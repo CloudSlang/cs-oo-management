@@ -1,27 +1,30 @@
 ########################################################################################################################
 #!!
-#! @description: Gets SSX categories.
+#! @description: Adds an SSX category.
+#!
+#! @input token: X-CSRF-TOKEN obtained from get_token flow
 #!!#
 ########################################################################################################################
 namespace: rpa.ssx.rest.category
 flow:
-  name: get_categories
+  name: get_category_by_id
   inputs:
     - token
+    - id
   workflow:
     - ssx_http_action:
         do:
           rpa.tools.ssx_http_action:
-            - url: /rest/v0/categories
+            - url: "${'/rest/v0/categories/%s' % id}"
             - token: '${token}'
             - method: GET
         publish:
-          - categories_json: '${return_result}'
+          - category_json: '${return_result}'
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
   outputs:
-    - categories_json: '${categories_json}'
+    - category_json: '${category_json}'
   results:
     - FAILURE
     - SUCCESS
@@ -29,14 +32,14 @@ extensions:
   graph:
     steps:
       ssx_http_action:
-        x: 118
-        'y': 115
+        x: 80
+        'y': 80
         navigate:
-          6c826634-2ee4-e707-9fd5-a7b9f053a59f:
-            targetId: a3084954-a0d0-64e6-dc25-95adbf3e450a
+          a9057876-2774-02f9-da4f-7b68a7b09236:
+            targetId: 0fc33028-6982-ffb4-682f-4b28028d19fe
             port: SUCCESS
     results:
       SUCCESS:
-        a3084954-a0d0-64e6-dc25-95adbf3e450a:
-          x: 270
-          'y': 101
+        0fc33028-6982-ffb4-682f-4b28028d19fe:
+          x: 254
+          'y': 87

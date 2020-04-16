@@ -22,7 +22,8 @@ flow:
           - FAILURE: on_failure
     - get_categories:
         do:
-          rpa.ssx.rest.category.get_categories: []
+          rpa.ssx.rest.category.get_categories:
+            - token: '${token}'
         publish:
           - categories_json
         navigate:
@@ -49,12 +50,12 @@ extensions:
       get_token:
         x: 44
         'y': 118
-      get_categories:
-        x: 200
-        'y': 118
       json_path_query:
         x: 357
         'y': 123
+      get_categories:
+        x: 200
+        'y': 118
       delete_category:
         x: 526
         'y': 128
