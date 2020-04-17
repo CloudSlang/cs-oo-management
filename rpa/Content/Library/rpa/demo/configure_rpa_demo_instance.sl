@@ -1,13 +1,15 @@
 ########################################################################################################################
 #!!
 #! @description: Configures a freshly installed RPA demo instance. It
-#!               - sets content pack settings
-#!               - sets general settings
-#!               - schedules flows to generate ROI in Dashboard
 #!               - configures Insight service
 #!               - enables Insight service
+#!               - sets general settings
+#!               - sets content pack settings
 #!               - deletes password lock policy
-#!               - creates SSX categories and scenarios
+#!               - extends SSO expiration timeout
+#!               - creates (or updates) SSX categories and scenarios
+#!               - schedules flows to generate ROI in Dashboard
+#!               
 #!!#
 ########################################################################################################################
 namespace: rpa.demo
@@ -42,12 +44,6 @@ flow:
         navigate:
           - FAILURE: on_failure
           - SUCCESS: set_sso_expiration_time
-    - create_ssx_categories_and_scenarios:
-        do:
-          rpa.demo.create_ssx_categories_and_scenarios: []
-        navigate:
-          - FAILURE: on_failure
-          - SUCCESS: generate_roi_numbers
     - set_cp_settings:
         do:
           rpa.central.rest.settings.set_cp_settings:
@@ -67,16 +63,22 @@ flow:
           rpa.demo.set_sso_expiration_time: []
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: create_ssx_categories_and_scenarios
+          - SUCCESS: update_ssx_categories_and_scenarios
+    - update_ssx_categories_and_scenarios:
+        do:
+          rpa.demo.update_ssx_categories_and_scenarios: []
+        navigate:
+          - FAILURE: on_failure
+          - SUCCESS: generate_roi_numbers
   results:
     - FAILURE
     - SUCCESS
 extensions:
   graph:
     steps:
-      set_general_settings:
-        x: 390
-        'y': 65
+      set_insight_settings:
+        x: 90
+        'y': 69
       generate_roi_numbers:
         x: 628
         'y': 262
@@ -84,24 +86,24 @@ extensions:
           94c5ba29-62d2-5b1a-e0e9-5bcdf47814b0:
             targetId: 5bd93ad7-c706-1240-ecdc-927475693aa5
             port: SUCCESS
-      delete_password_lock_policy:
-        x: 96
-        'y': 260
-      create_ssx_categories_and_scenarios:
-        x: 463
-        'y': 258
-      set_cp_settings:
-        x: 573
-        'y': 59
-      set_insight_settings:
-        x: 90
-        'y': 69
-      enable_insight_service:
-        x: 233
-        'y': 66
       set_sso_expiration_time:
         x: 301
         'y': 260
+      enable_insight_service:
+        x: 233
+        'y': 66
+      update_ssx_categories_and_scenarios:
+        x: 458
+        'y': 270
+      delete_password_lock_policy:
+        x: 96
+        'y': 260
+      set_general_settings:
+        x: 390
+        'y': 65
+      set_cp_settings:
+        x: 573
+        'y': 59
     results:
       SUCCESS:
         5bd93ad7-c706-1240-ecdc-927475693aa5:
