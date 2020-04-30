@@ -36,7 +36,7 @@ flow:
             - json_object: '${group_json}'
             - json_path: $.groupInfo
         publish:
-          - group_info: '${return_result[2:-2]}'
+          - group_info: '${return_result[1:-1]}'
         navigate:
           - SUCCESS: string_equals
           - FAILURE: on_failure
@@ -55,12 +55,12 @@ flow:
 extensions:
   graph:
     steps:
-      get_group:
-        x: 381
-        'y': 113
       get_token:
         x: 46
         'y': 104
+      get_group:
+        x: 381
+        'y': 113
       get_organization_id:
         x: 208
         'y': 106
