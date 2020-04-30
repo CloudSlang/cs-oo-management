@@ -1,16 +1,22 @@
 ########################################################################################################################
 #!!
-#! @description: Gets authentication token from IDM service. Is not used as the REST API is using basic authentication.
+#! @description: Gets authentication token from IDM service.
+#!
+#! @input generate_HPSSO: Set to true when when HPSSO required; necessary to authenticate to Designer
 #!!#
 ########################################################################################################################
 namespace: rpa.idm.rest.authenticate
 flow:
   name: get_token
+  inputs:
+    - generate_HPSSO:
+        default: 'false'
+        required: false
   workflow:
     - http_client_post:
         do:
           io.cloudslang.base.http.http_client_post:
-            - url: "${'%s/v3.0/tokens' % get_sp('idm_url')}"
+            - url: "${'%s/v3.0/tokens' % get_sp('idm_url') + ('?generateHPSSO=true' if generate_HPSSO.lower() == 'true' else \"\")}"
             - auth_type: basic
             - username: "${get_sp('idm_username')}"
             - password:
