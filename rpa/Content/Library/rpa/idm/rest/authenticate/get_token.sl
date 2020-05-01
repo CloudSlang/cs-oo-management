@@ -12,6 +12,12 @@ flow:
     - generate_HPSSO:
         default: 'false'
         required: false
+    - rpa_username:
+        required: false
+    - rpa_password:
+        required: false
+    - idm_tenant:
+        required: false
   workflow:
     - http_client_post:
         do:
@@ -25,7 +31,7 @@ flow:
             - trust_all_roots: 'true'
             - x_509_hostname_verifier: allow_all
             - headers: 'Accept: application/json'
-            - body: "${'{\"tenantName\":\"%s\",\"passwordCredentials\":{\"username\":\"%s\",\"password\":\"%s\"}}' % (get_sp(\"idm_tenant\"), get_sp(\"rpa_username\"), get_sp(\"rpa_password\"))}"
+            - body: "${'{\"tenantName\":\"%s\",\"passwordCredentials\":{\"username\":\"%s\",\"password\":\"%s\"}}' % (get_sp(\"idm_tenant\") if idm_tenant is None else idm_tenant, get_sp(\"rpa_username\") if rpa_username is None else rpa_username, get_sp(\"rpa_password\") if rpa_password is None else rpa_password)}"
             - content_type: application/json;charset=UTF-8
         publish:
           - token_json: '${return_result}'

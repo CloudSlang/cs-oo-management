@@ -33,7 +33,7 @@ flow:
             - use_cookies: 'true'
             - headers: "${\"\" if token is None else 'X-CSRF-TOKEN: %s' % token}"
             - body: '${body}'
-            - content_type: "${'text/plain' if file is None else 'multipart/form-data'}"
+            - content_type: "${'application/json' if file is None else 'multipart/form-data'}"
             - multipart_files: '${file}'
             - method: '${method}'
             - verify_result: '${verify_result}'

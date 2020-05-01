@@ -27,6 +27,9 @@ flow:
         do:
           rpa.idm.rest.authenticate.get_token:
             - generate_HPSSO: 'true'
+            - rpa_username: '${ws_user}'
+            - rpa_password: '${ws_password}'
+            - idm_tenant: '${ws_tenant}'
         publish:
           - idm_token: '${token}'
         navigate:
