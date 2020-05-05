@@ -40,7 +40,7 @@ flow:
             - token: '${token}'
             - cp_file: '${cp_file}'
         publish:
-          - files_json
+          - status_json
           - status_code
         navigate:
           - FAILURE: is_conflict
@@ -87,7 +87,7 @@ flow:
           - SUCCESS: ALREADY_IMPORTED
           - FAILURE: on_failure
   outputs:
-    - files_json: '${files_json}'
+    - status_json: '${status_json}'
     - process_json: '${process_json}'
     - process_status: '${process_status}'
   results:

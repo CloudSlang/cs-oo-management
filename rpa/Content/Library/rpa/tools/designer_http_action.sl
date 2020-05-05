@@ -42,7 +42,7 @@ flow:
           - error_message
           - response_headers
           - status_code
-          - result_verified: "${str(return_result[0:2].index(\"{\")) if verify_result == \"json\" else str(return_result[0:1].index(\"<\")) if verify_result == 'html' else \"no_verification\"}"
+          - result_verified: "${str(return_result[0:2].index(\"{\")) if verify_result == \"json\" else str(return_result[0:2].index(\"[\")) if verify_result == \"list\" else str(return_result[0:1].index(\"<\")) if verify_result == 'html' else \"no_verification\"}"
         navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure

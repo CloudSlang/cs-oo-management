@@ -1,25 +1,28 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves all workspaces
+#! @description: Deletes the workspace
+#!
+#! @input ws_id: Workspace ID
 #!!#
 ########################################################################################################################
 namespace: rpa.designer.rest.workspace
 flow:
-  name: get_workspaces
+  name: delete_workspace
+  inputs:
+    - token
+    - ws_id
   workflow:
     - designer_http_action:
         do:
           rpa.tools.designer_http_action:
-            - url: /rest/v0/workspaces
-            - method: GET
-            - verify_result: list
-        publish:
-          - workspaces_json: '${return_result}'
+            - url: "${'/rest/v0/workspaces/%s' % ws_id}"
+            - token: '${token}'
+            - method: DELETE
+            - verify_result: nothing
+        publish: []
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
-  outputs:
-    - workspaces_json: '${workspaces_json}'
   results:
     - FAILURE
     - SUCCESS

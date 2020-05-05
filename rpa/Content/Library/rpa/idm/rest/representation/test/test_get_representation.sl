@@ -66,15 +66,15 @@ flow:
 extensions:
   graph:
     steps:
+      get_token:
+        x: 41
+        'y': 134
       get_representation:
         x: 54
         'y': 326
       get_organization_id:
         x: 214
         'y': 128
-      get_token:
-        x: 41
-        'y': 133
       get_group_id:
         x: 389
         'y': 135

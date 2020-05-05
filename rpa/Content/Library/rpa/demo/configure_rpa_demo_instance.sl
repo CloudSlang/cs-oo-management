@@ -9,7 +9,6 @@
 #!               - extends SSO expiration timeout
 #!               - creates (or updates) SSX categories and scenarios
 #!               - schedules flows to generate ROI in Dashboard
-#!               
 #!!#
 ########################################################################################################################
 namespace: rpa.demo
@@ -69,6 +68,12 @@ flow:
           rpa.demo.update_ssx_categories_and_scenarios: []
         navigate:
           - FAILURE: on_failure
+          - SUCCESS: create_demo_users
+    - create_demo_users:
+        do:
+          rpa.demo.create_demo_users: []
+        navigate:
+          - FAILURE: on_failure
           - SUCCESS: generate_roi_numbers
   results:
     - FAILURE
@@ -80,12 +85,15 @@ extensions:
         x: 90
         'y': 69
       generate_roi_numbers:
-        x: 628
-        'y': 262
+        x: 571
+        'y': 395
         navigate:
           94c5ba29-62d2-5b1a-e0e9-5bcdf47814b0:
             targetId: 5bd93ad7-c706-1240-ecdc-927475693aa5
             port: SUCCESS
+      create_demo_users:
+        x: 291
+        'y': 399
       set_sso_expiration_time:
         x: 301
         'y': 260

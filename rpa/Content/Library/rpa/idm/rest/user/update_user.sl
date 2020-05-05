@@ -1,28 +1,26 @@
 ########################################################################################################################
 #!!
-#! @description: Adds a user to the IDM service.
+#! @description: Updates an existing user in the IDM service.
 #!
-#! @input username: User to be added.
-#! @input password: Password of the user.
-#! @input org_id: Under which organization should be the user added.
+#! @input username: User to be updated.
+#! @input org_id: Under which organization should be the user updated.
 #!!#
 ########################################################################################################################
 namespace: rpa.idm.rest.user
 flow:
-  name: add_user
+  name: update_user
   inputs:
     - token
     - username
-    - password
     - org_id
   workflow:
     - idm_http_action:
         do:
           rpa.tools.idm_http_action:
-            - url: "${'/api/scim/organizations/%s/dbusers' % org_id}"
+            - url: "${'/api/scim/organizations/%s/dbusers/%s' % (org_id, username)}"
             - token: '${token}'
-            - method: POST
-            - body: "${'{\"name\":\"%s\",\"displayName\":\"%s\",\"metadata\":{},\"password\":\"%s\",\"type\":\"SEEDED_USER\"}' % (username, username, password)}"
+            - method: PUT
+            - body: "${'{\"name\":\"%s\",\"displayName\":\"%s\",\"metadata\":{},\"type\":\"SEEDED_USER\"}' % (username, username)}"
         publish:
           - user_json: '${return_result}'
           - error_message
@@ -42,11 +40,11 @@ extensions:
         x: 91
         'y': 139
         navigate:
-          47025878-684f-aaec-6ff9-f15ef528238b:
+          3b05123f-cdda-d776-164d-bcb6bbe0cfd8:
             targetId: 830d3d5a-c217-a98b-b874-9ca722df512f
             port: SUCCESS
     results:
       SUCCESS:
         830d3d5a-c217-a98b-b874-9ca722df512f:
-          x: 273
-          'y': 129
+          x: 258
+          'y': 144

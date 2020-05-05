@@ -37,7 +37,6 @@ flow:
             - org_id: '${org_id}'
             - group_id: '${group_id}'
             - repre_name: OO_AGR_ADMINISTRATOR
-            - user_ids: '2c906fdc71742479017174acd1b40020,2c906fdc71742479017175b0fdc20077,2c906fdc717424790171747eefa6000d'
             - new_user_ids: '["2c906fdc71742479017174acd1b40020","2c906fdc71742479017175b0fdc20077","2c906fdc717424790171747eefa6000d"]'
         navigate:
           - FAILURE: on_failure
@@ -52,7 +51,7 @@ extensions:
         x: 41
         'y': 133
       get_organization_id:
-        x: 214
+        x: 213
         'y': 128
       get_group_id:
         x: 389

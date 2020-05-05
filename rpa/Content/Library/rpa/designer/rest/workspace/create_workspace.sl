@@ -1,32 +1,33 @@
 ########################################################################################################################
 #!!
-#! @output status_code: 409 = the file is already imported
+#! @description: Creates user's Workspace
+#!
+#! @input ws_name: Workspace name; now, only Default_Workspace is supoported
 #!!#
 ########################################################################################################################
-namespace: rpa.designer.rest.dependency.sub_flows
+namespace: rpa.designer.rest.workspace
 flow:
-  name: upload_file
+  name: create_workspace
   inputs:
     - token
-    - process_id
-    - cp_file
+    - ws_name: Default_Workspace
   workflow:
     - designer_http_action:
         do:
           rpa.tools.designer_http_action:
-            - url: "${'/rest/v0/imports/%s/files' % process_id}"
+            - url: /rest/v0/workspaces
             - token: '${token}'
             - method: POST
-            - file: "${'content_pack=%s' % cp_file}"
+            - body: '${ws_name}'
         publish:
-          - status_json: '${return_result}'
-          - status_code
+          - ws_json: '${return_result}'
+          - ws_id: "${eval(return_result)['id']}"
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
   outputs:
-    - status_json: '${status_json}'
-    - status_code: '${status_code}'
+    - ws_json: '${ws_json}'
+    - ws_id: '${ws_id}'
   results:
     - FAILURE
     - SUCCESS
@@ -34,14 +35,14 @@ extensions:
   graph:
     steps:
       designer_http_action:
-        x: 102
-        'y': 123
+        x: 78
+        'y': 121
         navigate:
-          fcbcc589-1735-b1f0-87ac-67b3a8380b09:
-            targetId: 4681c1cb-32dd-92c1-2adf-9693f944fcb5
+          5c9766d1-6695-61b6-3f1a-76e2b521964e:
+            targetId: b123b2be-c40b-c7bf-e9a4-38b346056431
             port: SUCCESS
     results:
       SUCCESS:
-        4681c1cb-32dd-92c1-2adf-9693f944fcb5:
-          x: 304
-          'y': 125
+        b123b2be-c40b-c7bf-e9a4-38b346056431:
+          x: 264
+          'y': 116

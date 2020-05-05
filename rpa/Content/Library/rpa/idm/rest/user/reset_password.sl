@@ -1,15 +1,15 @@
 ########################################################################################################################
 #!!
-#! @description: Adds a user to the IDM service.
+#! @description: Resets user's password. User will have to change it upon the next login.
 #!
-#! @input username: User to be added.
+#! @input username: User to be updated.
 #! @input password: Password of the user.
-#! @input org_id: Under which organization should be the user added.
+#! @input org_id: Under which organization should be the user updated.
 #!!#
 ########################################################################################################################
 namespace: rpa.idm.rest.user
 flow:
-  name: add_user
+  name: reset_password
   inputs:
     - token
     - username
@@ -19,18 +19,18 @@ flow:
     - idm_http_action:
         do:
           rpa.tools.idm_http_action:
-            - url: "${'/api/scim/organizations/%s/dbusers' % org_id}"
+            - url: "${'/api/scim/organizations/%s/dbusers/%s/resetpassword' % (org_id, username)}"
             - token: '${token}'
-            - method: POST
-            - body: "${'{\"name\":\"%s\",\"displayName\":\"%s\",\"metadata\":{},\"password\":\"%s\",\"type\":\"SEEDED_USER\"}' % (username, username, password)}"
+            - method: PATCH
+            - body: "${'{\"password\":\"%s\"}' % password}"
         publish:
-          - user_json: '${return_result}'
+          - password_json: '${return_result}'
           - error_message
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
   outputs:
-    - user_json: '${user_json}'
+    - password_json: password_json
     - error_message: '${error_message}'
   results:
     - FAILURE
@@ -39,14 +39,14 @@ extensions:
   graph:
     steps:
       idm_http_action:
-        x: 91
-        'y': 139
+        x: 83
+        'y': 130
         navigate:
-          47025878-684f-aaec-6ff9-f15ef528238b:
+          4818e733-5152-4326-b811-a225f0a9dd9f:
             targetId: 830d3d5a-c217-a98b-b874-9ca722df512f
             port: SUCCESS
     results:
       SUCCESS:
         830d3d5a-c217-a98b-b874-9ca722df512f:
-          x: 273
-          'y': 129
+          x: 253
+          'y': 132
