@@ -6,7 +6,8 @@
 #! @input cp_file: Path to CP to be deployed
 #!!#
 ########################################################################################################################
-namespace: rpa.demo.sub_flows
+namespace: rpa.designer.rest.content-pack
+
 flow:
   name: import_and_assign_cp
   inputs:
