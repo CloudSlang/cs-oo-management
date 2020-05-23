@@ -4,6 +4,7 @@
 #!               It does not use cookies (to handle X-CSRF-TOKEN).
 #!
 #! @input method: GET, POST, PUT, DELETE
+#! @input file: File to be sent
 #!!#
 ########################################################################################################################
 namespace: rpa.tools
@@ -13,6 +14,8 @@ flow:
     - url
     - method
     - body:
+        required: false
+    - file:
         required: false
   workflow:
     - http_client_action:
@@ -28,7 +31,8 @@ flow:
             - x_509_hostname_verifier: allow_all
             - use_cookies: 'false'
             - body: '${body}'
-            - content_type: application/json
+            - content_type: "${'application/json' if file is None else 'multipart/form-data'}"
+            - multipart_files: '${file}'
             - method: '${method}'
         publish:
           - return_result

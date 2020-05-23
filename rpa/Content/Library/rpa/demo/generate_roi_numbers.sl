@@ -4,7 +4,7 @@
 #!
 #! @input path: Path to a folder where to take the flows from.
 #! @input trigger_expression: How often to trigger the flow. */60000 = every minute;*/3600000 = every hour
-#! @input num_of_occurences_range: How many times to schedule; provide a range of min-max value; each flow will be scheduled with a random number of occurrences within the range; 0-0 = no end time (scheduled forever)
+#! @input num_of_occurences_range: How many times to schedule; provide a range of min-max value; each flow will be scheduled with a random number of occurrences within the range
 #! @input roi_range: Return On Investment for each flow; provide a range of min-max value; each flow will get a random ROI in the range
 #!!#
 ########################################################################################################################
@@ -15,7 +15,7 @@ flow:
     - path: Library/Micro Focus/Misc
     - trigger_expression: '*/60000'
     - num_of_occurences_range: 5-50
-    - roi_range: 1-10
+    - roi_range: 10-100
   workflow:
     - get_flows:
         do:
