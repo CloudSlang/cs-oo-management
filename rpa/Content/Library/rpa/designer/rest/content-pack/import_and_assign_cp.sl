@@ -6,7 +6,7 @@
 #! @input cp_file: Path to CP to be deployed
 #!!#
 ########################################################################################################################
-namespace: rpa.demo.sub_flows
+namespace: rpa.designer.rest.content-pack
 flow:
   name: import_and_assign_cp
   inputs:
@@ -14,6 +14,15 @@ flow:
     - cp_file
     - ws_id
   workflow:
+    - get_cp_properties:
+        do:
+          rpa.tools.content_pack.get_cp_properties:
+            - cp_file: '${cp_file}'
+        publish:
+          - cp_name
+          - cp_version
+        navigate:
+          - SUCCESS: get_existing_cp_id
     - import_cp:
         do:
           rpa.designer.rest.dependency.import_cp:
@@ -86,6 +95,16 @@ flow:
         navigate:
           - SUCCESS: get_cp_id
           - FAILURE: on_failure
+    - get_existing_cp_id:
+        do:
+          rpa.designer.rest.content-pack.get_cp_id:
+            - cp_name: '${cp_name}'
+            - cp_version: '${cp_version}'
+        publish:
+          - cp_id
+        navigate:
+          - FAILURE: import_cp
+          - SUCCESS: assign_cp_to_ws
   outputs:
     - status_json: '${status_json}'
   results:
@@ -94,28 +113,34 @@ flow:
 extensions:
   graph:
     steps:
-      import_cp:
-        x: 166
-        'y': 263
-      get_cp_name:
-        x: 255
-        'y': 100
-      get_cp_version:
-        x: 439
-        'y': 103
+      get_existing_cp_id:
+        x: 47
+        'y': 578
       get_cp_id:
         x: 574
         'y': 267
+      get_failed_cp_name:
+        x: 254
+        'y': 436
+      import_cp:
+        x: 166
+        'y': 263
+      get_cp_version:
+        x: 439
+        'y': 103
+      get_cp_name:
+        x: 255
+        'y': 100
+      get_cp_properties:
+        x: 51
+        'y': 106
       assign_cp_to_ws:
         x: 704
-        'y': 444
+        'y': 580
         navigate:
           4b58c01c-cf64-47c9-0443-436c52868214:
             targetId: bd8aeb85-c6b9-b7a0-e088-8d020ab18e35
             port: SUCCESS
-      get_failed_cp_name:
-        x: 254
-        'y': 436
       get_failed_cp_version:
         x: 436
         'y': 432

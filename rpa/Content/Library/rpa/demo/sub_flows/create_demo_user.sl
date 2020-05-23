@@ -100,7 +100,7 @@ flow:
         loop:
           for: cp_file in eval(cp_files)
           do:
-            rpa.demo.sub_flows.import_and_assign_cp:
+            rpa.designer.rest.content-pack.import_and_assign_cp:
               - token: '${designer_token}'
               - cp_file: '${cp_file}'
               - ws_id: '${ws_id}'
