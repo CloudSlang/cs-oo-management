@@ -15,10 +15,16 @@ flow:
   inputs:
     - name: Change Yahoo Password
     - uuid: 4dbc0a51-9b94-4718-b86c-5f296b29538c
-    - trigger_expression: '*/60000'
+    - trigger_expression:
+        default: '*/60000'
+        required: true
     - start_date: '2020-03-04T16:35:00.000+00:00'
-    - inputs: '"count" : "20"'
-    - time_zone: Etc/GMT
+    - inputs:
+        default: '"count" : "20"'
+        required: false
+    - time_zone:
+        default: Etc/GMT
+        required: true
     - num_of_occurences: '0'
   workflow:
     - central_http_action:
