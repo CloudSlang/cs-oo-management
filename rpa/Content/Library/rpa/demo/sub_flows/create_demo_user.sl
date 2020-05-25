@@ -1,6 +1,6 @@
 ########################################################################################################################
 #!!
-#! @description: Creates a user and setups her workspace; it deploys CPs into dependencies and imports the GIT repository
+#! @description: Creates a user and setups her workspace; it deploys CPs into dependencies and imports the GitHub repository
 #!
 #! @input token: IDM token
 #! @input ws_user: Which user to create
@@ -10,7 +10,9 @@
 #! @input group_id: IDM group the user will belong to; if empty; the user will not be assigned anywhere
 #! @input repre_name: Representation name
 #! @input cp_files: List of full path to CPs to be deployed into the user workspace
-#! @input scm_url: SCM repository URL to be imported
+#! @input github_repo: GitHub repo owner/name
+#! @input update_binaries: If yes, the latest release will be downloaded to the workspace dependencies and then removed
+#! @input cp_folder: Folder where CPs are to be stored (when being downloaded from GitHub)
 #! @input reset_user: If true, the user's account (if exists) will get removed including the user's workspace; there is no way to recover
 #!
 #! @output cp_status_json: Status of last CP import
@@ -37,8 +39,10 @@ flow:
         required: true
     - cp_files:
         required: false
-    - scm_url:
+    - github_repo:
         required: false
+    - update_binaries
+    - cp_folder
     - reset_user:
         required: false
   workflow:
@@ -128,17 +132,6 @@ flow:
         navigate:
           - FAILURE: on_failure
           - SUCCESS: is_cp_files_given
-    - import_repo:
-        do:
-          rpa.designer.rest.repository.import_repo:
-            - token: '${designer_token}'
-            - ws_id: '${ws_id}'
-            - scm_url: '${scm_url}'
-        publish:
-          - repo_status_json: '${status_json}'
-        navigate:
-          - FAILURE: import_scm_failed
-          - SUCCESS: logout
     - reset_user:
         do:
           io.cloudslang.base.strings.string_equals:
@@ -170,9 +163,9 @@ flow:
     - is_repo_given:
         do:
           io.cloudslang.base.utils.is_true:
-            - bool_value: '${str(len(scm_url) > 0)}'
+            - bool_value: '${str(len(github_repo) > 0)}'
         navigate:
-          - 'TRUE': import_repo
+          - 'TRUE': init_repo
           - 'FALSE': logout
     - get_old_user_token:
         do:
@@ -239,6 +232,19 @@ flow:
         navigate:
           - 'TRUE': INCOMPLETE
           - 'FALSE': SUCCESS
+    - init_repo:
+        do:
+          rpa.designer.rest.repository.init_repo:
+            - token: '${designer_token}'
+            - ws_id: '${ws_id}'
+            - github_repo: '${github_repo}'
+            - update_binaries: '${update_binaries}'
+            - cp_folder: '${cp_folder}'
+        publish:
+          - repo_status_json: '${status_json}'
+        navigate:
+          - SUCCESS: logout
+          - FAILURE: import_scm_failed
     - on_failure:
         - logout_on_failure:
             do:
@@ -254,6 +260,9 @@ flow:
 extensions:
   graph:
     steps:
+      init_repo:
+        x: 897
+        'y': 391
       has_ws:
         x: 151
         'y': 312
@@ -278,9 +287,6 @@ extensions:
       get_old_user_ws_id:
         x: 65
         'y': 447
-      import_repo:
-        x: 885
-        'y': 386
       get_token:
         x: 536
         'y': 585

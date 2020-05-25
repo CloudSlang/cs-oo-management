@@ -8,7 +8,7 @@ flow:
     - http_client_action:
         do:
           io.cloudslang.base.http.http_client_action:
-            - url: "${'https://api.github.com/%s' % url}"
+            - url: "${'https://api.github.com%s' % url}"
             - auth_type: anonymous
             - method: '${method}'
         publish:
