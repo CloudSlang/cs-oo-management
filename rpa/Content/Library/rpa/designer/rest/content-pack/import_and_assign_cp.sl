@@ -103,8 +103,15 @@ flow:
         publish:
           - cp_id
         navigate:
-          - FAILURE: import_cp
-          - SUCCESS: assign_cp_to_ws
+          - FAILURE: on_failure
+          - SUCCESS: is_cp_deployed
+    - is_cp_deployed:
+        do:
+          io.cloudslang.base.utils.is_true:
+            - bool_value: '${str(len(cp_id) > 0)}'
+        navigate:
+          - 'TRUE': assign_cp_to_ws
+          - 'FALSE': import_cp
   outputs:
     - status_json: '${status_json}'
   results:
@@ -114,8 +121,11 @@ extensions:
   graph:
     steps:
       get_existing_cp_id:
-        x: 47
-        'y': 578
+        x: 49
+        'y': 264
+      is_cp_deployed:
+        x: 48
+        'y': 581
       get_cp_id:
         x: 574
         'y': 267

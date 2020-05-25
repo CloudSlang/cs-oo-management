@@ -20,10 +20,12 @@ flow:
         do:
           io.cloudslang.base.utils.is_true:
             - bool_value: '${str(file_path is not None)}'
+        publish:
+          - folder_path: ''
         navigate:
-          - 'TRUE': http_client_action
+          - 'TRUE': download_cp
           - 'FALSE': get_temp_file
-    - http_client_action:
+    - download_cp:
         do:
           io.cloudslang.base.http.http_client_action:
             - url: '${cp_url}'
@@ -42,20 +44,22 @@ flow:
           - folder_path
           - file_path
         navigate:
-          - SUCCESS: http_client_action
+          - SUCCESS: download_cp
     - import_and_assign_cp:
         do:
           rpa.designer.rest.content-pack.import_and_assign_cp:
             - token: '${token}'
             - cp_file: '${file_path}'
             - ws_id: '${ws_id}'
+        publish:
+          - status_json
         navigate:
           - FAILURE: on_failure
           - SUCCESS: is_temp_folder
     - is_temp_folder:
         do:
           io.cloudslang.base.utils.is_true:
-            - bool_value: '${str(len(folder_path)>0)}'
+            - bool_value: '${str(len(folder_path) > 0)}'
         navigate:
           - 'TRUE': delete
           - 'FALSE': SUCCESS
@@ -71,18 +75,24 @@ flow:
             do:
               io.cloudslang.base.filesystem.delete:
                 - source: '${folder_path}'
+  outputs:
+    - status_json: '${status_json}'
   results:
     - SUCCESS
     - FAILURE
 extensions:
   graph:
     steps:
-      http_client_action:
-        x: 73
-        'y': 328
       file_path_given:
         x: 71
         'y': 97
+      delete:
+        x: 499
+        'y': 97
+        navigate:
+          7714f1ec-5857-9e75-199a-0e3bdd3afe85:
+            targetId: 86756514-aadf-066b-11e9-81a94bded20b
+            port: SUCCESS
       get_temp_file:
         x: 310
         'y': 97
@@ -96,13 +106,9 @@ extensions:
           43bb3a6e-a03e-ef93-b7ce-60d90cc9a90d:
             targetId: 86756514-aadf-066b-11e9-81a94bded20b
             port: 'FALSE'
-      delete:
-        x: 493
-        'y': 97
-        navigate:
-          7714f1ec-5857-9e75-199a-0e3bdd3afe85:
-            targetId: 86756514-aadf-066b-11e9-81a94bded20b
-            port: SUCCESS
+      download_cp:
+        x: 73
+        'y': 328
     results:
       SUCCESS:
         86756514-aadf-066b-11e9-81a94bded20b:

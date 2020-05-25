@@ -18,6 +18,7 @@ flow:
         do:
           rpa.tools.designer_http_action:
             - url: "${'/rest/v0/workspaces/%s/dependencies/%s' % (ws_id, cp_id)}"
+            - token: '${token}'
             - method: DELETE
         publish:
           - cp_status_json: '${return_result}'
