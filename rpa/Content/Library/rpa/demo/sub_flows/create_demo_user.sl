@@ -1,4 +1,5 @@
 ########################################################################################################################
+########################################################################################################################
 #!!
 #! @description: Creates a user and setups her workspace; it deploys CPs into dependencies and imports the GitHub repository
 #!
@@ -100,11 +101,11 @@ flow:
         navigate:
           - FAILURE: on_failure
           - SUCCESS: get_default_ws_id
-    - import_and_assign_cp:
+    - import_cp:
         loop:
           for: cp_file in eval(cp_files)
           do:
-            rpa.designer.rest.content-pack.import_and_assign_cp:
+            rpa.designer.rest.content-pack.import_cp:
               - token: '${designer_token}'
               - cp_file: '${cp_file}'
               - ws_id: '${ws_id}'
@@ -158,7 +159,7 @@ flow:
           io.cloudslang.base.utils.is_true:
             - bool_value: '${str(len(cp_files) > 0)}'
         navigate:
-          - 'TRUE': import_and_assign_cp
+          - 'TRUE': import_cp
           - 'FALSE': is_repo_given
     - is_repo_given:
         do:
@@ -324,7 +325,7 @@ extensions:
       reset_user:
         x: 302
         'y': 71
-      import_and_assign_cp:
+      import_cp:
         x: 621
         'y': 386
       delete_user:
