@@ -7,6 +7,7 @@
 #! @input ws_tenant: Workspace tenant (if not provided, default is used instead)
 #! @input cp_url: CP URL to be deployed
 #! @input folder_path: If given, the CP will downloaded here and kept permanently
+#! @input assign: If true, it also assigns the CP to the default WS
 #!!#
 ########################################################################################################################
 namespace: rpa.designer.rest.content-pack.test
@@ -24,6 +25,9 @@ flow:
         required: false
     - folder_path:
         default: "c:\\\\temp"
+        required: false
+    - assign:
+        default: 'true'
         required: false
   workflow:
     - get_token:
@@ -50,7 +54,7 @@ flow:
           rpa.designer.rest.content-pack.download_import_and_assign_cp:
             - token: '${token}'
             - cp_url: '${cp_url}'
-            - ws_id: '${ws_id}'
+            - ws_id: "${ws_id if assign.lower() == 'true' else None}"
             - file_path: '${folder_path if folder_path is None else folder_path+"/"+cp_url.split("/")[-1]}'
         navigate:
           - FAILURE: on_failure

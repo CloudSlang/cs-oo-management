@@ -1,9 +1,10 @@
 ########################################################################################################################
 #!!
-#! @description: Imports the provided CP and assigns it to the user default workspace.
+#! @description: Imports the provided CP and optionally assigns it to the user default workspace.
 #!               When the CP has been already imported, it just assigns the CP to the workspace.
 #!
 #! @input cp_file: Path to CP to be deployed
+#! @input ws_id: If given, the imported CP will be also assigned to the given WS
 #!!#
 ########################################################################################################################
 namespace: rpa.designer.rest.content-pack
@@ -12,7 +13,8 @@ flow:
   inputs:
     - token
     - cp_file
-    - ws_id
+    - ws_id:
+        required: false
   workflow:
     - get_cp_properties:
         do:
@@ -63,7 +65,7 @@ flow:
           - cp_id
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: assign_cp_to_ws
+          - SUCCESS: is_ws_id_given
     - assign_cp_to_ws:
         do:
           rpa.designer.rest.content-pack.assign_cp_to_ws:
@@ -110,8 +112,15 @@ flow:
           io.cloudslang.base.utils.is_true:
             - bool_value: '${str(len(cp_id) > 0)}'
         navigate:
-          - 'TRUE': assign_cp_to_ws
+          - 'TRUE': is_ws_id_given
           - 'FALSE': import_cp
+    - is_ws_id_given:
+        do:
+          io.cloudslang.base.utils.is_true:
+            - bool_value: '${str(ws_id is not None)}'
+        navigate:
+          - 'TRUE': assign_cp_to_ws
+          - 'FALSE': SUCCESS
   outputs:
     - status_json: '${status_json}'
   results:
@@ -132,6 +141,13 @@ extensions:
       get_failed_cp_name:
         x: 254
         'y': 436
+      is_ws_id_given:
+        x: 569
+        'y': 580
+        navigate:
+          a3c637d2-f60c-6509-9db5-4695e1104801:
+            targetId: bd8aeb85-c6b9-b7a0-e088-8d020ab18e35
+            port: 'FALSE'
       import_cp:
         x: 166
         'y': 263
@@ -145,8 +161,8 @@ extensions:
         x: 51
         'y': 106
       assign_cp_to_ws:
-        x: 704
-        'y': 580
+        x: 747
+        'y': 581
         navigate:
           4b58c01c-cf64-47c9-0443-436c52868214:
             targetId: bd8aeb85-c6b9-b7a0-e088-8d020ab18e35
@@ -157,5 +173,5 @@ extensions:
     results:
       SUCCESS:
         bd8aeb85-c6b9-b7a0-e088-8d020ab18e35:
-          x: 700
-          'y': 109
+          x: 743
+          'y': 268

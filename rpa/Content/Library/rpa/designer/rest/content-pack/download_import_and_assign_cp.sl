@@ -1,8 +1,9 @@
 ########################################################################################################################
 #!!
-#! @description: Downloads a CP from URL, imports that into Designer and assigns it to a workspace
+#! @description: Downloads a CP from URL, imports that into Designer and optionally assigns it to a workspace.
 #!
 #! @input cp_url: URL pointing to a CP
+#! @input ws_id: If given, the imported CP will be also assigned to the given WS
 #! @input file_path: If given, the downloaded CP will be placed to this file (otherwise temporal will be created and removed later)
 #!!#
 ########################################################################################################################
@@ -12,7 +13,8 @@ flow:
   inputs:
     - token
     - cp_url
-    - ws_id
+    - ws_id:
+        required: false
     - file_path:
         required: false
   workflow:
