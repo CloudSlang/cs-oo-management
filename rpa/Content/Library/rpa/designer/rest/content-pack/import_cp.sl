@@ -25,9 +25,9 @@ flow:
           - cp_version
         navigate:
           - SUCCESS: get_existing_cp_id
-    - import_cp:
+    - deploy_cp:
         do:
-          rpa.designer.rest.dependency.import_cp:
+          rpa.designer.rest.content-pack.deploy_cp:
             - token: '${token}'
             - cp_file: '${cp_file}'
         publish:
@@ -113,7 +113,7 @@ flow:
             - bool_value: '${str(len(cp_id) > 0)}'
         navigate:
           - 'TRUE': is_ws_id_given
-          - 'FALSE': import_cp
+          - 'FALSE': deploy_cp
     - is_ws_id_given:
         do:
           io.cloudslang.base.utils.is_true:
@@ -148,7 +148,7 @@ extensions:
           a3c637d2-f60c-6509-9db5-4695e1104801:
             targetId: bd8aeb85-c6b9-b7a0-e088-8d020ab18e35
             port: 'FALSE'
-      import_cp:
+      deploy_cp:
         x: 166
         'y': 263
       get_cp_version:

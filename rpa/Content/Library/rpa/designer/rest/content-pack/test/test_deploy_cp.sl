@@ -1,6 +1,6 @@
-namespace: rpa.designer.rest.dependency.test
+namespace: rpa.designer.rest.content-pack.test
 flow:
-  name: test_import_cp
+  name: test_deploy_cp
   inputs:
     - ws_user:
         required: false
@@ -14,10 +14,10 @@ flow:
           - token
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: import_cp
-    - import_cp:
+          - SUCCESS: deploy_cp
+    - deploy_cp:
         do:
-          rpa.designer.rest.dependency.import_cp:
+          rpa.designer.rest.content-pack.deploy_cp:
             - token: '${token}'
             - cp_file: '${cp_file}'
         navigate:
@@ -33,7 +33,7 @@ extensions:
       get_token:
         x: 96
         'y': 88
-      import_cp:
+      deploy_cp:
         x: 265
         'y': 84
         navigate:

@@ -1,15 +1,15 @@
 ########################################################################################################################
 #!!
-#! @description: Imports the given Content Pack
+#! @description: Deploys the given Content Pack (but does not assign it to any workspace yet).
 #!
 #! @input cp_file: Full file path to the CP to be imported
 #!
 #! @output process_status: FINISHED, RUNNING
 #!!#
 ########################################################################################################################
-namespace: rpa.designer.rest.dependency
+namespace: rpa.designer.rest.content-pack
 flow:
-  name: import_cp
+  name: deploy_cp
   inputs:
     - token
     - cp_file
