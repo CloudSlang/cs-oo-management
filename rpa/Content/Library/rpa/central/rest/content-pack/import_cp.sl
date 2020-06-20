@@ -60,7 +60,7 @@ flow:
     - sleep:
         do:
           io.cloudslang.base.utils.sleep:
-            - seconds: '5'
+            - seconds: "${get_sp('wait_time')}"
         navigate:
           - SUCCESS: get_process_status
           - FAILURE: on_failure

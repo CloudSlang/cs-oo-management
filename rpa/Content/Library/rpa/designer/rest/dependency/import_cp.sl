@@ -3,7 +3,6 @@
 #! @description: Imports the given Content Pack
 #!
 #! @input cp_file: Full file path to the CP to be imported
-#! @input status_wait_time: How much time to wait between two sub-sequent get upload file process status calls.
 #!!#
 ########################################################################################################################
 namespace: rpa.designer.rest.dependency
@@ -12,9 +11,6 @@ flow:
   inputs:
     - token
     - cp_file
-    - status_wait_time:
-        default: '5'
-        required: false
   workflow:
     - init_process:
         do:
@@ -74,7 +70,7 @@ flow:
     - sleep:
         do:
           io.cloudslang.base.utils.sleep:
-            - seconds: "${get('status_wait_time', '5')}"
+            - seconds: "${get_sp('wait_time')}"
         navigate:
           - SUCCESS: get_process_status
           - FAILURE: on_failure
