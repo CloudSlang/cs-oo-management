@@ -2,11 +2,14 @@ namespace: rpa.designer.rest.dependency.test
 flow:
   name: test_import_cp
   inputs:
+    - ws_user:
+        required: false
     - cp_file
   workflow:
     - get_token:
         do:
-          rpa.designer.rest.authenticate.get_token: []
+          rpa.designer.rest.authenticate.get_token:
+            - ws_user: '${ws_user}'
         publish:
           - token
         navigate:
