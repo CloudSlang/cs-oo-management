@@ -35,7 +35,7 @@ flow:
         navigate:
           - FAILURE: on_failure
           - SUCCESS: get_cp_name
-          - ALREADY_IMPORTED: get_failed_cp_name
+          - ALREADY_DEPLOYED: get_failed_cp_name
     - get_cp_name:
         do:
           io.cloudslang.base.json.json_path_query:
@@ -141,6 +141,9 @@ extensions:
       get_failed_cp_name:
         x: 254
         'y': 436
+      deploy_cp:
+        x: 166
+        'y': 263
       is_ws_id_given:
         x: 569
         'y': 580
@@ -148,9 +151,6 @@ extensions:
           a3c637d2-f60c-6509-9db5-4695e1104801:
             targetId: bd8aeb85-c6b9-b7a0-e088-8d020ab18e35
             port: 'FALSE'
-      deploy_cp:
-        x: 166
-        'y': 263
       get_cp_version:
         x: 439
         'y': 103

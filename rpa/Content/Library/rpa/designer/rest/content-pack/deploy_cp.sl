@@ -54,7 +54,7 @@ flow:
             - first_string: '${status_code}'
             - second_string: '409'
         navigate:
-          - SUCCESS: ALREADY_IMPORTED
+          - SUCCESS: ALREADY_DEPLOYED
           - FAILURE: on_failure
     - upload_file:
         do:
@@ -97,20 +97,13 @@ flow:
   results:
     - FAILURE
     - SUCCESS
-    - ALREADY_IMPORTED
+    - ALREADY_DEPLOYED
 extensions:
   graph:
     steps:
       init_process:
         x: 67
         'y': 88
-      is_conflict:
-        x: 268
-        'y': 278
-        navigate:
-          77e9f96d-dc65-8b88-db51-54f9f664ae54:
-            targetId: ec94d070-3671-b85d-bb3e-86645be5203e
-            port: SUCCESS
       is_finished:
         x: 480
         'y': 90
@@ -124,18 +117,25 @@ extensions:
       is_running:
         x: 478
         'y': 283
-      get_process_status:
-        x: 272
-        'y': 475
-      import_file:
-        x: 66
-        'y': 473
       sleep:
         x: 482
         'y': 474
+      is_conflict:
+        x: 268
+        'y': 278
+        navigate:
+          77e9f96d-dc65-8b88-db51-54f9f664ae54:
+            targetId: ec94d070-3671-b85d-bb3e-86645be5203e
+            port: SUCCESS
       upload_file:
         x: 67
         'y': 281
+      import_file:
+        x: 66
+        'y': 473
+      get_process_status:
+        x: 272
+        'y': 475
     results:
       FAILURE:
         d3b8300d-e188-c416-ef28-1e39ad7b01ca:
@@ -145,7 +145,7 @@ extensions:
         f696bea6-ac0f-bce0-95b0-ddd5910e644f:
           x: 646
           'y': 87
-      ALREADY_IMPORTED:
+      ALREADY_DEPLOYED:
         ec94d070-3671-b85d-bb3e-86645be5203e:
           x: 264
           'y': 75
