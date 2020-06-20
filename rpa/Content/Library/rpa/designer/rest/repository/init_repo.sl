@@ -61,9 +61,9 @@ flow:
         navigate:
           - 'TRUE': import_cp_from_url
           - 'FALSE': import_repo
-    - delete_cp:
+    - unassign_cp:
         do:
-          rpa.designer.rest.content-pack.delete_cp:
+          rpa.designer.rest.content-pack.unassign_cp:
             - token: '${token}'
             - ws_id: '${ws_id}'
             - cp_id: '${cp_id}'
@@ -75,7 +75,7 @@ flow:
           io.cloudslang.base.utils.is_true:
             - bool_value: '${str(len(release_binary_url) > 0)}'
         navigate:
-          - 'TRUE': delete_cp
+          - 'TRUE': unassign_cp
           - 'FALSE': SUCCESS
   outputs:
     - status_json: '${status_json}'
@@ -97,7 +97,7 @@ extensions:
       import_latest_release:
         x: 232
         'y': 307
-      delete_cp:
+      unassign_cp:
         x: 893
         'y': 296
         navigate:
