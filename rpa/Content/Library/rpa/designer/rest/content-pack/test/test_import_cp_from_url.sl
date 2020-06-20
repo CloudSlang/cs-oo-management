@@ -12,7 +12,7 @@
 ########################################################################################################################
 namespace: rpa.designer.rest.content-pack.test
 flow:
-  name: test_download_import_and_assign_cp_to_ws
+  name: test_import_cp_from_url
   inputs:
     - ws_user:
         required: false
@@ -48,10 +48,10 @@ flow:
           - ws_id
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: download_import_and_assign_cp
-    - download_import_and_assign_cp:
+          - SUCCESS: import_cp_from_url
+    - import_cp_from_url:
         do:
-          rpa.designer.rest.content-pack.download_import_and_assign_cp:
+          rpa.designer.rest.content-pack.import_cp_from_url:
             - token: '${token}'
             - cp_url: '${cp_url}'
             - ws_id: "${ws_id if assign.lower() == 'true' else None}"
@@ -71,7 +71,7 @@ extensions:
       get_default_ws_id:
         x: 45
         'y': 303
-      download_import_and_assign_cp:
+      import_cp_from_url:
         x: 231
         'y': 302
         navigate:

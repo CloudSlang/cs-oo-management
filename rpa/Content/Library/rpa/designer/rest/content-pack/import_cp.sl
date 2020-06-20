@@ -9,7 +9,7 @@
 ########################################################################################################################
 namespace: rpa.designer.rest.content-pack
 flow:
-  name: import_and_assign_cp
+  name: import_cp
   inputs:
     - token
     - cp_file
@@ -66,9 +66,9 @@ flow:
         navigate:
           - FAILURE: on_failure
           - SUCCESS: is_ws_id_given
-    - assign_cp_to_ws:
+    - assign_cp:
         do:
-          rpa.designer.rest.content-pack.assign_cp_to_ws:
+          rpa.designer.rest.content-pack.assign_cp:
             - token: '${token}'
             - ws_id: '${ws_id}'
             - cp_id: '${cp_id}'
@@ -119,7 +119,7 @@ flow:
           io.cloudslang.base.utils.is_true:
             - bool_value: '${str(ws_id is not None)}'
         navigate:
-          - 'TRUE': assign_cp_to_ws
+          - 'TRUE': assign_cp
           - 'FALSE': SUCCESS
   outputs:
     - status_json: '${status_json}'
@@ -160,7 +160,7 @@ extensions:
       get_cp_properties:
         x: 51
         'y': 106
-      assign_cp_to_ws:
+      assign_cp:
         x: 747
         'y': 581
         navigate:

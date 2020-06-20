@@ -8,7 +8,7 @@
 ########################################################################################################################
 namespace: rpa.designer.rest.content-pack
 flow:
-  name: assign_cp_to_ws
+  name: assign_cp
   inputs:
     - token
     - ws_id

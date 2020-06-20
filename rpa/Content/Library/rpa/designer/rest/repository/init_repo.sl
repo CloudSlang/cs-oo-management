@@ -30,9 +30,9 @@ flow:
           - FAILURE: on_failure
           - SUCCESS: import_latest_release
           - NO_RELEASE: import_repo
-    - download_import_and_assign_cp:
+    - import_cp_from_url:
         do:
-          rpa.designer.rest.content-pack.download_import_and_assign_cp:
+          rpa.designer.rest.content-pack.import_cp_from_url:
             - token: '${token}'
             - cp_url: '${release_binary_url}'
             - ws_id: '${ws_id}'
@@ -59,7 +59,7 @@ flow:
           io.cloudslang.base.utils.is_true:
             - bool_value: '${str(len(release_binary_url) > 0)}'
         navigate:
-          - 'TRUE': download_import_and_assign_cp
+          - 'TRUE': import_cp_from_url
           - 'FALSE': import_repo
     - delete_cp:
         do:
@@ -88,7 +88,7 @@ extensions:
       get_repo_details:
         x: 69
         'y': 87
-      download_import_and_assign_cp:
+      import_cp_from_url:
         x: 478
         'y': 310
       import_repo:

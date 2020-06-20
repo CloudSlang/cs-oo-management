@@ -9,7 +9,7 @@
 ########################################################################################################################
 namespace: rpa.designer.rest.content-pack
 flow:
-  name: download_import_and_assign_cp
+  name: import_cp_from_url
   inputs:
     - token
     - cp_url
@@ -27,11 +27,11 @@ flow:
           - downloaded_file_path
           - folder_path
         navigate:
-          - SUCCESS: import_and_assign_cp
+          - SUCCESS: import_cp
           - FAILURE: on_failure
-    - import_and_assign_cp:
+    - import_cp:
         do:
-          rpa.designer.rest.content-pack.import_and_assign_cp:
+          rpa.designer.rest.content-pack.import_cp:
             - token: '${token}'
             - cp_file: '${downloaded_file_path}'
             - ws_id: '${ws_id}'
@@ -84,7 +84,7 @@ extensions:
           43bb3a6e-a03e-ef93-b7ce-60d90cc9a90d:
             targetId: 86756514-aadf-066b-11e9-81a94bded20b
             port: 'FALSE'
-      import_and_assign_cp:
+      import_cp:
         x: 293
         'y': 329
     results:
