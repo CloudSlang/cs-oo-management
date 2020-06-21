@@ -1,31 +1,26 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves all repositories in the given workspace.
-#!
-#! @input ws_id: Workspace ID
-#!
-#! @output repos_json: JSON doc with all the repositories
+#! @description: Retrieves all deployed Content Packs assigned in the given Workspace
 #!!#
 ########################################################################################################################
-namespace: rpa.designer.rest.repository
+namespace: rpa.designer.rest.content-pack
 flow:
-  name: get_repos
+  name: get_assigned_cps
   inputs:
     - ws_id
   workflow:
     - designer_http_action:
         do:
           rpa.tools.designer_http_action:
-            - url: "${'/rest/v0/workspaces/%s/repositories' % ws_id}"
+            - url: "${'/rest/v0/workspaces/%s/dependencies' % ws_id}"
             - method: GET
-            - verify_result: list
         publish:
-          - repos_json: '${return_result}'
+          - cps_json: '${return_result}'
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
   outputs:
-    - repos_json: '${repos_json}'
+    - cps_json: '${cps_json}'
   results:
     - FAILURE
     - SUCCESS
@@ -33,14 +28,14 @@ extensions:
   graph:
     steps:
       designer_http_action:
-        x: 69
-        'y': 114
+        x: 66
+        'y': 97
         navigate:
-          bef2fa59-d2db-9bff-5df2-a66aa8e073c4:
-            targetId: 9c7ce730-cf44-f82d-ed81-768f2be3db50
+          f4163b51-d679-f504-8c9f-898e125620f7:
+            targetId: bacd6de1-dadc-1b9d-6082-7e3e2c1f07e1
             port: SUCCESS
     results:
       SUCCESS:
-        9c7ce730-cf44-f82d-ed81-768f2be3db50:
-          x: 252
-          'y': 115
+        bacd6de1-dadc-1b9d-6082-7e3e2c1f07e1:
+          x: 214
+          'y': 96

@@ -1,22 +1,21 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves the ID of the given deployed Content Pack
+#! @description: Retrieves the ID of the given deployed Content Pack assigned to the given Workspace
 #!
 #! @input cp_name: Content Pack Name
-#! @input cp_version: Content Pack Version
 #!!#
 ########################################################################################################################
 namespace: rpa.designer.rest.content-pack
 flow:
-  name: get_cp_id
+  name: get_assigned_cp_id
   inputs:
+    - ws_id
     - cp_name
-    - cp_version:
-        required: true
   workflow:
-    - get_cps:
+    - get_assigned_cps:
         do:
-          rpa.designer.rest.content-pack.get_cps: []
+          rpa.designer.rest.content-pack.get_assigned_cps:
+            - ws_id: '${ws_id}'
         publish:
           - cps_json
         navigate:
@@ -26,9 +25,9 @@ flow:
         do:
           io.cloudslang.base.json.json_path_query:
             - json_object: '${cps_json}'
-            - json_path: "${\"$[?(@.version == '%s' && @.name == '%s')].id\" % (cp_version, cp_name)}"
+            - json_path: "${\"$[?(@.text == '%s')].id\" % cp_name}"
         publish:
-          - cp_id: '${return_result[1:-1]}'
+          - cp_id: '${return_result[2:-2]}'
         navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
@@ -40,9 +39,9 @@ flow:
 extensions:
   graph:
     steps:
-      get_cps:
-        x: 65
-        'y': 93
+      get_assigned_cps:
+        x: 64
+        'y': 102
       json_path_query:
         x: 226
         'y': 94
