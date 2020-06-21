@@ -13,8 +13,8 @@ namespace: rpa.tools.github
 flow:
   name: get_repo_details
   inputs:
-    - owner: pe-pan
-    - repo: rpa-rpa
+    - owner
+    - repo
   workflow:
     - get_repo_details:
         do:
