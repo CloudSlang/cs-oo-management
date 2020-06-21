@@ -1,11 +1,6 @@
 namespace: rpa.designer.rest.content-pack.test
 flow:
   name: test_get_cps
-  inputs:
-    - cp_name: Base
-    - cp_version:
-        default: 1.18.0
-        required: true
   workflow:
     - get_token:
         do:
@@ -16,20 +11,11 @@ flow:
     - get_cp_id:
         do:
           rpa.designer.rest.content-pack.get_cp_id:
-            - cp_name: '${cp_name}'
-            - cp_version: '${cp_version}'
-        publish:
-          - cp_id
+            - cp_name: Base
+            - cp_version: 1.17.1
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: one_result_found
-    - one_result_found:
-        do:
-          io.cloudslang.base.utils.is_true:
-            - bool_value: "${str(len(cp_id) > 0 and not ',' in cp_id)}"
-        navigate:
-          - 'TRUE': SUCCESS
-          - 'FALSE': FAILURE
+          - SUCCESS: SUCCESS
   results:
     - FAILURE
     - SUCCESS
@@ -42,22 +28,12 @@ extensions:
       get_cp_id:
         x: 239
         'y': 91
-      one_result_found:
-        x: 397
-        'y': 94
         navigate:
-          c0f7bdef-c82c-54e6-e09d-40356d801a2a:
+          a7b8f5f1-ec3b-39a5-2ec9-70e3d8bc1e34:
             targetId: 9a051bd7-ab6b-f5dc-dce9-cbea71a3ed7c
-            port: 'TRUE'
-          82898ec5-92c8-0ecb-f3e7-faef6554173e:
-            targetId: 4a881193-c23d-dbda-ecd2-c196cbef5a1c
-            port: 'FALSE'
+            port: SUCCESS
     results:
-      FAILURE:
-        4a881193-c23d-dbda-ecd2-c196cbef5a1c:
-          x: 393
-          'y': 299
       SUCCESS:
         9a051bd7-ab6b-f5dc-dce9-cbea71a3ed7c:
-          x: 568
-          'y': 90
+          x: 409
+          'y': 93

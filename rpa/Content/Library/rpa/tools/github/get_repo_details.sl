@@ -13,8 +13,8 @@ namespace: rpa.tools.github
 flow:
   name: get_repo_details
   inputs:
-    - owner
-    - repo
+    - owner: pe-pan
+    - repo: rpa-rpa
   workflow:
     - get_repo_details:
         do:
@@ -71,9 +71,6 @@ flow:
 extensions:
   graph:
     steps:
-      get_repo_details:
-        x: 59
-        'y': 88
       get_latest_release:
         x: 418
         'y': 287
@@ -81,9 +78,9 @@ extensions:
           1950db13-8e38-cca8-20ff-9c8ec7a0a5c1:
             targetId: 6e1c8a19-e1dc-0d56-63c7-a9598d21819d
             port: SUCCESS
-      get_releases:
-        x: 227
-        'y': 87
+      get_repo_details:
+        x: 59
+        'y': 88
       is_there_release:
         x: 226
         'y': 285
@@ -91,6 +88,9 @@ extensions:
           2ab45646-bfd7-be70-5c34-d861c6778870:
             targetId: ca58a08a-fcfe-6f09-7b70-6d2c4eb1ef84
             port: 'FALSE'
+      get_releases:
+        x: 227
+        'y': 87
     results:
       SUCCESS:
         6e1c8a19-e1dc-0d56-63c7-a9598d21819d:

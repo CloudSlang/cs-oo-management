@@ -2,7 +2,7 @@ namespace: rpa.designer.rest.repository.test
 flow:
   name: test_update_repo_binaries
   inputs:
-    - ws_user: ray
+    - ws_user: sfdev
     - cp_folder: "c:\\\\temp"
   workflow:
     - get_token:
@@ -21,19 +21,7 @@ flow:
           - ws_id
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: get_scm_url
-    - get_scm_url:
-        do:
-          rpa.designer.rest.repository.get_repos:
-            - ws_id: '${ws_id}'
-        publish:
-          - repos_json
-          - scm_url: "${'' if repos_json == '[]' else eval(repos_json.replace(\":null\",\":None\"))[0]['scmURL']}"
-          - repo_owner: "${'' if repos_json == '[]' else eval(repos_json.replace(\":null\",\":None\"))[0]['username']}"
-          - repo_name: "${'' if repos_json == '[]' else eval(repos_json.replace(\":null\",\":None\"))[0]['repositoryName']}"
-        navigate:
-          - FAILURE: on_failure
-          - SUCCESS: update_repo_binaries
+          - SUCCESS: get_repo_details
     - update_repo_binaries:
         do:
           rpa.designer.rest.repository.update_repo_binaries:
@@ -45,6 +33,17 @@ flow:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
           - NO_BINARIES: FAILURE
+    - get_repo_details:
+        do:
+          rpa.designer.rest.repository.get_repo_details:
+            - ws_id: '${ws_id}'
+        publish:
+          - scm_url
+          - repo_owner: '${scm_url.split("/")[-2]}'
+          - repo_name: "${scm_url.split(\"/\")[-1][0:-4] if scm_url.endswith('.git') else scm_url.split(\"/\")[-1]}"
+        navigate:
+          - FAILURE: on_failure
+          - SUCCESS: update_repo_binaries
   results:
     - FAILURE
     - SUCCESS
@@ -57,12 +56,12 @@ extensions:
       get_default_ws_id:
         x: 250
         'y': 97
-      get_scm_url:
-        x: 446
-        'y': 110
+      get_repo_details:
+        x: 427
+        'y': 101
       update_repo_binaries:
-        x: 603
-        'y': 95
+        x: 604
+        'y': 100
         navigate:
           e4d8171f-7d63-4f57-590c-c3f7114beca2:
             targetId: aab3d95c-b82a-1c25-a4df-f4f5dcd35a3a
@@ -77,5 +76,5 @@ extensions:
           'y': 99
       FAILURE:
         2d2e5d09-e1af-9f6d-8b27-d538614baaff:
-          x: 591
-          'y': 258
+          x: 604
+          'y': 281

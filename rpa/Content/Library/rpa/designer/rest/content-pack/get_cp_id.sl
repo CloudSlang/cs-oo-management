@@ -11,8 +11,7 @@ flow:
   name: get_cp_id
   inputs:
     - cp_name
-    - cp_version:
-        required: true
+    - cp_version
   workflow:
     - get_cps:
         do:

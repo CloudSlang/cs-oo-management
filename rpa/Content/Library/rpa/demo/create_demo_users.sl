@@ -14,7 +14,7 @@ namespace: rpa.demo
 flow:
   name: create_demo_users
   inputs:
-    - users_json: "${'''\n{\n    \"cp_folder\": \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\",\n    \"users\": [\n      {\n        \"user\": \"aosdev2\",\n        \"github_repo\": \"pe-pan/rpa-aos\",\n        \"update_binaries\": \"yes\",\n        \"cp_files\": [\n          \"oo10-base-cp-1.18.0.jar\",\n          \"cs-base-cp-1.4.0.jar\",\n          \"cs-tesseract-ocr-cp-1.0.1.jar\"\n        ]\n      },\n      {\n        \"user\": \"sfdev2\",\n        \"github_repo\": \"pe-pan/rpa-salesforce\",\n        \"update_binaries\": \"yes\",\n        \"cp_files\": [\n          \"oo10-base-cp-1.18.0.jar\",\n          \"cs-base-cp-1.4.0.jar\",\n          \"cs-tesseract-ocr-cp-1.0.1.jar\",\n          \"cs-microsoft-office365-cp-1.0.0.jar\",\n          \"oo-microsoft-office-365-cp-2.2.2.jar\",\n          \"oo-demos-cp-1.0.0.jar\"\n        ]\n      },\n      {\n        \"user\": \"rpadev2\",\n        \"github_repo\": \"rpa-micro-focus/rpa-rpa\",\n        \"update_binaries\": \"no\",\n        \"cp_files\": [\n          \"cs-base-cp-1.4.0.jar\"\n        ]\n      },\n      {\n        \"user\": \"sapdev2\",\n        \"github_repo\": \"pe-pan/rpa-sap\",\n        \"update_binaries\": \"yes\",\n        \"cp_files\": [\n          \"cs-base-cp-1.4.0.jar\"\n        ]\n      }\n    ]\n}\n'''}"
+    - users_json: "${'''\n{\n    \"cp_folder\": \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\",\n    \"users\": [\n      {\n        \"user\": \"aosdev\",\n        \"github_repo\": \"pe-pan/rpa-aos\",\n        \"update_binaries\": \"yes\",\n        \"cp_files\": [\n          \"oo10-base-cp-1.18.0.jar\",\n          \"cs-base-cp-1.4.0.jar\",\n          \"cs-tesseract-ocr-cp-1.0.1.jar\"\n        ]\n      },\n      {\n        \"user\": \"sfdev\",\n        \"github_repo\": \"pe-pan/rpa-salesforce\",\n        \"update_binaries\": \"yes\",\n        \"cp_files\": [\n          \"oo10-base-cp-1.18.0.jar\",\n          \"cs-base-cp-1.4.0.jar\",\n          \"cs-tesseract-ocr-cp-1.0.1.jar\",\n          \"cs-microsoft-office365-cp-1.0.0.jar\",\n          \"oo-microsoft-office-365-cp-2.2.2.jar\",\n          \"oo-demos-cp-1.0.0.jar\"\n        ]\n      },\n      {\n        \"user\": \"rpadev\",\n        \"github_repo\": \"rpa-micro-focus/rpa-rpa\",\n        \"update_binaries\": \"no\",\n        \"cp_files\": [\n          \"cs-base-cp-1.4.0.jar\"\n        ]\n      },\n      {\n        \"user\": \"sapdev\",\n        \"github_repo\": \"pe-pan/rpa-sap\",\n        \"update_binaries\": \"yes\",\n        \"cp_files\": [\n          \"cs-base-cp-1.4.0.jar\"\n        ]\n      }\n    ]\n}\n'''}"
     - users_password:
         required: false
         sensitive: true
@@ -27,7 +27,7 @@ flow:
         default: OO_AGR_
         required: true
     - reset_user:
-        default: 'true'
+        default: 'false'
         required: true
   workflow:
     - get_token:
