@@ -18,7 +18,6 @@ flow:
           rpa.tools.designer_http_action:
             - url: "${'/rest/v0/workspaces/%s/repositories' % ws_id}"
             - method: GET
-            - verify_result: list
         publish:
           - repos_json: '${return_result}'
         navigate:
