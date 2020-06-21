@@ -36,7 +36,7 @@ flow:
             - token: '${token}'
             - cp_url: '${release_binary_url}'
             - ws_id: '${ws_id}'
-            - file_path: "${'' if cp_folder is None else cp_folder+\"/\"+release_binary_url.split(\"/\")[-1]}"
+            - file_path: '${cp_folder if cp_folder is None else cp_folder+"/"+release_binary_url.split("/")[-1]}'
         publish:
           - status_json
           - cp_id: "${eval(status_json)[0]['contentPackId']}"
@@ -116,3 +116,4 @@ extensions:
         02a1a501-c474-69f5-d4dd-21bdeaac9ab0:
           x: 887
           'y': 79
+
