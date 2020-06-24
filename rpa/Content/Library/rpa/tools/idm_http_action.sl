@@ -30,6 +30,7 @@ flow:
           - return_result
           - error_message
           - response_headers
+          - status_code
         navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
@@ -37,6 +38,7 @@ flow:
     - return_result: '${return_result}'
     - error_message: '${error_message}'
     - response_headers: '${response_headers}'
+    - status_code: '${status_code}'
   results:
     - FAILURE
     - SUCCESS
