@@ -1,6 +1,6 @@
 ########################################################################################################################
 #!!
-#! @description: Creates users and setups their workspace; it deploys CPs into dependencies and imports the GIT repository
+#! @description: Creates users and setups their workspace; it deploys CPs into dependencies and imports the GitHub repository
 #!
 #! @input users_json: A JSON doc that contains a list of items, each item in the list has 3 mandatory properties: user, scm_url and cp_files. scm_url and cp_files might be empty but must be given. user contains the username to be created; scm_url contains the GIT repository URL which will be imported and cp_files contains a list of string values, each value is the full path (pointing where RPA is running); these files will be imported to the user dependencies.
 #! @input users_password: Password set to all the newly created users; if not given, default RPA admin password is used
@@ -14,7 +14,7 @@ namespace: rpa.demo
 flow:
   name: create_demo_users
   inputs:
-    - users_json: "${'''[\n    {\n        \"user\" : \"aosdev\",\n        \"scm_url\" : \"https://github.com/pe-pan/rpa-aos\",\n        \"cp_files\" : [\n            \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\\\\\\\\oo10-base-cp-1.17.1.jar\",\n            \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\\\\\\\\cs-base-cp-1.3.0.jar\",\n            \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\\\\\\\\cs-tesseract-ocr-cp-1.0.0.jar\",\n        ]\n    },\n    {\n        \"user\" : \"sfdev\",\n        \"scm_url\" : \"https://github.com/pe-pan/rpa-salesforce\",\n        \"cp_files\" : [\n            \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\\\\\\\\oo10-base-cp-1.17.1.jar\",\n            \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\\\\\\\\cs-base-cp-1.3.0.jar\",\n            \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\\\\\\\\cs-tesseract-ocr-cp-1.0.0.jar\",\n            \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\\\\\\\\cs-microsoft-office365-cp-1.0.0.jar\",\n            \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\\\\\\\\oo-microsoft-office-365-cp-2.2.2.jar\",\n            \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\\\\\\\\oo-demos-cp-1.0.0.jar\"\n        ]\n    },\n    {\n        \"user\" : \"robosocdev\",\n        \"scm_url\" : \"https://github.com/pe-pan/rpa-robosoc\",\n        \"cp_files\" : [\n            \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\\\\\\\\cs-base-cp-1.3.0.jar\",\n            \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\\\\\\\\cs-microsoft-office365-cp-1.0.0.jar\"\n        ]\n    },\n    {\n        \"user\" : \"rpadev\",\n        \"scm_url\" : \"https://github.com/rpa-micro-focus/rpa-rpa\",\n        \"cp_files\" : [\n            \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\\\\\\\\cs-base-cp-1.3.0.jar\"\n        ]\n    },\n    {\n        \"user\" : \"msdev\",\n        \"scm_url\" : \"https://github.com/rpa-micro-focus/rpa-microsoft-graph\",\n        \"cp_files\" : [\n            \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\\\\\\\\cs-base-cp-1.3.0.jar\"\n        ]\n    },\n    {\n        \"user\" : \"sapdev\",\n        \"scm_url\" : \"https://github.com/pe-pan/rpa-sap\",\n        \"cp_files\" : [\n            \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\\\\\\\\oo10-base-cp-1.17.1.jar\",\n            \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\\\\\\\\cs-base-cp-1.3.0.jar\"\n        ]\n    }\n]'''}"
+    - users_json: "${'''\n{\n    \"cp_folder\": \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\Downloads\\\\\\\\content-packs\",\n    \"users\": [\n      {\n        \"user\": \"aosdev\",\n        \"github_repo\": \"pe-pan/rpa-aos\",\n        \"update_binaries\": \"yes\",\n        \"cp_files\": [\n          \"oo10-base-cp-1.18.0.jar\",\n          \"cs-base-cp-1.4.0.jar\",\n          \"cs-tesseract-ocr-cp-1.0.1.jar\"\n        ]\n      },\n      {\n        \"user\": \"sfdev\",\n        \"github_repo\": \"pe-pan/rpa-salesforce\",\n        \"update_binaries\": \"yes\",\n        \"cp_files\": [\n          \"oo10-base-cp-1.18.0.jar\",\n          \"cs-base-cp-1.4.0.jar\",\n          \"cs-tesseract-ocr-cp-1.0.1.jar\",\n          \"cs-microsoft-office365-cp-1.0.0.jar\",\n          \"oo-microsoft-office-365-cp-2.2.2.jar\",\n          \"oo-demos-cp-1.0.0.jar\"\n        ]\n      },\n      {\n        \"user\": \"rpadev\",\n        \"github_repo\": \"rpa-micro-focus/rpa-rpa\",\n        \"update_binaries\": \"no\",\n        \"cp_files\": [\n          \"cs-base-cp-1.4.0.jar\"\n        ]\n      },\n      {\n        \"user\": \"sapdev\",\n        \"github_repo\": \"pe-pan/rpa-sap\",\n        \"update_binaries\": \"yes\",\n        \"cp_files\": [\n          \"cs-base-cp-1.4.0.jar\"\n        ]\n      }\n    ]\n}\n'''}"
     - users_password:
         required: false
         sensitive: true
@@ -50,20 +50,24 @@ flow:
           - FAILURE: on_failure
     - create_demo_user:
         loop:
-          for: user_json in eval(users_json)
+          for: "user_json in eval(users_json)['users']"
           do:
             rpa.demo.sub_flows.create_demo_user:
               - token: '${token}'
               - ws_user: "${user_json['user']}"
-              - ws_password: "${get('users_password', get_sp('rpa_password'))}"
+              - ws_password:
+                  value: "${get('users_password', get_sp('rpa_password'))}"
+                  sensitive: true
               - ws_tenant: "${get('org_name', get_sp('idm_tenant'))}"
               - org_id: '${org_id}'
               - group_id: '${group_id}'
               - repre_name: '${repre_prefix+group_name}'
               - idm_groups: '${idm_groups}'
-              - cp_files: "${\"\" if user_json['cp_files'] is None else str(user_json['cp_files'])}"
+              - github_repo: "${user_json['github_repo']}"
+              - update_binaries: "${user_json['update_binaries']}"
+              - cp_folder: "${eval(users_json)['cp_folder']}"
+              - cp_files: "${str([eval(users_json)['cp_folder']+'\\\\'+cp_file for cp_file in user_json['cp_files']])}"
               - reset_user: '${reset_user}'
-              - scm_url: "${\"\" if user_json['scm_url'] is None else user_json['scm_url']}"
           break:
             - FAILURE
           publish:

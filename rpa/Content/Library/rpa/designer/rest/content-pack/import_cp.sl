@@ -1,18 +1,20 @@
 ########################################################################################################################
 #!!
-#! @description: Imports the provided CP and assigns it to the user default workspace.
+#! @description: Imports the provided CP and optionally assigns it to the user default workspace.
 #!               When the CP has been already imported, it just assigns the CP to the workspace.
 #!
 #! @input cp_file: Path to CP to be deployed
+#! @input ws_id: If given, the imported CP will be also assigned to the given WS
 #!!#
 ########################################################################################################################
 namespace: rpa.designer.rest.content-pack
 flow:
-  name: import_and_assign_cp
+  name: import_cp
   inputs:
     - token
     - cp_file
-    - ws_id
+    - ws_id:
+        required: false
   workflow:
     - get_cp_properties:
         do:
@@ -23,9 +25,9 @@ flow:
           - cp_version
         navigate:
           - SUCCESS: get_existing_cp_id
-    - import_cp:
+    - deploy_cp:
         do:
-          rpa.designer.rest.dependency.import_cp:
+          rpa.designer.rest.content-pack.deploy_cp:
             - token: '${token}'
             - cp_file: '${cp_file}'
         publish:
@@ -33,7 +35,7 @@ flow:
         navigate:
           - FAILURE: on_failure
           - SUCCESS: get_cp_name
-          - ALREADY_IMPORTED: get_failed_cp_name
+          - ALREADY_DEPLOYED: get_failed_cp_name
     - get_cp_name:
         do:
           io.cloudslang.base.json.json_path_query:
@@ -63,10 +65,10 @@ flow:
           - cp_id
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: assign_cp_to_ws
-    - assign_cp_to_ws:
+          - SUCCESS: is_ws_id_given
+    - assign_cp:
         do:
-          rpa.designer.rest.content-pack.assign_cp_to_ws:
+          rpa.designer.rest.content-pack.assign_cp:
             - token: '${token}'
             - ws_id: '${ws_id}'
             - cp_id: '${cp_id}'
@@ -103,8 +105,22 @@ flow:
         publish:
           - cp_id
         navigate:
-          - FAILURE: import_cp
-          - SUCCESS: assign_cp_to_ws
+          - FAILURE: on_failure
+          - SUCCESS: is_cp_deployed
+    - is_cp_deployed:
+        do:
+          io.cloudslang.base.utils.is_true:
+            - bool_value: '${str(len(cp_id) > 0)}'
+        navigate:
+          - 'TRUE': is_ws_id_given
+          - 'FALSE': deploy_cp
+    - is_ws_id_given:
+        do:
+          io.cloudslang.base.utils.is_true:
+            - bool_value: '${str(ws_id is not None)}'
+        navigate:
+          - 'TRUE': assign_cp
+          - 'FALSE': SUCCESS
   outputs:
     - status_json: '${status_json}'
   results:
@@ -114,17 +130,27 @@ extensions:
   graph:
     steps:
       get_existing_cp_id:
-        x: 47
-        'y': 578
+        x: 49
+        'y': 264
+      is_cp_deployed:
+        x: 48
+        'y': 581
       get_cp_id:
         x: 574
         'y': 267
       get_failed_cp_name:
         x: 254
         'y': 436
-      import_cp:
+      deploy_cp:
         x: 166
         'y': 263
+      is_ws_id_given:
+        x: 569
+        'y': 580
+        navigate:
+          a3c637d2-f60c-6509-9db5-4695e1104801:
+            targetId: bd8aeb85-c6b9-b7a0-e088-8d020ab18e35
+            port: 'FALSE'
       get_cp_version:
         x: 439
         'y': 103
@@ -134,9 +160,9 @@ extensions:
       get_cp_properties:
         x: 51
         'y': 106
-      assign_cp_to_ws:
-        x: 704
-        'y': 580
+      assign_cp:
+        x: 747
+        'y': 581
         navigate:
           4b58c01c-cf64-47c9-0443-436c52868214:
             targetId: bd8aeb85-c6b9-b7a0-e088-8d020ab18e35
@@ -147,5 +173,5 @@ extensions:
     results:
       SUCCESS:
         bd8aeb85-c6b9-b7a0-e088-8d020ab18e35:
-          x: 700
-          'y': 109
+          x: 743
+          'y': 268

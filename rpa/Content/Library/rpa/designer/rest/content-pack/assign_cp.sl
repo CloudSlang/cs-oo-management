@@ -1,32 +1,32 @@
 ########################################################################################################################
 #!!
-#! @output status_code: 409 = the file is already imported
+#! @description: Assigns the given content pack to the given workspace
+#!
+#! @input ws_id: Workspace ID
+#! @input cp_id: Content Pack ID
 #!!#
 ########################################################################################################################
-namespace: rpa.designer.rest.dependency.sub_flows
+namespace: rpa.designer.rest.content-pack
 flow:
-  name: upload_file
+  name: assign_cp
   inputs:
     - token
-    - process_id
-    - cp_file
+    - ws_id
+    - cp_id
   workflow:
     - designer_http_action:
         do:
           rpa.tools.designer_http_action:
-            - url: "${'/rest/v0/imports/%s/files' % process_id}"
+            - url: "${'/rest/v0/workspaces/%s/dependencies/%s' % (ws_id, cp_id)}"
             - token: '${token}'
-            - method: POST
-            - file: "${'content_pack=%s' % cp_file}"
+            - method: PUT
         publish:
           - status_json: '${return_result}'
-          - status_code
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
   outputs:
     - status_json: '${status_json}'
-    - status_code: '${status_code}'
   results:
     - FAILURE
     - SUCCESS
@@ -34,14 +34,14 @@ extensions:
   graph:
     steps:
       designer_http_action:
-        x: 102
-        'y': 123
+        x: 109
+        'y': 105
         navigate:
-          fcbcc589-1735-b1f0-87ac-67b3a8380b09:
-            targetId: 4681c1cb-32dd-92c1-2adf-9693f944fcb5
+          24ea7c99-af6c-7f02-5f30-88f5d92e440d:
+            targetId: 5336fe52-b5dc-bd54-269d-ee8857a86c5f
             port: SUCCESS
     results:
       SUCCESS:
-        4681c1cb-32dd-92c1-2adf-9693f944fcb5:
-          x: 304
-          'y': 125
+        5336fe52-b5dc-bd54-269d-ee8857a86c5f:
+          x: 277
+          'y': 101

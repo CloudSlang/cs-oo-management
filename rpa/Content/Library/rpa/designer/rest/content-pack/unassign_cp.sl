@@ -1,6 +1,6 @@
 ########################################################################################################################
 #!!
-#! @description: Deletes CP from workspace (does not remove from Designer)
+#! @description: Unassigns CP from workspace (does not remove from Designer)
 #!
 #! @input ws_id: Workspace ID
 #! @input cp_id: CP ID
@@ -8,7 +8,7 @@
 ########################################################################################################################
 namespace: rpa.designer.rest.content-pack
 flow:
-  name: delete_cp
+  name: unassign_cp
   inputs:
     - token
     - ws_id
@@ -18,6 +18,7 @@ flow:
         do:
           rpa.tools.designer_http_action:
             - url: "${'/rest/v0/workspaces/%s/dependencies/%s' % (ws_id, cp_id)}"
+            - token: '${token}'
             - method: DELETE
         publish:
           - cp_status_json: '${return_result}'
