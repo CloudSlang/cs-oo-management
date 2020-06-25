@@ -11,12 +11,12 @@ properties:
   - idm_url: 'https://rpa.mf-te.com:8445/idm-service'
   - idm_username: idmTransportUser
   - idm_password:
-      value: 'Adminadmin1!'
+      value: ''
       sensitive: true
   - idm_tenant: RPA
-  - rpa_username: administrator
+  - rpa_username: admin
   - rpa_password:
-      value: 'Adminadmin1!'
+      value: ''
       sensitive: true
   - insights_url: 'https://rpa.mf-te.com:8458/oo-insights'
   - wait_time:
