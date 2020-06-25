@@ -15,6 +15,12 @@ namespace: rpa.demo
 flow:
   name: configure_rpa_demo_instance
   workflow:
+    - deploy_cps:
+        do:
+          rpa.demo.deploy_cps: []
+        navigate:
+          - FAILURE: on_failure
+          - SUCCESS: set_insight_settings
     - set_insight_settings:
         do:
           rpa.central.rest.insight.set_insight_settings:
@@ -82,8 +88,8 @@ extensions:
   graph:
     steps:
       set_insight_settings:
-        x: 90
-        'y': 69
+        x: 172
+        'y': 98
       generate_roi_numbers:
         x: 571
         'y': 395
@@ -91,6 +97,9 @@ extensions:
           94c5ba29-62d2-5b1a-e0e9-5bcdf47814b0:
             targetId: 5bd93ad7-c706-1240-ecdc-927475693aa5
             port: SUCCESS
+      deploy_cps:
+        x: 31
+        'y': 99
       create_demo_users:
         x: 291
         'y': 399
@@ -98,8 +107,8 @@ extensions:
         x: 301
         'y': 260
       enable_insight_service:
-        x: 233
-        'y': 66
+        x: 328
+        'y': 100
       update_ssx_categories_and_scenarios:
         x: 458
         'y': 270
@@ -107,11 +116,11 @@ extensions:
         x: 96
         'y': 260
       set_general_settings:
-        x: 390
-        'y': 65
+        x: 531
+        'y': 92
       set_cp_settings:
-        x: 573
-        'y': 59
+        x: 696
+        'y': 97
     results:
       SUCCESS:
         5bd93ad7-c706-1240-ecdc-927475693aa5:
