@@ -1,3 +1,8 @@
+########################################################################################################################
+#!!
+#! @system_property wait_time: Wait time between two consecutive calls to find out various process status
+#!!#
+########################################################################################################################
 namespace: ''
 properties:
   - central_url: 'https://rpa.mf-te.com:8443/oo'
@@ -14,3 +19,6 @@ properties:
       value: Cloud@123
       sensitive: true
   - insights_url: 'https://rpa.mf-te.com:8458/oo-insights'
+  - wait_time:
+      value: '5'
+      sensitive: false

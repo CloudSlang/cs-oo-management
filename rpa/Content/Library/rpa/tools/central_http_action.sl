@@ -37,12 +37,16 @@ flow:
         publish:
           - return_result
           - response_headers
+          - error_message
+          - status_code
         navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
   outputs:
     - return_result: '${return_result}'
     - response_headers: '${response_headers}'
+    - error_message: '${error_message}'
+    - status_code: '${status_code}'
   results:
     - FAILURE
     - SUCCESS

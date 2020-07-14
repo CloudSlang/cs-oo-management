@@ -3,18 +3,16 @@
 #! @description: Imports the GitHub repository but before that, it imports the latest release attached to the repository and also removes this imported CP from the workspace. This was possible binary artifacts (RPA activities) will get updated in the library of binaries.
 #!
 #! @input github_repo: Git Hub repo owner/name of a repo to be imported
-#! @input update_binaries: If yes, the latest release will be downloaded to the workspace dependencies and then removed
 #! @input cp_folder: If given, the downloaded binaries will be stored permanently in this folder (otherwise donwloaded temporarily and removed after import)
 #!!#
 ########################################################################################################################
 namespace: rpa.designer.rest.repository
 flow:
-  name: init_repo
+  name: update_repo_binaries
   inputs:
     - token
     - ws_id
     - github_repo
-    - update_binaries
     - cp_folder
   workflow:
     - get_repo_details:
@@ -22,45 +20,26 @@ flow:
           rpa.tools.github.get_repo_details:
             - owner: "${github_repo.split('/')[0]}"
             - repo: "${github_repo.split('/')[1]}"
-            - update_binaries: '${update_binaries}'
         publish:
           - clone_url
-          - release_binary_url: "${release_binary_url if update_binaries.lower() == 'yes' else ''}"
+          - release_binary_url
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: import_latest_release
-          - NO_RELEASE: import_repo
+          - SUCCESS: import_cp_from_url
+          - NO_RELEASE: NO_BINARIES
     - import_cp_from_url:
         do:
           rpa.designer.rest.content-pack.import_cp_from_url:
             - token: '${token}'
             - cp_url: '${release_binary_url}'
             - ws_id: '${ws_id}'
-            - file_path: "${'' if cp_folder is None else cp_folder+\"/\"+release_binary_url.split(\"/\")[-1]}"
+            - file_path: '${cp_folder if cp_folder is None else cp_folder+"/"+release_binary_url.split("/")[-1]}'
         publish:
           - status_json
           - cp_id: "${eval(status_json)[0]['contentPackId']}"
         navigate:
-          - SUCCESS: import_repo
+          - SUCCESS: unassign_cp
           - FAILURE: on_failure
-    - import_repo:
-        do:
-          rpa.designer.rest.repository.import_repo:
-            - token: '${token}'
-            - ws_id: '${ws_id}'
-            - scm_url: '${clone_url}'
-        publish:
-          - status_json
-        navigate:
-          - FAILURE: on_failure
-          - SUCCESS: remove_cp
-    - import_latest_release:
-        do:
-          io.cloudslang.base.utils.is_true:
-            - bool_value: '${str(len(release_binary_url) > 0)}'
-        navigate:
-          - 'TRUE': import_cp_from_url
-          - 'FALSE': import_repo
     - unassign_cp:
         do:
           rpa.designer.rest.content-pack.unassign_cp:
@@ -70,49 +49,38 @@ flow:
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
-    - remove_cp:
-        do:
-          io.cloudslang.base.utils.is_true:
-            - bool_value: '${str(len(release_binary_url) > 0)}'
-        navigate:
-          - 'TRUE': unassign_cp
-          - 'FALSE': SUCCESS
   outputs:
     - status_json: '${status_json}'
   results:
     - SUCCESS
     - FAILURE
+    - NO_BINARIES
 extensions:
   graph:
     steps:
+      unassign_cp:
+        x: 488
+        'y': 84
+        navigate:
+          d3bf7a2b-0dca-21b5-c02c-ac16e93b08d5:
+            targetId: 02a1a501-c474-69f5-d4dd-21bdeaac9ab0
+            port: SUCCESS
+      import_cp_from_url:
+        x: 288
+        'y': 89
       get_repo_details:
         x: 69
         'y': 87
-      import_cp_from_url:
-        x: 478
-        'y': 310
-      import_repo:
-        x: 477
-        'y': 85
-      import_latest_release:
-        x: 232
-        'y': 307
-      unassign_cp:
-        x: 893
-        'y': 296
         navigate:
-          f80cdb0d-1a1a-15ce-0eaa-ad73ce5e081e:
-            targetId: 02a1a501-c474-69f5-d4dd-21bdeaac9ab0
-            port: SUCCESS
-      remove_cp:
-        x: 693
-        'y': 291
-        navigate:
-          7b67546f-f593-1f51-076d-eca9dd3c033b:
-            targetId: 02a1a501-c474-69f5-d4dd-21bdeaac9ab0
-            port: 'FALSE'
+          40880392-fee1-beef-0d2a-5e254cff3170:
+            targetId: 4b14184b-3818-93fa-6dff-1c96e3449561
+            port: NO_RELEASE
     results:
       SUCCESS:
         02a1a501-c474-69f5-d4dd-21bdeaac9ab0:
-          x: 887
-          'y': 79
+          x: 657
+          'y': 75
+      NO_BINARIES:
+        4b14184b-3818-93fa-6dff-1c96e3449561:
+          x: 74
+          'y': 275

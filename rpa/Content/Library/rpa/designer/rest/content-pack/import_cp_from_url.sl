@@ -1,55 +1,39 @@
 ########################################################################################################################
 #!!
-#! @description: Downloads a CP from URL, imports that into Designer and assigns it to a workspace
+#! @description: Downloads a CP from URL, imports that into Designer and optionally assigns it to a workspace.
 #!
 #! @input cp_url: URL pointing to a CP
+#! @input ws_id: If given, the imported CP will be also assigned to the given WS
 #! @input file_path: If given, the downloaded CP will be placed to this file (otherwise temporal will be created and removed later)
 #!!#
 ########################################################################################################################
 namespace: rpa.designer.rest.content-pack
 flow:
-  name: download_import_and_assign_cp
+  name: import_cp_from_url
   inputs:
     - token
     - cp_url
-    - ws_id
+    - ws_id:
+        required: false
     - file_path:
         required: false
   workflow:
-    - file_path_given:
+    - download_file:
         do:
-          io.cloudslang.base.utils.is_true:
-            - bool_value: '${str(file_path is not None)}'
+          rpa.tools.file.download_file:
+            - file_url: '${cp_url}'
+            - file_path: '${file_path}'
         publish:
-          - folder_path: ''
-        navigate:
-          - 'TRUE': download_cp
-          - 'FALSE': get_temp_file
-    - download_cp:
-        do:
-          io.cloudslang.base.http.http_client_action:
-            - url: '${cp_url}'
-            - auth_type: anonymous
-            - destination_file: '${file_path}'
-            - content_type: application/octet-stream
-            - method: GET
-        navigate:
-          - SUCCESS: import_and_assign_cp
-          - FAILURE: on_failure
-    - get_temp_file:
-        do:
-          rpa.tools.temp.get_temp_file:
-            - file_name: '${cp_url.split("/")[-1]}'
-        publish:
+          - downloaded_file_path
           - folder_path
-          - file_path
         navigate:
-          - SUCCESS: download_cp
-    - import_and_assign_cp:
+          - SUCCESS: import_cp
+          - FAILURE: on_failure
+    - import_cp:
         do:
-          rpa.designer.rest.content-pack.import_and_assign_cp:
+          rpa.designer.rest.content-pack.import_cp:
             - token: '${token}'
-            - cp_file: '${file_path}'
+            - cp_file: '${downloaded_file_path}'
             - ws_id: '${ws_id}'
         publish:
           - status_json
@@ -83,9 +67,9 @@ flow:
 extensions:
   graph:
     steps:
-      file_path_given:
-        x: 71
-        'y': 97
+      download_file:
+        x: 294
+        'y': 93
       delete:
         x: 499
         'y': 97
@@ -93,12 +77,6 @@ extensions:
           7714f1ec-5857-9e75-199a-0e3bdd3afe85:
             targetId: 86756514-aadf-066b-11e9-81a94bded20b
             port: SUCCESS
-      get_temp_file:
-        x: 310
-        'y': 97
-      import_and_assign_cp:
-        x: 293
-        'y': 329
       is_temp_folder:
         x: 500
         'y': 328
@@ -106,9 +84,9 @@ extensions:
           43bb3a6e-a03e-ef93-b7ce-60d90cc9a90d:
             targetId: 86756514-aadf-066b-11e9-81a94bded20b
             port: 'FALSE'
-      download_cp:
-        x: 73
-        'y': 328
+      import_cp:
+        x: 293
+        'y': 329
     results:
       SUCCESS:
         86756514-aadf-066b-11e9-81a94bded20b:

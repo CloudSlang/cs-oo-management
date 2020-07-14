@@ -1,14 +1,14 @@
 ########################################################################################################################
 #!!
-#! @description: Deletes CP from workspace (does not remove from Designer)
+#! @description: Assigns the given content pack to the given workspace
 #!
 #! @input ws_id: Workspace ID
-#! @input cp_id: CP ID
+#! @input cp_id: Content Pack ID
 #!!#
 ########################################################################################################################
 namespace: rpa.designer.rest.content-pack
 flow:
-  name: delete_cp
+  name: assign_cp
   inputs:
     - token
     - ws_id
@@ -19,14 +19,14 @@ flow:
           rpa.tools.designer_http_action:
             - url: "${'/rest/v0/workspaces/%s/dependencies/%s' % (ws_id, cp_id)}"
             - token: '${token}'
-            - method: DELETE
+            - method: PUT
         publish:
-          - cp_status_json: '${return_result}'
+          - status_json: '${return_result}'
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
   outputs:
-    - cp_status_json: '${cp_status_json}'
+    - status_json: '${status_json}'
   results:
     - FAILURE
     - SUCCESS
@@ -34,14 +34,14 @@ extensions:
   graph:
     steps:
       designer_http_action:
-        x: 66
-        'y': 127
+        x: 109
+        'y': 105
         navigate:
-          0e11deb1-d0a6-1219-16b2-04dfbc17028f:
-            targetId: 07a90d5e-4ee8-1467-a00a-713dee9d461b
+          24ea7c99-af6c-7f02-5f30-88f5d92e440d:
+            targetId: 5336fe52-b5dc-bd54-269d-ee8857a86c5f
             port: SUCCESS
     results:
       SUCCESS:
-        07a90d5e-4ee8-1467-a00a-713dee9d461b:
-          x: 246
-          'y': 126
+        5336fe52-b5dc-bd54-269d-ee8857a86c5f:
+          x: 277
+          'y': 101
