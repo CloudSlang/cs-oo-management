@@ -3,7 +3,9 @@
 #! @description: Imports the GitHub repository but before that, it imports the latest release attached to the repository and also removes this imported CP from the workspace. This was possible binary artifacts (RPA activities) will get updated in the library of binaries.
 #!
 #! @input github_repo: Git Hub repo owner/name of a repo to be imported
-#! @input cp_folder: If given, the downloaded binaries will be stored permanently in this folder (otherwise donwloaded temporarily and removed after import)
+#! @input cp_folder: If given, the downloaded binaries will be stored permanently in this folder (otherwise downloaded temporarily and removed after import)
+#!
+#! @output status_json: JSON of the binaries upload status
 #!!#
 ########################################################################################################################
 namespace: rpa.designer.rest.repository
@@ -13,7 +15,8 @@ flow:
     - token
     - ws_id
     - github_repo
-    - cp_folder
+    - cp_folder:
+        required: false
   workflow:
     - get_repo_details:
         do:
@@ -58,16 +61,6 @@ flow:
 extensions:
   graph:
     steps:
-      unassign_cp:
-        x: 488
-        'y': 84
-        navigate:
-          d3bf7a2b-0dca-21b5-c02c-ac16e93b08d5:
-            targetId: 02a1a501-c474-69f5-d4dd-21bdeaac9ab0
-            port: SUCCESS
-      import_cp_from_url:
-        x: 288
-        'y': 89
       get_repo_details:
         x: 69
         'y': 87
@@ -75,6 +68,16 @@ extensions:
           40880392-fee1-beef-0d2a-5e254cff3170:
             targetId: 4b14184b-3818-93fa-6dff-1c96e3449561
             port: NO_RELEASE
+      import_cp_from_url:
+        x: 288
+        'y': 89
+      unassign_cp:
+        x: 488
+        'y': 84
+        navigate:
+          d3bf7a2b-0dca-21b5-c02c-ac16e93b08d5:
+            targetId: 02a1a501-c474-69f5-d4dd-21bdeaac9ab0
+            port: SUCCESS
     results:
       SUCCESS:
         02a1a501-c474-69f5-d4dd-21bdeaac9ab0:
