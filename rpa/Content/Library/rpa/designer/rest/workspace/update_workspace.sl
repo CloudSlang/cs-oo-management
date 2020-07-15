@@ -4,7 +4,7 @@
 #!
 #! @input cp_folder: If given, the downloaded binaries will be stored permanently in this folder (otherwise downloaded temporarily and removed after import)
 #!
-#! @output process_status: RUNNING, FINISHED
+#! @output process_status: RUNNING, PENDING, FINISHED
 #! @output status_json: JSON of the SCM pull process status
 #! @output binaries_status_json: JSON of the binaries upload status
 #!!#
