@@ -24,8 +24,8 @@ flow:
         publish:
           - repo_json: '${return_result}'
           - repo_pton: "${return_result.replace(\":null\", \":None\").replace(':false', ':False').replace(':true', ':True')}"
-          - clone_url: "${eval(repo_pton)['clone_url']}"
-          - releases_url: "${eval(repo_pton)['releases_url']}"
+          - clone_url: "${eval(repo_pton).get('clone_url','')}"
+          - releases_url: "${eval(repo_pton).get('releases_url','')}"
           - latest_release_url: '${releases_url.replace("{/id}","/latest")}'
         navigate:
           - FAILURE: on_failure
@@ -38,7 +38,7 @@ flow:
         publish:
           - latest_release_json: '${return_result}'
           - latest_release_pton: "${return_result.replace(\":null\", \":None\").replace(':false', ':False').replace(':true', ':True')}"
-          - release_binary_url: "${eval(latest_release_pton)['assets'][0]['browser_download_url']}"
+          - release_binary_url: "${eval(latest_release_pton).get('assets','[{\"browser_download_url\":\"\"}]')[0].get('browser_download_url','')}"
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
@@ -71,6 +71,9 @@ flow:
 extensions:
   graph:
     steps:
+      get_repo_details:
+        x: 59
+        'y': 88
       get_latest_release:
         x: 418
         'y': 287
@@ -78,9 +81,9 @@ extensions:
           1950db13-8e38-cca8-20ff-9c8ec7a0a5c1:
             targetId: 6e1c8a19-e1dc-0d56-63c7-a9598d21819d
             port: SUCCESS
-      get_repo_details:
-        x: 59
-        'y': 88
+      get_releases:
+        x: 227
+        'y': 87
       is_there_release:
         x: 226
         'y': 285
@@ -88,9 +91,6 @@ extensions:
           2ab45646-bfd7-be70-5c34-d861c6778870:
             targetId: ca58a08a-fcfe-6f09-7b70-6d2c4eb1ef84
             port: 'FALSE'
-      get_releases:
-        x: 227
-        'y': 87
     results:
       SUCCESS:
         6e1c8a19-e1dc-0d56-63c7-a9598d21819d:
