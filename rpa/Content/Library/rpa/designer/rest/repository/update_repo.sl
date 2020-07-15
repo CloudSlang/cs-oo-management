@@ -5,7 +5,7 @@
 #! @output process_json: JSON of the SCM pull process
 #! @output process_id: Process ID
 #! @output status_json: JSON of the SCM pull process status
-#! @output process_status: RUNNING, FINISHED
+#! @output process_status: RUNNING, PENDING, FINISHED
 #!!#
 ########################################################################################################################
 namespace: rpa.designer.rest.repository
@@ -45,7 +45,7 @@ flow:
             - second_string: RUNNING
         navigate:
           - SUCCESS: sleep
-          - FAILURE: is_finished
+          - FAILURE: is_pending
     - sleep:
         do:
           io.cloudslang.base.utils.sleep:
@@ -61,6 +61,14 @@ flow:
         navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
+    - is_pending:
+        do:
+          io.cloudslang.base.strings.string_equals:
+            - first_string: '${process_status}'
+            - second_string: PENDING
+        navigate:
+          - SUCCESS: sleep
+          - FAILURE: is_finished
   outputs:
     - process_json: '${process_json}'
     - process_id: '${process_id}'
@@ -91,6 +99,9 @@ extensions:
           a266315a-3926-7d65-5860-b8cf85a57ba1:
             targetId: e5b25c95-1de3-f15b-e0e8-bd170ce61de8
             port: SUCCESS
+      is_pending:
+        x: 273
+        'y': 515
     results:
       SUCCESS:
         e5b25c95-1de3-f15b-e0e8-bd170ce61de8:
