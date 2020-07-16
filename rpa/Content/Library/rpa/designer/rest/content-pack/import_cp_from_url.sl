@@ -55,10 +55,11 @@ flow:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
     - on_failure:
-        - delete_on_failure:
+        - delete_temp_file:
             do:
-              io.cloudslang.base.filesystem.delete:
-                - source: '${folder_path}'
+              rpa.tools.temp.delete_temp_file:
+                - folder_path: '${folder_path}'
+                - file_path: '${downloaded_file_path}'
   outputs:
     - status_json: '${status_json}'
   results:
@@ -70,13 +71,9 @@ extensions:
       download_file:
         x: 294
         'y': 93
-      delete:
-        x: 499
-        'y': 97
-        navigate:
-          7714f1ec-5857-9e75-199a-0e3bdd3afe85:
-            targetId: 86756514-aadf-066b-11e9-81a94bded20b
-            port: SUCCESS
+      import_cp:
+        x: 293
+        'y': 329
       is_temp_folder:
         x: 500
         'y': 328
@@ -84,9 +81,13 @@ extensions:
           43bb3a6e-a03e-ef93-b7ce-60d90cc9a90d:
             targetId: 86756514-aadf-066b-11e9-81a94bded20b
             port: 'FALSE'
-      import_cp:
-        x: 293
-        'y': 329
+      delete:
+        x: 499
+        'y': 97
+        navigate:
+          7714f1ec-5857-9e75-199a-0e3bdd3afe85:
+            targetId: 86756514-aadf-066b-11e9-81a94bded20b
+            port: SUCCESS
     results:
       SUCCESS:
         86756514-aadf-066b-11e9-81a94bded20b:
