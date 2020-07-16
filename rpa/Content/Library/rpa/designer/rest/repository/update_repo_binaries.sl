@@ -39,7 +39,7 @@ flow:
             - file_path: '${cp_folder if cp_folder is None else cp_folder+"/"+release_binary_url.split("/")[-1]}'
         publish:
           - status_json
-          - cp_id: "${eval(status_json)[0]['contentPackId']}"
+          - cp_id: "${eval(status_json)[0].get('contentPackId','') if type(eval(status_json)) is list else ''}"
         navigate:
           - SUCCESS: unassign_cp
           - FAILURE: on_failure
