@@ -3,7 +3,7 @@
 #! @description: Deploys the given Content Pack (but does not assign it to any workspace yet).
 #!
 #! @input cp_file: Full file path to the CP to be imported
-#! @input retries: How many times to retry if import gets into conflict
+#! @input retries: How many times to retry if CP import gets into conflict
 #!
 #! @output process_status: FINISHED, RUNNING
 #!!#
@@ -15,7 +15,7 @@ flow:
     - token
     - cp_file
     - retries:
-        default: '10'
+        default: '20'
         private: true
   workflow:
     - init_process:
@@ -107,14 +107,19 @@ flow:
     - shall_retry:
         do:
           io.cloudslang.base.utils.is_true:
-            - bool_value: 'str(int(retries) > 0)'
+            - bool_value: '${str(int(retries) > 0)}'
+            - retries: '${retries}'
+        publish:
+          - retries: '${str(int(retries)-1)}'
         navigate:
           - 'TRUE': sleep_retry
+          - 'FALSE': FAILURE
     - sleep_retry:
         do:
           io.cloudslang.base.utils.sleep:
-            - seconds: "${get_sp('wait_time')}"
+            - seconds: "${str(int(get_sp('wait_time')) * 2)}"
         navigate:
+          - SUCCESS: import_file
           - FAILURE: on_failure
   outputs:
     - status_json: '${status_json}'
@@ -159,6 +164,10 @@ extensions:
       shall_retry:
         x: 274
         'y': 668
+        navigate:
+          653222d7-c7df-1b08-5eb0-22cc975c8640:
+            targetId: dcd369bd-bfcf-24f8-55ba-aae0c835b9b7
+            port: 'FALSE'
       import_file:
         x: 66
         'y': 473
@@ -181,8 +190,8 @@ extensions:
           x: 655
           'y': 282
         dcd369bd-bfcf-24f8-55ba-aae0c835b9b7:
-          x: 143
-          'y': 765
+          x: 269
+          'y': 847
       SUCCESS:
         f696bea6-ac0f-bce0-95b0-ddd5910e644f:
           x: 646
