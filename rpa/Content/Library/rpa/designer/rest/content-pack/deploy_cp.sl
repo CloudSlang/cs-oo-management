@@ -3,6 +3,7 @@
 #! @description: Deploys the given Content Pack (but does not assign it to any workspace yet).
 #!
 #! @input cp_file: Full file path to the CP to be imported
+#! @input retries: How many times to retry if import gets into conflict
 #!
 #! @output process_status: FINISHED, RUNNING
 #!!#
@@ -13,6 +14,9 @@ flow:
   inputs:
     - token
     - cp_file
+    - retries:
+        default: '10'
+        private: true
   workflow:
     - init_process:
         do:
@@ -76,8 +80,10 @@ flow:
             - token: '${token}'
             - method: PUT
             - verify_result: nothing
+        publish:
+          - status_code
         navigate:
-          - FAILURE: on_failure
+          - FAILURE: is_conflict_import
           - SUCCESS: get_process_status
     - get_process_status:
         do:
@@ -90,6 +96,26 @@ flow:
         navigate:
           - FAILURE: on_failure
           - SUCCESS: is_running
+    - is_conflict_import:
+        do:
+          io.cloudslang.base.strings.string_equals:
+            - first_string: '${status_code}'
+            - second_string: '409'
+        navigate:
+          - SUCCESS: shall_retry
+          - FAILURE: FAILURE
+    - shall_retry:
+        do:
+          io.cloudslang.base.utils.is_true:
+            - bool_value: 'str(int(retries) > 0)'
+        navigate:
+          - 'TRUE': sleep_retry
+    - sleep_retry:
+        do:
+          io.cloudslang.base.utils.sleep:
+            - seconds: "${get_sp('wait_time')}"
+        navigate:
+          - FAILURE: on_failure
   outputs:
     - status_json: '${status_json}'
     - process_json: '${process_json}'
@@ -104,6 +130,16 @@ extensions:
       init_process:
         x: 67
         'y': 88
+      sleep_retry:
+        x: 469
+        'y': 672
+      is_conflict:
+        x: 268
+        'y': 278
+        navigate:
+          77e9f96d-dc65-8b88-db51-54f9f664ae54:
+            targetId: ec94d070-3671-b85d-bb3e-86645be5203e
+            port: SUCCESS
       is_finished:
         x: 480
         'y': 90
@@ -117,30 +153,36 @@ extensions:
       is_running:
         x: 478
         'y': 283
-      sleep:
-        x: 482
-        'y': 474
-      is_conflict:
-        x: 268
-        'y': 278
-        navigate:
-          77e9f96d-dc65-8b88-db51-54f9f664ae54:
-            targetId: ec94d070-3671-b85d-bb3e-86645be5203e
-            port: SUCCESS
-      upload_file:
-        x: 67
-        'y': 281
-      import_file:
-        x: 66
-        'y': 473
       get_process_status:
         x: 272
         'y': 475
+      shall_retry:
+        x: 274
+        'y': 668
+      import_file:
+        x: 66
+        'y': 473
+      sleep:
+        x: 482
+        'y': 474
+      upload_file:
+        x: 67
+        'y': 281
+      is_conflict_import:
+        x: 63
+        'y': 663
+        navigate:
+          e9df5533-325a-97e9-0f3c-a5a209a5b51b:
+            targetId: dcd369bd-bfcf-24f8-55ba-aae0c835b9b7
+            port: FAILURE
     results:
       FAILURE:
         d3b8300d-e188-c416-ef28-1e39ad7b01ca:
           x: 655
           'y': 282
+        dcd369bd-bfcf-24f8-55ba-aae0c835b9b7:
+          x: 143
+          'y': 765
       SUCCESS:
         f696bea6-ac0f-bce0-95b0-ddd5910e644f:
           x: 646
