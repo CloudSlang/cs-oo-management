@@ -4,7 +4,6 @@
 #!
 #! @input ws_id: Workspace ID
 #! @input scm_url: Repository URL
-#! @input status_wait_time: How much time to wait between two sub-sequent get upload file process status calls.
 #!
 #! @output status_json: JSON doc describing the status of the import
 #! @output host_json: JSON doc describing the status of registering the host
@@ -17,9 +16,6 @@ flow:
     - token
     - ws_id
     - scm_url
-    - status_wait_time:
-        default: '5'
-        required: false
   workflow:
     - register_scm:
         do:
@@ -98,7 +94,7 @@ flow:
     - sleep:
         do:
           io.cloudslang.base.utils.sleep:
-            - seconds: "${get('status_wait_time', '5')}"
+            - seconds: "${get_sp('wait_time')}"
         navigate:
           - SUCCESS: get_process_status
           - FAILURE: on_failure

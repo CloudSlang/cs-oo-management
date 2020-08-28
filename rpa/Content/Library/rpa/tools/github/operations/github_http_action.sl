@@ -1,9 +1,17 @@
+########################################################################################################################
+#!!
+#! @input retries: How many times to retry when API call fails
+#!!#
+########################################################################################################################
 namespace: rpa.tools.github.operations
 flow:
   name: github_http_action
   inputs:
     - url
     - method
+    - retries:
+        default: '10'
+        private: true
   workflow:
     - http_client_action:
         do:
@@ -27,8 +35,8 @@ flow:
     - status_code: '${status_code}'
     - return_code: '${return_code}'
   results:
-    - FAILURE
     - SUCCESS
+    - FAILURE
 extensions:
   graph:
     steps:
@@ -42,5 +50,5 @@ extensions:
     results:
       SUCCESS:
         66aec9a2-43df-575e-f00b-3d863c982988:
-          x: 286
-          'y': 108
+          x: 288
+          'y': 112

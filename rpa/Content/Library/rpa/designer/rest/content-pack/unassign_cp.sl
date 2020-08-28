@@ -1,32 +1,32 @@
 ########################################################################################################################
 #!!
-#! @output status_code: 409 = the file is already imported
+#! @description: Unassigns CP from workspace (does not remove from Designer)
+#!
+#! @input ws_id: Workspace ID
+#! @input cp_id: CP ID
 #!!#
 ########################################################################################################################
-namespace: rpa.designer.rest.dependency.sub_flows
+namespace: rpa.designer.rest.content-pack
 flow:
-  name: upload_file
+  name: unassign_cp
   inputs:
     - token
-    - process_id
-    - cp_file
+    - ws_id
+    - cp_id
   workflow:
     - designer_http_action:
         do:
           rpa.tools.designer_http_action:
-            - url: "${'/rest/v0/imports/%s/files' % process_id}"
+            - url: "${'/rest/v0/workspaces/%s/dependencies/%s' % (ws_id, cp_id)}"
             - token: '${token}'
-            - method: POST
-            - file: "${'content_pack=%s' % cp_file}"
+            - method: DELETE
         publish:
-          - status_json: '${return_result}'
-          - status_code
+          - cp_status_json: '${return_result}'
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
   outputs:
-    - status_json: '${status_json}'
-    - status_code: '${status_code}'
+    - cp_status_json: '${cp_status_json}'
   results:
     - FAILURE
     - SUCCESS
@@ -34,14 +34,14 @@ extensions:
   graph:
     steps:
       designer_http_action:
-        x: 102
-        'y': 123
+        x: 66
+        'y': 127
         navigate:
-          fcbcc589-1735-b1f0-87ac-67b3a8380b09:
-            targetId: 4681c1cb-32dd-92c1-2adf-9693f944fcb5
+          0e11deb1-d0a6-1219-16b2-04dfbc17028f:
+            targetId: 07a90d5e-4ee8-1467-a00a-713dee9d461b
             port: SUCCESS
     results:
       SUCCESS:
-        4681c1cb-32dd-92c1-2adf-9693f944fcb5:
-          x: 304
-          'y': 125
+        07a90d5e-4ee8-1467-a00a-713dee9d461b:
+          x: 246
+          'y': 126

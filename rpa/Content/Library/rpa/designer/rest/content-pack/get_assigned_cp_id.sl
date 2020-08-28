@@ -1,57 +1,56 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves ID of the SCM repository
+#! @description: Retrieves the ID of the given deployed Content Pack assigned to the given Workspace
 #!
-#! @input ws_id: Workspace ID
-#! @input scm_url: Repository URL
+#! @input cp_name: Content Pack Name
 #!!#
 ########################################################################################################################
-namespace: rpa.designer.rest.repository
+namespace: rpa.designer.rest.content-pack
 flow:
-  name: get_repo_id
+  name: get_assigned_cp_id
   inputs:
     - ws_id
-    - scm_url
+    - cp_name
   workflow:
-    - get_repos:
+    - get_assigned_cps:
         do:
-          rpa.designer.rest.repository.get_repos:
+          rpa.designer.rest.content-pack.get_assigned_cps:
             - ws_id: '${ws_id}'
         publish:
-          - repos_json
+          - cps_json
         navigate:
           - FAILURE: on_failure
           - SUCCESS: json_path_query
     - json_path_query:
         do:
           io.cloudslang.base.json.json_path_query:
-            - json_object: '${repos_json}'
-            - json_path: "${\"$[?(@.scmURL == '%s')].id\" % scm_url}"
+            - json_object: '${cps_json}'
+            - json_path: "${\"$[?(@.text == '%s')].id\" % cp_name}"
         publish:
-          - repo_id: '${return_result[2:-2]}'
+          - cp_id: '${return_result[2:-2]}'
         navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
   outputs:
-    - repo_id: '${repo_id}'
+    - cp_id: '${cp_id}'
   results:
     - FAILURE
     - SUCCESS
 extensions:
   graph:
     steps:
-      get_repos:
-        x: 78
-        'y': 112
+      get_assigned_cps:
+        x: 64
+        'y': 102
       json_path_query:
-        x: 241
-        'y': 118
+        x: 226
+        'y': 94
         navigate:
-          88b92cc1-72ba-4d93-0b3c-027b0eeed792:
-            targetId: 85d1b658-7041-150a-8f47-cbf069af59e4
+          dd380262-0ded-3dbe-a7b6-740b889b6cf7:
+            targetId: 6fd45005-29fc-7f4b-59ff-5dd04c464998
             port: SUCCESS
     results:
       SUCCESS:
-        85d1b658-7041-150a-8f47-cbf069af59e4:
-          x: 403
-          'y': 116
+        6fd45005-29fc-7f4b-59ff-5dd04c464998:
+          x: 402
+          'y': 94
