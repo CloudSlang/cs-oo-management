@@ -15,7 +15,7 @@ flow:
   workflow:
     - get_cp_properties:
         do:
-          rpa.tools.content_pack.get_cp_properties:
+          io.cloudslang.base.utils.get_cp_properties:
             - cp_file: '${cp_file}'
         publish:
           - file_cp_version: '${cp_version}'
@@ -43,7 +43,7 @@ flow:
           - FAILURE: import_cp
     - import_cp:
         do:
-          rpa.central.rest.content-pack.import_cp:
+          io.cloudslang.microfocus.rpa.central.content-pack.import_cp:
             - cp_file: '${cp_file}'
         publish:
           - status_json

@@ -16,7 +16,7 @@ flow:
   workflow:
     - get_repo_details:
         do:
-          rpa.tools.github.get_repo_details:
+          io.cloudslang.base.github.get_repo_details:
             - owner: "${github_repo.split('/')[0]}"
             - repo: "${github_repo.split('/')[1]}"
             - update_binaries: '${update_binaries}'
