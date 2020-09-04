@@ -1,8 +1,11 @@
 ########################################################################################################################
 #!!
-#! @description: Gets the group ID.
+#! @description: Receives the group ID.
 #!
 #! @input org_id: Organization ID the group belongs to.
+#! @input group_name: The group name to be retrieved
+#!
+#! @output group_id: ID of the group
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.group

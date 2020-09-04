@@ -1,9 +1,14 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves ID and other properties of the SCM repository (of index 0; one SCM per one Workspace)
+#! @description: Receives ID and other properties of the SCM repository (of index 0; one SCM per one Workspace)
 #!
 #! @input ws_id: Workspace ID
 #! @input repo_index: Which repository in Workspace to take
+#!
+#! @output repo_id: SCM repository ID
+#! @output scm_url: SCM repository URL
+#! @output repo_owner: SCM repository owner (penultimate part of SCM URL)
+#! @output repo_name: SCM repository name (trailing part of SCM URL)
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.repository
@@ -53,4 +58,3 @@ extensions:
         85d1b658-7041-150a-8f47-cbf069af59e4:
           x: 321
           'y': 114
-

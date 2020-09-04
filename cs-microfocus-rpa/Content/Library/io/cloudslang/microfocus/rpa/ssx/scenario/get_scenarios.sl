@@ -1,6 +1,8 @@
 ########################################################################################################################
 #!!
-#! @description: Gets all SSX scenarios.
+#! @description: Receives all existing SSX scenarios.
+#!
+#! @output scenarios_json: JSON document listing all scenarios
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.ssx.scenario

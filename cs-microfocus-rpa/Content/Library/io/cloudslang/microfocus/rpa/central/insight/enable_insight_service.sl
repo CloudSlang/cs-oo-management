@@ -1,6 +1,8 @@
 ########################################################################################################################
 #!!
-#! @description: Enables insight service.
+#! @description: Enables/disables insight service.
+#!
+#! @input enable: If true, the service will be enabled; if false, the service will be disabled.
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.central.insight

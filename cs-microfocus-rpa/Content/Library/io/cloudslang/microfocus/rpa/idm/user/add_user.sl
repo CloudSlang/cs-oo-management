@@ -5,6 +5,9 @@
 #! @input username: User to be added.
 #! @input password: Password of the user.
 #! @input org_id: Under which organization should be the user added.
+#!
+#! @output user_json: JSON document describing the user
+#! @output error_message: Error message in case of operation failure
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.user
@@ -40,7 +43,7 @@ extensions:
     steps:
       idm_http_action:
         x: 91
-        'y': 139
+        'y': 126
         navigate:
           47025878-684f-aaec-6ff9-f15ef528238b:
             targetId: 830d3d5a-c217-a98b-b874-9ca722df512f

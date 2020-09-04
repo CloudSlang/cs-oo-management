@@ -1,8 +1,11 @@
 ########################################################################################################################
 #!!
-#! @description: Gets the group json.
+#! @description: Receives group details.
 #!
 #! @input org_id: Organization ID the group belongs to.
+#! @input group_name: The group name to be retrieved
+#!
+#! @output group_json: JSON document describing the group
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.group
@@ -45,8 +48,8 @@ extensions:
         x: 66
         'y': 120
       json_path_query:
-        x: 221
-        'y': 116
+        x: 222
+        'y': 120
         navigate:
           fa893f72-24cd-77da-7f39-7113bd303c24:
             targetId: 23abcc90-f29e-69b6-9dd3-c3e49052f211
@@ -55,4 +58,4 @@ extensions:
       SUCCESS:
         23abcc90-f29e-69b6-9dd3-c3e49052f211:
           x: 379
-          'y': 123
+          'y': 119

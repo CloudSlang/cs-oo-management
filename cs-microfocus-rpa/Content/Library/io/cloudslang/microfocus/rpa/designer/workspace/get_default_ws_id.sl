@@ -1,6 +1,8 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves default workspace ID.
+#! @description: Receives workspace ID; currently, only Default_Workspace is supported.
+#!
+#! @input ws_name: Workspace name; currently, only Default_Workspace is supported
 #!
 #! @output ws_id: Workspace ID
 #!!#
@@ -8,6 +10,8 @@
 namespace: io.cloudslang.microfocus.rpa.designer.workspace
 flow:
   name: get_default_ws_id
+  inputs:
+    - ws_name: Default_Workspace
   workflow:
     - get_workspaces:
         do:
@@ -21,7 +25,7 @@ flow:
         do:
           io.cloudslang.base.json.json_path_query:
             - json_object: '${workspaces_json}'
-            - json_path: '$[?(@.name == "Default_Workspace")].id'
+            - json_path: "${'$[?(@.name == \"%s\")].id' % ws_name}"
         publish:
           - ws_id: '${return_result[2:-2]}'
         navigate:

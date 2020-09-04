@@ -5,8 +5,8 @@
 #! @input ws_id: Workspace ID
 #! @input scm_url: Repository URL
 #!
-#! @output status_json: JSON doc describing the status of the import
-#! @output host_json: JSON doc describing the status of registering the host
+#! @output status_json: JSON document describing the status of the import
+#! @output host_json: JSON document describing the status of registering the host
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.repository

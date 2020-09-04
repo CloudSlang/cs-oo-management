@@ -4,7 +4,10 @@
 #!
 #! @input username: User to be updated.
 #! @input password: Password of the user.
-#! @input org_id: Under which organization should be the user updated.
+#! @input org_id: ID of the organization the user belongs to
+#!
+#! @output password_json: JSON document describing the password change
+#! @output error_message: Error message in case of operation failure
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.user
@@ -30,7 +33,7 @@ flow:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
   outputs:
-    - password_json: password_json
+    - password_json: '${password_json}'
     - error_message: '${error_message}'
   results:
     - FAILURE

@@ -1,6 +1,9 @@
 ########################################################################################################################
 #!!
 #! @description: Sets the IDM configuration property.
+#!
+#! @input property_name: IDM property name
+#! @input property_value: IDM property value
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.configuration

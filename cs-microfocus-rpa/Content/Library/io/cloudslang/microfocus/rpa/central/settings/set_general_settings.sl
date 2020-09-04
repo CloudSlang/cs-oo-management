@@ -4,6 +4,8 @@
 #!
 #! @input settings: List of settings to be changed
 #! @input values: List of value of changed settings
+#!
+#! @output settings_json: JSON document describing the new settings
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.central.settings

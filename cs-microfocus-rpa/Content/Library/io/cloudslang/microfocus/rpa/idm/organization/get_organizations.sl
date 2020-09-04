@@ -1,6 +1,8 @@
 ########################################################################################################################
 #!!
 #! @description: Receives all organizations.
+#!
+#! @output organizations_json: JSON document listing all existing organizations
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.organization

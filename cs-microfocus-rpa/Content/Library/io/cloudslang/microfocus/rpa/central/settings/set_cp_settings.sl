@@ -4,6 +4,8 @@
 #!
 #! @input settings: List of settings to be changed
 #! @input values: List of value of changed settings
+#!
+#! @output settings_json: JSON document describing the new settings
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.central.settings
@@ -50,9 +52,9 @@ flow:
 extensions:
   graph:
     steps:
-      set_json_properties:
-        x: 245
-        'y': 87
+      get_cp_settings:
+        x: 79
+        'y': 92
       central_http_action:
         x: 408
         'y': 90
@@ -60,9 +62,9 @@ extensions:
           5edf02c6-ae29-10d7-cac2-15de9a10a702:
             targetId: 758cfec6-ce01-09da-81b8-ff6bfe5c6032
             port: SUCCESS
-      get_cp_settings:
-        x: 79
-        'y': 92
+      set_json_properties:
+        x: 245
+        'y': 87
     results:
       SUCCESS:
         758cfec6-ce01-09da-81b8-ff6bfe5c6032:

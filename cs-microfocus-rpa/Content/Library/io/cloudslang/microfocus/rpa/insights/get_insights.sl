@@ -1,6 +1,10 @@
 ########################################################################################################################
 #!!
-#! @description: Gets Insights service details - insights, statuses and flows.
+#! @description: Receives Insights service details - insights, statuses and flows.
+#!
+#! @output insights_json: JSON document describing the insights service
+#! @output statuses_json: JSON document describing the statuses
+#! @output flows_json: JSON document describing the flows
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.insights

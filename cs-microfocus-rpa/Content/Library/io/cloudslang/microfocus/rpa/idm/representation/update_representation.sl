@@ -1,11 +1,13 @@
 ########################################################################################################################
 #!!
-#! @description: Updates the representation (group rule) using the provided json.
+#! @description: Updates the representation (group rule) using the provided JSON document.
 #!
 #! @input org_id: Organization ID the representation belongs to.
 #! @input group_id: Group ID the representation belongs to.
 #! @input repre_id: Representation ID
-#! @input repre_json: New content of the representation
+#! @input repre_json: JSON document describing the new representation
+#!
+#! @output new_repre_json: JSON document describing the updated representation
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.representation

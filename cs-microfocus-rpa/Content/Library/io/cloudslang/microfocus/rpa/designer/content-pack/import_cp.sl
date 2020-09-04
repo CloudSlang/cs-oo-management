@@ -5,6 +5,8 @@
 #!
 #! @input cp_file: Path to CP to be deployed
 #! @input ws_id: If given, the imported CP will be also assigned to the given WS
+#!
+#! @output status_json: JSON document describing the status of the file upload
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.content-pack

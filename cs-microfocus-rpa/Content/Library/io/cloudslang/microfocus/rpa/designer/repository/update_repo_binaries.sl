@@ -1,11 +1,16 @@
 ########################################################################################################################
 #!!
-#! @description: Imports the GitHub repository but before that, it imports the latest release attached to the repository and also removes this imported CP from the workspace. This was possible binary artifacts (RPA activities) will get updated in the library of binaries.
+#! @description: Downloads binaries (content pack) attached to the SCM repository latest release, deploys it to Designer and assigns it to the given workspace. Finally it unassigns the binaries from the workspace.
+#!               As a consequence, all binary artifacts (RPA activities) present in the content pack, will be updated in the Designer's library of binaries.
+#!               
 #!
+#! @input ws_id: Workspace ID
 #! @input github_repo: Git Hub repo owner/name of a repo to be imported
 #! @input cp_folder: If given, the downloaded binaries will be stored permanently in this folder (otherwise downloaded temporarily and removed after import)
 #!
 #! @output status_json: JSON of the binaries upload status
+#!
+#! @result NO_BINARIES: If no binaries attached to the last release of the repository
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.repository

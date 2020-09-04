@@ -1,6 +1,8 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves the list of deployed content packs
+#! @description: Receives the list of deployed content packs
+#!
+#! @output cps_json: JSON document describing the list of deployed CPs
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.central.content-pack

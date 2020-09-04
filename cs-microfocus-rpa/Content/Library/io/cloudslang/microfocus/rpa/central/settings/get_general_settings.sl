@@ -1,6 +1,8 @@
 ########################################################################################################################
 #!!
 #! @description: Receives general settings.
+#!
+#! @output settings_json: JSON document describing the settings
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.central.settings

@@ -1,8 +1,11 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves the ID of the given deployed Content Pack assigned to the given Workspace
+#! @description: Receives the ID of the given deployed Content Pack assigned to the given Workspace
 #!
+#! @input ws_id: Workspace ID
 #! @input cp_name: Content Pack Name
+#!
+#! @output cp_id: Content Pack ID
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.content-pack
@@ -41,7 +44,7 @@ extensions:
     steps:
       get_assigned_cps:
         x: 64
-        'y': 102
+        'y': 98
       json_path_query:
         x: 226
         'y': 94

@@ -1,6 +1,9 @@
 ########################################################################################################################
 #!!
-#! @description: Sets the IDM configuration property.
+#! @description: Sends an HTTP request against IDM  REST API endpoint.
+#!
+#! @input method: GET, POST, PUT, DELETE, HEAD
+#! @input body: Request body to be sent
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm._operations
@@ -36,8 +39,8 @@ flow:
           - FAILURE: on_failure
   outputs:
     - return_result: '${return_result}'
-    - error_message: '${error_message}'
     - response_headers: '${response_headers}'
+    - error_message: '${error_message}'
     - status_code: '${status_code}'
   results:
     - FAILURE

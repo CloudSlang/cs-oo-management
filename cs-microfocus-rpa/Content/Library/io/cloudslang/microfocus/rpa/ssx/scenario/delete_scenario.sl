@@ -1,8 +1,8 @@
 ########################################################################################################################
 #!!
-#! @description: Deletes the given scenario.
+#! @description: Removes the given scenario.
 #!
-#! @input id: Scenario ID
+#! @input id: ID of the scenario to be removed
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.ssx.scenario
@@ -28,8 +28,8 @@ extensions:
   graph:
     steps:
       ssx_http_action:
-        x: 104
-        'y': 146
+        x: 101
+        'y': 128
         navigate:
           8f07b9f0-0243-66d9-db83-e081b846a077:
             targetId: 7ab215ed-40a2-6cd8-949a-23c9aa01981d

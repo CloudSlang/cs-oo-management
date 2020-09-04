@@ -1,13 +1,17 @@
 ########################################################################################################################
 #!!
-#! @description: Returns flows and folders under the given path.
+#! @description: Receives flows and folders under the given path.
+#!
+#! @input path: Path to a folder where to take the flows from (starting with Library/...)
+#!
+#! @output flows_json: JSON document describing the retrieved flows
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.central.library
 flow:
   name: get_flows
   inputs:
-    - path: Library/Micro Focus/Misc
+    - path
   workflow:
     - url_encoder:
         do:

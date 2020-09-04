@@ -1,8 +1,10 @@
 ########################################################################################################################
 #!!
-#! @description: Receives the policy ID.
+#! @description: Receives an ID of the organization policy.
 #!
 #! @input org_id: Organization ID the policy belongs to.
+#!
+#! @output policy_id: Policy ID of the organization
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.policy
@@ -42,7 +44,7 @@ extensions:
     steps:
       get_policies:
         x: 58
-        'y': 129
+        'y': 120
       json_path_query:
         x: 219
         'y': 117
@@ -53,5 +55,5 @@ extensions:
     results:
       SUCCESS:
         23abcc90-f29e-69b6-9dd3-c3e49052f211:
-          x: 355
-          'y': 116
+          x: 375
+          'y': 119

@@ -1,10 +1,10 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves all repositories in the given workspace.
+#! @description: Receives all SCM repositories in the given workspace.
 #!
 #! @input ws_id: Workspace ID
 #!
-#! @output repos_json: JSON doc with all the repositories
+#! @output repos_json: JSON document with all SCM repositories
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.repository

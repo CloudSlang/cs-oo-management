@@ -4,7 +4,9 @@
 #!
 #! @input token: X-CSRF-TOKEN obtained from get_token flow
 #! @input id: ID of the category to be updated
-#! @input category_json: The new content of the category
+#! @input category_json: JSON document describing the new content of the category
+#!
+#! @output new_category_json: JSON document describing the new content of the category
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.ssx.category

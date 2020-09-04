@@ -1,6 +1,11 @@
 ########################################################################################################################
 #!!
-#! @description: Get flow executions.
+#! @description: Receives the list of flow executions.
+#!
+#! @input page_size: How many flows to retrieve
+#! @input page_num: How many pages to skip
+#!
+#! @output executions_json: List of flow runs
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.central.execution

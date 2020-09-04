@@ -1,8 +1,10 @@
 ########################################################################################################################
 #!!
-#! @description: Gets all groups belonging to the organization.
+#! @description: Receives all groups belonging to the organization.
 #!
 #! @input org_id: Organization ID the groups belong to.
+#!
+#! @output groups_json: JSON document listing all the organization groups
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.group

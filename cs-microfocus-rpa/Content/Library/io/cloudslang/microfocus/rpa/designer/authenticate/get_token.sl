@@ -1,6 +1,6 @@
 ########################################################################################################################
 #!!
-#! @description: Authenticates to RPA Designer and returns the X-CSRF-TOKEN. This token is not required for read-only (HTTP GET) operations.
+#! @description: Authenticates to RPA Designer and receives the X-CSRF-TOKEN. This token is not required for read-only (HTTP GET) operations.
 #!               To authenticate, one needs to execute two dummy HTTP REST API calls; second call then generates the X-CSRF-TOKEN.
 #!               One can provide optional Workspace user's credentials (if not provided, the RPA admin credentials are used).
 #!

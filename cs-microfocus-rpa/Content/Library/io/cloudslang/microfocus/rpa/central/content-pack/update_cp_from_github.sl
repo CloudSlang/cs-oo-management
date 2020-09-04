@@ -1,9 +1,19 @@
 ########################################################################################################################
 #!!
-#! @description: Imports the GitHub repository but before that, it imports the latest release attached to the repository and also removes this imported CP from the workspace. This was possible binary artifacts (RPA activities) will get updated in the library of binaries.
+#! @description: Updates the content pack (based on the CP name in the binaries attached to the latest release of the GitHub repository) in Central if different than the one already deployed in Central.
 #!
 #! @input github_repo: Git Hub repo owner/name of a repo to be imported
 #! @input cp_folder: If given, the downloaded binaries will be stored permanently in this folder (otherwise donwloaded temporarily and removed after import)
+#!
+#! @output status_json: File upload status
+#! @output cp_name: Content pack name
+#! @output cp_version: Version which got deployed from the file
+#! @output updated: true/false if the CP got deployed (updated) or not
+#!
+#! @result FAILURE: Failure when deploying the CP
+#! @result NOTHING_TO_UPDATE: No CP found (no release found or no binaries attached)
+#! @result ALREADY_DEPLOYED: The found CP has been already deployed
+#! @result SUCCESS: The CP got deployed successfully
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.central.content-pack
@@ -67,6 +77,13 @@ extensions:
           30c4dec1-76ee-f461-6214-c5bd0149cc3a:
             targetId: 68b89844-8a5b-103f-ef0f-af7dba3b322e
             port: NO_RELEASE
+      is_binaries_available:
+        x: 68
+        'y': 300
+        navigate:
+          0384311c-cc73-620d-09ad-cb590c0e2dd4:
+            targetId: 68b89844-8a5b-103f-ef0f-af7dba3b322e
+            port: 'FALSE'
       update_cp_from_url:
         x: 362
         'y': 301
@@ -77,13 +94,6 @@ extensions:
           0865c65e-3595-5dbc-e693-5331dd8a19d3:
             targetId: 108cb675-6ca2-3caf-9d00-ab8265ca068c
             port: SUCCESS
-      is_binaries_available:
-        x: 68
-        'y': 300
-        navigate:
-          0384311c-cc73-620d-09ad-cb590c0e2dd4:
-            targetId: 68b89844-8a5b-103f-ef0f-af7dba3b322e
-            port: 'FALSE'
     results:
       NOTHING_TO_UPDATE:
         68b89844-8a5b-103f-ef0f-af7dba3b322e:

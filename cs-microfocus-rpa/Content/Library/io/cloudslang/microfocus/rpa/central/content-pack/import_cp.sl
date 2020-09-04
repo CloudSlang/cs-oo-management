@@ -1,8 +1,8 @@
 ########################################################################################################################
 #!!
-#! @description: Imports the given content pack into OO Central
+#! @description: Imports the given content pack from the file into OO/RPA Central
 #!
-#! @input cp_file: CP file
+#! @input cp_file: The content pack to be imported
 #!
 #! @output status_json: File upload status
 #! @output process_json: Last process status

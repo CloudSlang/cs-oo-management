@@ -1,6 +1,8 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves all deployed Content Packs (in whole Designer instance)
+#! @description: Receives all deployed Content Packs (in the whole Designer instance)
+#!
+#! @output cps_json: JSON document describing all deployed content packs
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.content-pack

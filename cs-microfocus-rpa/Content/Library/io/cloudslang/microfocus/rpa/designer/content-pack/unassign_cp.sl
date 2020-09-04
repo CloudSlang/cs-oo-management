@@ -1,9 +1,11 @@
 ########################################################################################################################
 #!!
-#! @description: Unassigns CP from workspace (does not remove from Designer)
+#! @description: Unassigns a content pack from workspace (does not remove it from Designer)
 #!
 #! @input ws_id: Workspace ID
-#! @input cp_id: CP ID
+#! @input cp_id: Content Pack ID
+#!
+#! @output status_json: JSON document describing the status of the operation
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.content-pack
@@ -21,12 +23,12 @@ flow:
             - token: '${token}'
             - method: DELETE
         publish:
-          - cp_status_json: '${return_result}'
+          - status_json: '${return_result}'
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
   outputs:
-    - cp_status_json: '${cp_status_json}'
+    - status_json: '${status_json}'
   results:
     - FAILURE
     - SUCCESS

@@ -1,8 +1,10 @@
 ########################################################################################################################
 #!!
-#! @description: Adds an SSX category.
+#! @description: Receives a category by its ID.
 #!
-#! @input token: X-CSRF-TOKEN obtained from get_token flow
+#! @input id: ID of the category to be received
+#!
+#! @output category_json: JSON document describing the category
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.ssx.category

@@ -1,6 +1,8 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves all workspaces
+#! @description: Receives all workspaces
+#!
+#! @output workspaces_json: JSON document describing all user's workspaces
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.workspace

@@ -1,6 +1,9 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves the user details or fails if it does not exist.
+#! @description: Receives details of the given user or fails if the user does not exist.
+#!
+#! @input username_or_id: Name or ID of the user to be received
+#! @input org_id: ID of the organization the user belongs to
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.user

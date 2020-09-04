@@ -1,10 +1,20 @@
 ########################################################################################################################
 #!!
-#! @description: Updates CP in Central if different than there is deployed in Central.
+#! @description: Updates the content pack (based on the CP name in the given file) in Central if different than the one already deployed in Central.
 #!
+#! @input cp_file: The content pack to be imported
+#!
+#! @output status_json: File upload status
+#! @output process_json: Last process status
+#! @output process_status: FINISHED if imported fine
+#! @output cp_name: Content pack name
 #! @output cp_version: Version which got deployed from the file
 #! @output original_cp_version: Version of the orginally deployed CP
 #! @output updated: true/false if the CP got deployed (updated) or not
+#!
+#! @result FAILURE: Failure when deploying the CP
+#! @result SUCCESS: The CP got deployed successfully
+#! @result ALREADY_DEPLOYED: The found CP has been already deployed
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.central.content-pack

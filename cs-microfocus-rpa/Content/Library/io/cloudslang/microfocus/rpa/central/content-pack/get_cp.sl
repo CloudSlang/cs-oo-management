@@ -1,6 +1,8 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves CP details based on the CP name. It returns empty cp_id and cp_version if no CP found.
+#! @description: Receives content pack details based on the CP name. It returns empty cp_id and cp_version if no CP with the given name found.
+#!
+#! @input cp_name: CP name to be found
 #!
 #! @output cp_json: [] if no CP found
 #! @output cp_id: Empty if no CP found

@@ -1,10 +1,12 @@
 ########################################################################################################################
 #!!
-#! @description: Deploys the given Content Pack (but does not assign it to any workspace yet).
+#! @description: Deploys the given Content Pack but does not assign it to any workspace yet.
 #!
 #! @input cp_file: Full file path to the CP to be imported
 #! @input retries: How many times to retry if CP import gets into conflict
 #!
+#! @output status_json: JSON document describing the status of the file upload
+#! @output process_json: JSON document describing the status of the file import
 #! @output process_status: FINISHED, RUNNING
 #!!#
 ########################################################################################################################

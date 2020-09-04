@@ -1,6 +1,6 @@
 ########################################################################################################################
 #!!
-#! @description: Gets X-CSRF-TOKEN. This token needs to be sent along with requests against SSX REST API endpoints.
+#! @description: Receives X-CSRF-TOKEN. This token needs to be sent along with requests against SSX REST API endpoints.
 #!
 #! @output token: X-CSRF-TOKEN
 #!!#

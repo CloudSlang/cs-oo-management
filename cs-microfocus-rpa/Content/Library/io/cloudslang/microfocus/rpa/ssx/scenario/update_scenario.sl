@@ -1,10 +1,10 @@
 ########################################################################################################################
 #!!
-#! @description: Updates an existing SSX scenario. 
+#! @description: Updates an existing SSX scenario.
 #!
 #! @input id: ID of a scenario to be updated
 #! @input category_id: Under which category to place the scenario
-#! @input scenario_json: JSON doc fully describing the scenario (including all flow inputs). On category ID, %s needs to be placed.
+#! @input scenario_json: JSON document describing the scenario (including all flow inputs). On category ID, %s needs to be placed.
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.ssx.scenario

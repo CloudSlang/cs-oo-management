@@ -1,8 +1,11 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves a list of users that matches the searchText input
+#! @description: Receives a list of users that matches the searchText input
 #!
-#! @input searchText: Filter users
+#! @input searchText: Filter users (e.g. user name)
+#! @input org_id: ID of the organization the users belong to
+#!
+#! @output users_json: JSON document listing all found users
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.user
@@ -34,7 +37,7 @@ extensions:
   graph:
     steps:
       idm_http_action:
-        x: 50
+        x: 52
         'y': 84
         navigate:
           1016836c-43b1-83ef-749c-4ebae10b0897:

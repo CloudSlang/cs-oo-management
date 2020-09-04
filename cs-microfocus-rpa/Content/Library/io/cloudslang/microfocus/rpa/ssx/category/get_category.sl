@@ -1,8 +1,10 @@
 ########################################################################################################################
 #!!
-#! @description: Gets category by its name.
+#! @description: Receives a category by its name.
 #!
-#! @input token: X-CSRF-TOKEN obtained from get_token flow
+#! @input category_name: Name of the category to be received
+#!
+#! @output category_json: JSON document describing the category
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.ssx.category

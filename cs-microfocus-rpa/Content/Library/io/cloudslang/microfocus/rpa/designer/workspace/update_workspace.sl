@@ -2,6 +2,7 @@
 #!!
 #! @description: Pulls changes in Git repository and also updates the binaries if attached to the repo.
 #!
+#! @input ws_id: Workspace ID
 #! @input cp_folder: If given, the downloaded binaries will be stored permanently in this folder (otherwise downloaded temporarily and removed after import)
 #!
 #! @output process_status: RUNNING, PENDING, FINISHED
@@ -71,10 +72,10 @@ extensions:
         'y': 108
       update_repo_binaries:
         x: 294
-        'y': 110
+        'y': 109
       update_repo:
         x: 485
-        'y': 117
+        'y': 109
         navigate:
           62dc77fe-6e66-cc5f-e7c7-adbbf8daf4f6:
             targetId: 7f1cba12-de4d-8c26-8df7-5dea2c79b1ad

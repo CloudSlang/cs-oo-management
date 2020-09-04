@@ -4,6 +4,9 @@
 #!
 #! @input username: User to be updated.
 #! @input org_id: Under which organization should be the user updated.
+#!
+#! @output user_json: JSON document describing the user
+#! @output error_message: Error message in case of operation failure
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.user

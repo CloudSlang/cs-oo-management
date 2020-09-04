@@ -1,8 +1,8 @@
 ########################################################################################################################
 #!!
-#! @description: Gets authentication token from IDM service.
+#! @description: Receives the authentication token from IDM service.
 #!
-#! @input generate_HPSSO: Set to true when when HPSSO required; necessary to authenticate to Designer
+#! @input generate_HPSSO: Set to true when when HPSSO required (stored in cookies); necessary to authenticate to Designer
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.authenticate

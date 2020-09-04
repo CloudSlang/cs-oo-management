@@ -3,6 +3,8 @@
 #! @description: Receives all policies.
 #!
 #! @input org_id: Organization ID the policies belong to.
+#!
+#! @output policies_json: JSON document describing the policies
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.policy

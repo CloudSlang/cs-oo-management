@@ -3,6 +3,8 @@
 #! @description: Receives the organization ID.
 #!
 #! @input org_name: Organization name
+#!
+#! @output org_id: Organization ID
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.organization

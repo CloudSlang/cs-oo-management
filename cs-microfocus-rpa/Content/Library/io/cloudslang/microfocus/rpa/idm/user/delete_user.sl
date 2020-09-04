@@ -1,5 +1,9 @@
 ########################################################################################################################
 #!!
+#! @description: Deletes the given user from the IDM organization and database.
+#!
+#! @input username_or_id: Name or ID of the user to be deleted
+#! @input org_id: ID of the organization the user belongs to
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.user

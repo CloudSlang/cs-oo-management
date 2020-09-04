@@ -3,7 +3,7 @@
 #! @description: Sets insight service settings.
 #!
 #! @input settings: List of settings to be changed
-#! @input values: List of value of changed settings
+#! @input values: List of values of the settings to be changed (in the same order)
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.central.insight

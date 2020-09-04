@@ -1,8 +1,10 @@
 ########################################################################################################################
 #!!
-#! @description: Sends HTTP request against Designer REST API endpoint. It verifies the output is JSON doc; provide value if the output is supposed not to be JSON doc.
+#! @description: Sends an HTTP request against Designer REST API endpoint. It verifies the output is JSON doc; provide value if the output is supposed not to be JSON doc.
 #!
 #! @input token: Only certain operations (import CP) needs to have the auth token; the rest are fine with auth token stored in cookies
+#! @input method: GET, POST, PUT, DELETE, HEAD
+#! @input body: Request body to be sent
 #! @input file: File to be sent
 #! @input verify_result: Provide json/html in case which value is expected to be returned; will fail if the result is not as expected (simple verification). Provide anything (even empty input) if no verification required.
 #!!#
@@ -48,8 +50,8 @@ flow:
           - FAILURE: on_failure
   outputs:
     - return_result: '${return_result}'
-    - error_message: '${error_message}'
     - response_headers: '${response_headers}'
+    - error_message: '${error_message}'
     - status_code: '${status_code}'
   results:
     - FAILURE

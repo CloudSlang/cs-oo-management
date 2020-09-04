@@ -1,9 +1,10 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves the details of the given execution
+#! @description: Receives the details of the given execution
 #!
 #! @input run_id: The flow execution ID
 #!
+#! @output run_json: JSON document describing the flow run
 #! @output start_time: When the flow started (in millis)
 #! @output run_status: RUNNING, COMPLETED, SYSTEM_ FAILURE, PAUSED, PENDING_ PAUSE, CANCELED, PENDING_ CANCEL
 #! @output result_status_type: RESOLVED, ERROR

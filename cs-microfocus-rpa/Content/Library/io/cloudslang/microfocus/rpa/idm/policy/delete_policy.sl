@@ -30,8 +30,8 @@ extensions:
   graph:
     steps:
       idm_http_action:
-        x: 78
-        'y': 111
+        x: 76
+        'y': 95
         navigate:
           d5f21432-92e0-a471-c19b-7264f8856b2c:
             targetId: dc11c7c7-97c1-c752-a774-abd771eba418

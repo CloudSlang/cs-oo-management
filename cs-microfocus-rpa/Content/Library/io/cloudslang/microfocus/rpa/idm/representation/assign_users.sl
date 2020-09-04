@@ -1,9 +1,14 @@
 ########################################################################################################################
 #!!
-#! @description: Assigns specified users to the representation (keeping also the original ones).
+#! @description: Assigns given users to the representation of the given group and organization while keeping also the originally assigned users.
 #!
-#! @output repre_json: The new representation json
-#! @output repre_id: The representation id.
+#! @input org_id: ID of the group organization
+#! @input group_id: ID of the representation group
+#! @input repre_name: Representation where to assign new users
+#! @input new_user_ids: IDs of users to be added
+#!
+#! @output repre_json: JSON document describing the new representation
+#! @output repre_id: The representation ID
 #! @output original_user_ids: The originally assigned users to the representation before executing this flow.
 #!!#
 ########################################################################################################################

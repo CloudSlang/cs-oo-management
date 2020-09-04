@@ -1,6 +1,8 @@
 ########################################################################################################################
 #!!
-#! @description: Gets SSX categories.
+#! @description: Receives all SSX categories.
+#!
+#! @output categories_json: JSON document listing all categories
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.ssx.category
@@ -29,8 +31,8 @@ extensions:
   graph:
     steps:
       ssx_http_action:
-        x: 118
-        'y': 115
+        x: 103
+        'y': 98
         navigate:
           6c826634-2ee4-e707-9fd5-a7b9f053a59f:
             targetId: a3084954-a0d0-64e6-dc25-95adbf3e450a

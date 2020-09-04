@@ -1,6 +1,6 @@
 ########################################################################################################################
 #!!
-#! @description: Deletes the workspace
+#! @description: Deletes the user's workspace
 #!
 #! @input ws_id: Workspace ID
 #!!#

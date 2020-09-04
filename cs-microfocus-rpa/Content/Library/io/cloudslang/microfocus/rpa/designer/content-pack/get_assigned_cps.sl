@@ -1,6 +1,10 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves all deployed Content Packs assigned in the given Workspace
+#! @description: Receives all deployed Content Packs assigned in the given Workspace
+#!
+#! @input ws_id: Workspace ID
+#!
+#! @output cps_json: JSON document listing all assigned content packs in the given Workspace
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.content-pack

@@ -1,6 +1,6 @@
 ########################################################################################################################
 #!!
-#! @description: Logs out the current Designer user. If not called, get_token will not connect a new user.
+#! @description: Logs out the current Designer user. If not called, get_token will not authenticate a new user.
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.authenticate

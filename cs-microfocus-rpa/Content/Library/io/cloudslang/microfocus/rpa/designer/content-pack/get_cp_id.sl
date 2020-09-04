@@ -1,9 +1,11 @@
 ########################################################################################################################
 #!!
-#! @description: Retrieves the ID of the given deployed Content Pack
+#! @description: Receives the ID of the given deployed Content Pack (in the whole Designer instance)
 #!
 #! @input cp_name: Content Pack Name
 #! @input cp_version: Content Pack Version
+#!
+#! @output cp_id: Content Pack ID
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.content-pack

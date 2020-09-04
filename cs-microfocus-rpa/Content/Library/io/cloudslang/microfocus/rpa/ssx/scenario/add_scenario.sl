@@ -1,9 +1,11 @@
 ########################################################################################################################
 #!!
-#! @description: Adds an SSX scenario.
+#! @description: Creates an SSX scenario.
 #!
-#! @input category_id: Under which category to add the scenario
-#! @input scenario_json: JSON doc fully describing the scenario (including all flow inputs). On category ID, %s needs to be placed.
+#! @input category_id: Under which category to create the scenario
+#! @input scenario_json: JSON document describing the scenario (including all flow inputs). On category ID, %s needs to be placed.
+#!
+#! @output id: ID of the created scenario
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.ssx.scenario

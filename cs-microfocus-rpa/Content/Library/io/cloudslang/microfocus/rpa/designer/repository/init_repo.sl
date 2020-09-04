@@ -1,7 +1,8 @@
 ########################################################################################################################
 #!!
-#! @description: Imports the GitHub repository but before that, it imports the latest release attached to the repository and also removes this imported CP from the workspace. This was possible binary artifacts (RPA activities) will get updated in the library of binaries.
+#! @description: Imports the GitHub repository but before that, it imports the latest release attached to the repository and also unassigns this imported CP from the workspace. This way, the possible binary artifacts (RPA activities) will get updated in the library of binaries.
 #!
+#! @input ws_id: Workspace ID
 #! @input github_repo: Git Hub repo owner/name of a repo to be imported
 #! @input update_binaries: If yes, the latest release will be downloaded to the workspace dependencies and then removed
 #! @input cp_folder: If given, the downloaded binaries will be stored permanently in this folder (otherwise donwloaded temporarily and removed after import)

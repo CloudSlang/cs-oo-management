@@ -1,11 +1,11 @@
 ########################################################################################################################
 #!!
-#! @description: Gets all representations (group rules) belonging to the group and organization.
+#! @description: Receives all representations (group rules) belonging to the group and organization.
 #!
 #! @input org_id: Organization ID the representations belong to.
 #! @input group_id: Group ID the representations belong to.
 #!
-#! @output repres_json: Json with a list of all representations
+#! @output repres_json: JSON document listing all group representations
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.idm.representation

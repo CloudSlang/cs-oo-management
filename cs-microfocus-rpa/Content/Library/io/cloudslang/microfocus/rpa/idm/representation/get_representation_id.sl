@@ -1,6 +1,6 @@
 ########################################################################################################################
 #!!
-#! @description: Gets the representation (group rule) ID.
+#! @description: Receives the representation (group rule) ID.
 #!
 #! @input org_id: Organization ID the representation belongs to.
 #! @input group_id: Group ID the representation belongs to.

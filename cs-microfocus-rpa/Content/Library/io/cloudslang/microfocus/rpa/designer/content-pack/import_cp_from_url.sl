@@ -2,9 +2,11 @@
 #!!
 #! @description: Downloads a CP from URL, imports that into Designer and optionally assigns it to a workspace.
 #!
-#! @input cp_url: URL pointing to a CP
+#! @input cp_url: URL pointing to a content pack file
 #! @input ws_id: If given, the imported CP will be also assigned to the given WS
 #! @input file_path: If given, the downloaded CP will be placed to this file (otherwise temporal will be created and removed later)
+#!
+#! @output status_json: JSON document describing the status of the file upload
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.content-pack

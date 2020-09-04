@@ -1,9 +1,8 @@
 ########################################################################################################################
 #!!
-#! @description: Deletes an SSX category.
+#! @description: Removes an SSX category.
 #!
-#! @input token: X-CSRF-TOKEN obtained from get_token flow
-#! @input id: Category ID
+#! @input id: ID of the category to be removed
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.ssx.category

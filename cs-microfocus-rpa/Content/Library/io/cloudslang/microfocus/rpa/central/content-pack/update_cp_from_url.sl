@@ -1,6 +1,17 @@
 ########################################################################################################################
 #!!
+#! @description: Updates the content pack (based on the CP name in the given URL) in Central if different than the one already deployed in Central.
+#!
+#! @input cp_url: The content pack to be deployed
 #! @input cp_folder: If given, the CP will be downloaded and kept in this folder (even once this update finishes)
+#!
+#! @output cp_name: Content pack name
+#! @output cp_version: Version which got deployed from the file
+#! @output updated: true/false if the CP got deployed (updated) or not
+#!
+#! @result FAILURE: Failure when deploying the CP
+#! @result ALREADY_DEPLOYED: The found CP has been already deployed
+#! @result SUCCESS: The CP got deployed successfully
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.central.content-pack

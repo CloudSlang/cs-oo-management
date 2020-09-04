@@ -1,6 +1,8 @@
 ########################################################################################################################
 #!!
-#! @description: Gets insight service settings.
+#! @description: Receives insight service settings.
+#!
+#! @output settings_json: JSON document describing the service settings.
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.central.insight

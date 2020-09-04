@@ -2,7 +2,9 @@
 #!!
 #! @description: Triggers the process of updating SCM repository (pull) but does not wait for the process to finish.
 #!
-#! @output process_json: JSON of the SCM pull process
+#! @input repo_id: SCM repository ID
+#!
+#! @output process_json: JSON document describing the SCM pull process
 #! @output process_id: Process ID
 #!!#
 ########################################################################################################################

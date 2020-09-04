@@ -4,6 +4,8 @@
 #!
 #! @input ws_id: Workspace ID
 #! @input cp_id: Content Pack ID
+#!
+#! @output status_json: JSON document describing the status of the operation
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.content-pack
@@ -44,4 +46,4 @@ extensions:
       SUCCESS:
         5336fe52-b5dc-bd54-269d-ee8857a86c5f:
           x: 277
-          'y': 101
+          'y': 110

@@ -1,8 +1,11 @@
 ########################################################################################################################
 #!!
-#! @description: Creates user's Workspace
+#! @description: Creates user's Workspace; currently, only Default_Workspace is supported.
 #!
-#! @input ws_name: Workspace name; now, only Default_Workspace is supoported
+#! @input ws_name: Workspace name; currently, only Default_Workspace is supported
+#!
+#! @output ws_json: JSON document describing the created workspace
+#! @output ws_id: ID of the created workspace
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.workspace

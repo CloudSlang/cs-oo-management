@@ -1,9 +1,11 @@
 ########################################################################################################################
 #!!
-#! @description: Gets an SSX scenario.
+#! @description: Receives an SSX scenario by its name.
 #!
-#! @input name: Name of the scenario
+#! @input name: Name of the scenario to be received
 #! @input category_id: Under which category to look for the scenario
+#!
+#! @output scenario_json: JSON document describing the scenario
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.ssx.scenario
@@ -45,8 +47,8 @@ extensions:
         x: 61
         'y': 154
       json_path_query:
-        x: 210
-        'y': 157
+        x: 218
+        'y': 156
         navigate:
           9080ac7a-2d0b-1463-5e97-3567f713d03e:
             targetId: 95dfb3ec-a5cd-6574-d06a-da1e85b158de
@@ -54,5 +56,5 @@ extensions:
     results:
       SUCCESS:
         95dfb3ec-a5cd-6574-d06a-da1e85b158de:
-          x: 352
-          'y': 139
+          x: 374
+          'y': 153
