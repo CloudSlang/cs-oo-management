@@ -9,7 +9,7 @@
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.workspace
 flow:
-  name: get_default_ws_id
+  name: get_ws_id
   inputs:
     - ws_name: Default_Workspace
   workflow:
