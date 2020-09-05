@@ -3,9 +3,10 @@
 #! @description: Creates an SSX scenario.
 #!
 #! @input category_id: Under which category to create the scenario
-#! @input scenario_json: JSON document describing the scenario (including all flow inputs). On category ID, %s needs to be placed.
+#! @input scenario_json: JSON document describing the scenario (including all flow inputs). Don't add categoryId property; it will be added to the JSON document.
 #!
 #! @output id: ID of the created scenario
+#! @output added_scenario_json: JSON document describing the added scenario
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.ssx.scenario
@@ -16,22 +17,33 @@ flow:
     - category_id
     - scenario_json
   workflow:
+    - add_value:
+        do:
+          io.cloudslang.base.json.add_value:
+            - json_input: '${scenario_json}'
+            - json_path: categoryId
+            - value: '${category_id}'
+        publish:
+          - scenario_json: '${return_result}'
+        navigate:
+          - SUCCESS: ssx_http_action
+          - FAILURE: on_failure
     - ssx_http_action:
         do:
           io.cloudslang.microfocus.rpa.ssx._operations.ssx_http_action:
             - url: /rest/v0/scenarios
             - token: '${token}'
             - method: POST
-            - body: '${scenario_json % category_id}'
+            - body: '${scenario_json}'
         publish:
-          - scenario_json: '${return_result}'
+          - added_scenario_json: '${return_result}'
         navigate:
           - FAILURE: on_failure
           - SUCCESS: json_path_query
     - json_path_query:
         do:
           io.cloudslang.base.json.json_path_query:
-            - json_object: '${scenario_json}'
+            - json_object: '${added_scenario_json}'
             - json_path: $.id
         publish:
           - id: '${return_result}'
@@ -40,18 +52,22 @@ flow:
           - FAILURE: on_failure
   outputs:
     - id: '${id}'
+    - added_scenario_json: '${added_scenario_json}'
   results:
     - FAILURE
     - SUCCESS
 extensions:
   graph:
     steps:
+      add_value:
+        x: 39
+        'y': 73
       ssx_http_action:
-        x: 77
-        'y': 129
+        x: 212
+        'y': 72
       json_path_query:
-        x: 232
-        'y': 128
+        x: 387
+        'y': 71
         navigate:
           703043ee-eb1c-de8f-096c-51bde07ef1ce:
             targetId: 95dfb3ec-a5cd-6574-d06a-da1e85b158de
@@ -59,5 +75,5 @@ extensions:
     results:
       SUCCESS:
         95dfb3ec-a5cd-6574-d06a-da1e85b158de:
-          x: 394
-          'y': 137
+          x: 557
+          'y': 72
