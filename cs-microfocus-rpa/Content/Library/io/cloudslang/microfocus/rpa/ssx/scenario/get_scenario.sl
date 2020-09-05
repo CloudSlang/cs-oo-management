@@ -3,7 +3,6 @@
 #! @description: Receives an SSX scenario by its name.
 #!
 #! @input name: Name of the scenario to be received
-#! @input category_id: Under which category to look for the scenario
 #!
 #! @output scenario_json: JSON document describing the scenario
 #!!#
@@ -14,7 +13,6 @@ flow:
   inputs:
     - token
     - name
-    - category_id
   workflow:
     - get_scenarios:
         do:
