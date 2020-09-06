@@ -40,11 +40,12 @@ flow:
             - json_object: '${repre_json}'
             - json_path: '$.abstractUsers.*.id'
         publish:
-          - user_ids: '${return_result[1:-1]}'
+          - user_ids: '${return_result}'
         navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
   outputs:
+    - repre_json: '${repre_json}'
     - repre_id: '${repre_id}'
     - user_ids: '${user_ids}'
   results:

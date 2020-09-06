@@ -30,8 +30,9 @@ flow:
             - group_id: '${group_id}'
             - repre_name: '${repre_name}'
         publish:
+          - repre_json
           - repre_id
-          - existing_user_ids: '${user_ids}'
+          - original_user_ids: '${user_ids}'
         navigate:
           - FAILURE: on_failure
           - SUCCESS: set_json_properties
@@ -53,7 +54,7 @@ flow:
           io.cloudslang.base.json.set_json_properties:
             - json_string: '${repre_json}'
             - properties: users
-            - values: '${str(list(eval(existing_user_ids)+eval(new_user_ids)))}'
+            - values: '${str(list(eval(original_user_ids)+eval(new_user_ids)))}'
             - delimiter: '|'
             - evaluate: 'true'
         publish:
@@ -63,7 +64,7 @@ flow:
   outputs:
     - repre_json: '${new_repre_json}'
     - repre_id: '${repre_id}'
-    - original_user_ids: '${existing_user_ids}'
+    - original_user_ids: '${original_user_ids}'
   results:
     - FAILURE
     - SUCCESS
@@ -72,13 +73,13 @@ extensions:
     steps:
       get_assigned_users:
         x: 39
-        'y': 116
+        'y': 117
       set_json_properties:
         x: 215
         'y': 118
       update_representation:
         x: 389
-        'y': 120
+        'y': 118
         navigate:
           3364daf5-41bb-6467-148c-1321bc8a2649:
             targetId: 3caccbbc-55a0-a9ed-4dc2-e684cca7e39a
@@ -87,4 +88,4 @@ extensions:
       SUCCESS:
         3caccbbc-55a0-a9ed-4dc2-e684cca7e39a:
           x: 589
-          'y': 118
+          'y': 117
