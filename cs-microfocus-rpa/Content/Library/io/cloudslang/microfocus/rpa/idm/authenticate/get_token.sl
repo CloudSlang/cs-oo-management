@@ -31,7 +31,7 @@ flow:
             - trust_all_roots: 'true'
             - x_509_hostname_verifier: allow_all
             - headers: 'Accept: application/json'
-            - body: "${'{\"tenantName\":\"%s\",\"passwordCredentials\":{\"username\":\"%s\",\"password\":\"%s\"}}' % (get_sp(\"idm_tenant\") if idm_tenant is None else idm_tenant, get_sp(\"rpa_username\") if rpa_username is None else rpa_username, get_sp(\"rpa_password\") if rpa_password is None else rpa_password)}"
+            - body: "${'{\"tenantName\":\"%s\",\"passwordCredentials\":{\"username\":\"%s\",\"password\":\"%s\"}}' % (get_sp(\"io.cloudslang.microfocus.rpa.idm_tenant\") if idm_tenant is None else idm_tenant, get_sp(\"io.cloudslang.microfocus.rpa.rpa_username\") if rpa_username is None else rpa_username, get_sp(\"io.cloudslang.microfocus.rpa.rpa_password\") if rpa_password is None else rpa_password)}"
             - content_type: application/json;charset=UTF-8
         publish:
           - token_json: '${return_result}'
@@ -72,3 +72,4 @@ extensions:
         05f7289a-39ef-d301-224f-c04ca836dcfb:
           x: 402
           'y': 152
+
