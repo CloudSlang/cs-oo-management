@@ -2,7 +2,7 @@
 #!!
 #! @description: Removes the given scenario.
 #!
-#! @input id: ID of the scenario to be removed
+#! @input scenario_id: ID of the scenario to be removed
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.ssx.scenario
@@ -10,12 +10,12 @@ flow:
   name: delete_scenario
   inputs:
     - token
-    - id
+    - scenario_id
   workflow:
     - ssx_http_action:
         do:
           io.cloudslang.microfocus.rpa.ssx._operations.ssx_http_action:
-            - url: "${'/rest/v0/scenarios/%s' % id}"
+            - url: "${'/rest/v0/scenarios/%s' % scenario_id}"
             - token: '${token}'
             - method: DELETE
         navigate:

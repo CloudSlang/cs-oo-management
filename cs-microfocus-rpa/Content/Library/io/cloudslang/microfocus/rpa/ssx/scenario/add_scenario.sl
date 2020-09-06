@@ -5,7 +5,7 @@
 #! @input category_id: Under which category to create the scenario
 #! @input scenario_json: JSON document describing the scenario (including all flow inputs). Don't add categoryId property; it will be added to the JSON document.
 #!
-#! @output id: ID of the created scenario
+#! @output scenario_id: ID of the created scenario
 #! @output added_scenario_json: JSON document describing the added scenario
 #!!#
 ########################################################################################################################
@@ -46,12 +46,12 @@ flow:
             - json_object: '${added_scenario_json}'
             - json_path: $.id
         publish:
-          - id: '${return_result}'
+          - scenario_id: '${return_result}'
         navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
   outputs:
-    - id: '${id}'
+    - scenario_id: '${scenario_id}'
     - added_scenario_json: '${added_scenario_json}'
   results:
     - FAILURE

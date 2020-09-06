@@ -4,7 +4,7 @@
 #!
 #! @input category_json: JSON document describing the category to be created
 #!
-#! @output id: ID of the newly created category
+#! @output category_id: ID of the newly created category
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.ssx.category
@@ -32,12 +32,12 @@ flow:
             - json_object: '${category_json}'
             - json_path: $.id
         publish:
-          - id: '${return_result}'
+          - category_id: '${return_result}'
         navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
   outputs:
-    - id: '${id}'
+    - category_id: '${category_id}'
   results:
     - FAILURE
     - SUCCESS

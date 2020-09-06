@@ -2,7 +2,7 @@
 #!!
 #! @description: Removes an SSX category.
 #!
-#! @input id: ID of the category to be removed
+#! @input category_id: ID of the category to be removed
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.ssx.category
@@ -10,12 +10,12 @@ flow:
   name: delete_category
   inputs:
     - token
-    - id
+    - category_id
   workflow:
     - ssx_http_action:
         do:
           io.cloudslang.microfocus.rpa.ssx._operations.ssx_http_action:
-            - url: "${'/rest/v0/categories/%s' % id}"
+            - url: "${'/rest/v0/categories/%s' % category_id}"
             - token: '${token}'
             - method: DELETE
         publish: []

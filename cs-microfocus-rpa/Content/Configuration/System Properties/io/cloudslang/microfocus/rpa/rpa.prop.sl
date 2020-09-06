@@ -35,7 +35,7 @@ properties:
       value: idmTransportUser
       sensitive: false
   - idm_password:
-      value: ''
+      value: Cloud@123
       sensitive: true
   - idm_tenant:
       value: RPA
@@ -44,7 +44,7 @@ properties:
       value: admin
       sensitive: false
   - rpa_password:
-      value: ''
+      value: Cloud@123
       sensitive: true
   - wait_time:
       value: '5'

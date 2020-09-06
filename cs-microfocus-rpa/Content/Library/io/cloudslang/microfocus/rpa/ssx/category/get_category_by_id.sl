@@ -2,7 +2,7 @@
 #!!
 #! @description: Receives a category by its ID.
 #!
-#! @input id: ID of the category to be received
+#! @input category_id: ID of the category to be received
 #!
 #! @output category_json: JSON document describing the category
 #!!#
@@ -12,12 +12,12 @@ flow:
   name: get_category_by_id
   inputs:
     - token
-    - id
+    - category_id
   workflow:
     - ssx_http_action:
         do:
           io.cloudslang.microfocus.rpa.ssx._operations.ssx_http_action:
-            - url: "${'/rest/v0/categories/%s' % id}"
+            - url: "${'/rest/v0/categories/%s' % category_id}"
             - token: '${token}'
             - method: GET
         publish:

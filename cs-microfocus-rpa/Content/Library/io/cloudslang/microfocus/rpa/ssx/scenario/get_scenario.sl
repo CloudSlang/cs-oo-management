@@ -2,7 +2,7 @@
 #!!
 #! @description: Receives an SSX scenario by its name.
 #!
-#! @input name: Name of the scenario to be received
+#! @input scenario_name: Name of the scenario to be received
 #!
 #! @output scenario_json: JSON document describing the scenario
 #!!#
@@ -12,7 +12,7 @@ flow:
   name: get_scenario
   inputs:
     - token
-    - name
+    - scenario_name
   workflow:
     - get_scenarios:
         do:
@@ -27,7 +27,7 @@ flow:
         do:
           io.cloudslang.base.json.json_path_query:
             - json_object: '${scenarios_json}'
-            - json_path: "${\"$.items[?(@.name=='%s')]\" % name}"
+            - json_path: "${\"$.items[?(@.name=='%s')]\" % scenario_name}"
         publish:
           - scenario_json: '${return_result[1:-1]}'
         navigate:

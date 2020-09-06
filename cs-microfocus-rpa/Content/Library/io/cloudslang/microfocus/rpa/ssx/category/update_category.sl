@@ -3,7 +3,7 @@
 #! @description: Updates an existing SSX category.
 #!
 #! @input token: X-CSRF-TOKEN obtained from get_token flow
-#! @input id: ID of the category to be updated
+#! @input category_id: ID of the category to be updated
 #! @input category_json: JSON document describing the new content of the category
 #!
 #! @output new_category_json: JSON document describing the new content of the category
@@ -14,13 +14,13 @@ flow:
   name: update_category
   inputs:
     - token
-    - id
+    - category_id
     - category_json
   workflow:
     - ssx_http_action:
         do:
           io.cloudslang.microfocus.rpa.ssx._operations.ssx_http_action:
-            - url: "${'/rest/v0/categories/%s' % id}"
+            - url: "${'/rest/v0/categories/%s' % category_id}"
             - token: '${token}'
             - method: PUT
             - body: '${category_json}'

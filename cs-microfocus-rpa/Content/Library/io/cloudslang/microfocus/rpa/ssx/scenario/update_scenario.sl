@@ -2,7 +2,7 @@
 #!!
 #! @description: Updates an existing SSX scenario.
 #!
-#! @input id: ID of a scenario to be updated
+#! @input scenario_id: ID of a scenario to be updated
 #! @input category_id: Under which category to place the scenario
 #! @input scenario_json: JSON document describing the scenario (including all flow inputs). Don't add categoryId property; it will be added to the JSON document.
 #!
@@ -14,7 +14,7 @@ flow:
   name: update_scenario
   inputs:
     - token
-    - id
+    - scenario_id
     - category_id
     - scenario_json
   workflow:
@@ -32,7 +32,7 @@ flow:
     - ssx_http_action:
         do:
           io.cloudslang.microfocus.rpa.ssx._operations.ssx_http_action:
-            - url: "${'/rest/v0/scenarios/%s' % id}"
+            - url: "${'/rest/v0/scenarios/%s' % scenario_id}"
             - token: '${token}'
             - method: PUT
             - body: '${scenario_json}'
