@@ -16,7 +16,8 @@ flow:
   inputs:
     - token
     - username
-    - password
+    - password:
+        sensitive: true
     - org_id
   workflow:
     - idm_http_action:

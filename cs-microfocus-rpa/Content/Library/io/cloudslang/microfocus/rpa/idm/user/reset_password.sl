@@ -3,7 +3,7 @@
 #! @description: Resets user's password. User will have to change it upon the next login.
 #!
 #! @input username: User to be updated.
-#! @input password: Password of the user.
+#! @input password: Original password of the user.
 #! @input org_id: ID of the organization the user belongs to
 #!
 #! @output password_json: JSON document describing the password change
@@ -16,7 +16,8 @@ flow:
   inputs:
     - token
     - username
-    - password
+    - password:
+        sensitive: true
     - org_id
   workflow:
     - idm_http_action:
