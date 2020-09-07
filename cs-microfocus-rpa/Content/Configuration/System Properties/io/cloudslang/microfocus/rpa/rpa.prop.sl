@@ -17,25 +17,25 @@
 namespace: io.cloudslang.microfocus.rpa
 properties:
   - central_url:
-      value: 'https://rpa.mf-te.com:8443/oo'
+      value: 'https://hostname:8443/oo'
       sensitive: false
   - insights_url:
-      value: 'https://rpa.mf-te.com:8458/oo-insights'
+      value: 'https://hostname:8458/oo-insights'
       sensitive: false
   - designer_url:
-      value: 'https://rpa.mf-te.com:8445/oo-designer'
+      value: 'https://hostname:8445/oo-designer'
       sensitive: false
   - ssx_url:
-      value: 'https://rpa.mf-te.com:8446/oo-ssx'
+      value: 'https://hostname:8446/oo-ssx'
       sensitive: false
   - idm_url:
-      value: 'https://rpa.mf-te.com:8445/idm-service'
+      value: 'https://hostname:8445/idm-service'
       sensitive: false
   - idm_username:
       value: idmTransportUser
       sensitive: false
   - idm_password:
-      value: Cloud@123
+      value: ''
       sensitive: true
   - idm_tenant:
       value: RPA
@@ -44,7 +44,7 @@ properties:
       value: admin
       sensitive: false
   - rpa_password:
-      value: Cloud@123
+      value: ''
       sensitive: true
   - wait_time:
       value: '5'
