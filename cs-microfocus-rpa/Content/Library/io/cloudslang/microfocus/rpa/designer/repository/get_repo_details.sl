@@ -1,11 +1,11 @@
 ########################################################################################################################
 #!!
-#! @description: Receives ID and other properties of the SCM repository (of index 0; one SCM per one Workspace)
+#! @description: Receives ID and other properties of the SCM repository (of index 0; one SCM per one Workspace). The results will be empty if no repository exists yet.
 #!
 #! @input ws_id: Workspace ID
 #! @input repo_index: Which repository in Workspace to take
 #!
-#! @output repo_id: SCM repository ID
+#! @output repo_id: SCM repository ID; empty if no repository exists yet
 #! @output scm_url: SCM repository URL
 #! @output repo_owner: SCM repository owner (penultimate part of SCM URL)
 #! @output repo_name: SCM repository name (trailing part of SCM URL)
