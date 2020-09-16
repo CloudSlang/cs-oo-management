@@ -14,6 +14,7 @@ flow:
           io.cloudslang.microfocus.rpa.designer._operations.designer_http_action:
             - url: /rest/v0/content-packs
             - method: GET
+            - verify_result: list
         publish:
           - cps_json: '${return_result}'
         navigate:
