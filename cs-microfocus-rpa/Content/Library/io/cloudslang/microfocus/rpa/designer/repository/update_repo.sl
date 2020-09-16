@@ -36,7 +36,7 @@ flow:
             - method: GET
         publish:
           - status_json: '${return_result}'
-          - process_status: "${eval(return_result.replace(\":null\", \":None\"))['actionStatus']}"
+          - process_status: "${eval(return_result.replace(\":null\",\":None\").replace(\":true\",\":True\").replace(\":false\",\":False\"))['actionStatus']}"
         navigate:
           - FAILURE: on_failure
           - SUCCESS: is_running

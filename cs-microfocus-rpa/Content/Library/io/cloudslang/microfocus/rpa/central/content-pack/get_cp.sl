@@ -30,7 +30,7 @@ flow:
             - json_path: "${\"$[?(@.name == '%s')]\" % cp_name}"
         publish:
           - cp_json: '${return_result}'
-          - cp_pton: '${return_result.replace(":null", ":None")}'
+          - cp_pton: '${return_result.replace(":null",":None").replace(":true",":True").replace(":false",":False")}'
           - cp_version: "${'' if cp_pton == '[]' else eval(cp_pton)[0]['version']}"
           - cp_id: "${'' if cp_pton == '[]' else eval(cp_pton)[0]['id']}"
         navigate:

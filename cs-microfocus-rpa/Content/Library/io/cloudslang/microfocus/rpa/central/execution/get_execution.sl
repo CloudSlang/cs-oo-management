@@ -23,7 +23,7 @@ flow:
             - method: GET
         publish:
           - run_json: '${return_result}'
-          - run_pton: '${return_result.replace(":null", ":None")}'
+          - run_pton: '${return_result.replace(":null",":None").replace(":true",":True").replace(":false",":False")}'
           - start_time: "${str(eval(run_pton)[0]['startTime'])}"
           - run_status: "${eval(run_pton)[0]['status']}"
           - result_status_type: "${eval(run_pton)[0]['resultStatusType']}"

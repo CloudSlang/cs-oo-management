@@ -27,7 +27,7 @@ flow:
             - repo_index: '${repo_index}'
         publish:
           - repos_json
-          - repo_pton: "${'' if repos_json == '[]' else str(eval(repos_json.replace(\":null\",\":None\"))[int(repo_index)])}"
+          - repo_pton: "${'' if repos_json == '[]' else str(eval(repos_json.replace(\":null\",\":None\").replace(\":true\",\":True\").replace(\":false\",\":False\"))[int(repo_index)])}"
           - repo_id: "${'' if repo_pton == '' else eval(repo_pton)['id']}"
           - scm_url: "${'' if repo_pton == '' else eval(repo_pton)['scmURL']}"
           - repo_owner: "${'' if repo_pton == '' else eval(repo_pton)['username']}"

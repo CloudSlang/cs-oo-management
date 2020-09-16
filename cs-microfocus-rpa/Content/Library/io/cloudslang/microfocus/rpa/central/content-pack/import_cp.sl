@@ -53,7 +53,7 @@ flow:
             - method: GET
         publish:
           - process_json: '${return_result}'
-          - process_status: "${eval(process_json.replace(\":null\", \":None\"))['status']}"
+          - process_status: "${eval(process_json.replace(\":null\",\":None\").replace(\":true\",\":True\").replace(\":false\",\":False\"))['status']}"
         navigate:
           - FAILURE: on_failure
           - SUCCESS: is_running
