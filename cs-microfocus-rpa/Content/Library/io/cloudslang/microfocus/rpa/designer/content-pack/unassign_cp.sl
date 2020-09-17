@@ -22,6 +22,7 @@ flow:
             - url: "${'/rest/v0/workspaces/%s/dependencies/%s' % (ws_id, cp_id)}"
             - token: '${token}'
             - method: DELETE
+            - verify_result: list
         publish:
           - status_json: '${return_result}'
         navigate:
