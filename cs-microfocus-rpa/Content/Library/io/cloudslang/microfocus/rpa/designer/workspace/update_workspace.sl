@@ -25,12 +25,12 @@ flow:
             - ws_id: '${ws_id}'
         publish:
           - scm_url
-          - repo_owner: '${scm_url.split("/")[-2]}'
-          - repo_name: "${scm_url.split(\"/\")[-1][0:-4] if scm_url.endswith('.git') else scm_url.split(\"/\")[-1]}"
+          - repo_owner: '${"" if scm_url == "" else scm_url.split("/")[-2]}'
+          - repo_name
           - repo_id
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: update_repo_binaries
+          - SUCCESS: is_scm_repository
     - update_repo_binaries:
         do:
           io.cloudslang.microfocus.rpa.designer.repository.update_repo_binaries:
@@ -57,6 +57,13 @@ flow:
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
+    - is_scm_repository:
+        do:
+          io.cloudslang.base.utils.is_true:
+            - bool_value: '${str(len(repo_id)>0)}'
+        navigate:
+          - 'TRUE': update_repo_binaries
+          - 'FALSE': NO_SCM_REPOSITORY
   outputs:
     - process_status: '${process_status}'
     - status_json: '${status_json}'
@@ -64,6 +71,7 @@ flow:
   results:
     - FAILURE
     - SUCCESS
+    - NO_SCM_REPOSITORY
 extensions:
   graph:
     steps:
@@ -80,8 +88,19 @@ extensions:
           62dc77fe-6e66-cc5f-e7c7-adbbf8daf4f6:
             targetId: 7f1cba12-de4d-8c26-8df7-5dea2c79b1ad
             port: SUCCESS
+      is_scm_repository:
+        x: 104
+        'y': 298
+        navigate:
+          2bded813-c709-a437-1cdf-e4af2b0f5ed3:
+            targetId: d4fc94e3-58db-e7bf-c319-f0e4e2db266c
+            port: 'FALSE'
     results:
       SUCCESS:
         7f1cba12-de4d-8c26-8df7-5dea2c79b1ad:
           x: 673
           'y': 111
+      NO_SCM_REPOSITORY:
+        d4fc94e3-58db-e7bf-c319-f0e4e2db266c:
+          x: 300
+          'y': 297
