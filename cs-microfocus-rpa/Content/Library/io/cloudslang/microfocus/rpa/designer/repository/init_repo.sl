@@ -8,7 +8,7 @@
 #! @input cp_folder: If given, the downloaded binaries will be stored permanently in this folder (otherwise donwloaded temporarily and removed after import)
 #!
 #! @output status_json: JSON document describing the status of the import
-#! @output failulre: Cause of the failure if the flow fails
+#! @output failure: Cause of the failure if the flow fails
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.repository
@@ -144,7 +144,7 @@ flow:
           - 'FALSE': SUCCESS
   outputs:
     - status_json: '${status_json}'
-    - failulre: '${failure}'
+    - failure: '${failure}'
   results:
     - SUCCESS
     - FAILURE
