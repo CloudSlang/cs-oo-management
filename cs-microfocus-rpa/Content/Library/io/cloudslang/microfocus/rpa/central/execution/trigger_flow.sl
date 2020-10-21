@@ -5,7 +5,7 @@
 #! @input flow_uuid: Flow to be executed
 #! @input flow_inputs: JSON document describing the inputs; {} if nothing given
 #!
-#! @output run_id: The flow execution ID
+#! @output flow_run_id: The flow execution ID
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.central.execution
@@ -28,12 +28,12 @@ flow:
                     "inputPromptUseBlank": true
                 }''' % (flow_uuid, '{}' if flow_inputs is None else flow_inputs)}
         publish:
-          - run_id: '${return_result}'
+          - flow_run_id: '${return_result}'
         navigate:
           - FAILURE: on_failure
           - SUCCESS: SUCCESS
   outputs:
-    - run_id: '${run_id}'
+    - flow_run_id: '${flow_run_id}'
   results:
     - FAILURE
     - SUCCESS

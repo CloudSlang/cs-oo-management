@@ -6,7 +6,7 @@
 #! @input flow_inputs: No inputs if nothing given
 #! @input timeout: Expected time (in millis) to finish the flow; if not given, infinite
 #!
-#! @output run_id: The flow execution ID
+#! @output flow_run_id: The flow execution ID
 #! @output start_time: When the flow started (in millis)
 #! @output run_status: RUNNING, COMPLETED, SYSTEM_ FAILURE, PAUSED, PENDING_ PAUSE, CANCELED, PENDING_ CANCEL
 #! @output result_status_type: RESOLVED, ERROR
@@ -33,14 +33,14 @@ flow:
             - flow_uuid: '${flow_uuid}'
             - flow_inputs: '${flow_inputs}'
         publish:
-          - run_id
+          - flow_run_id
         navigate:
           - FAILURE: on_failure
           - SUCCESS: get_execution
     - get_execution:
         do:
           io.cloudslang.microfocus.rpa.central.execution.get_execution:
-            - run_id: '${run_id}'
+            - flow_run_id: '${flow_run_id}'
         publish:
           - start_time
           - run_status
@@ -98,7 +98,7 @@ flow:
           - 'TRUE': SUCCESS
           - 'FALSE': FAILURE
   outputs:
-    - run_id: '${run_id}'
+    - flow_run_id: '${flow_run_id}'
     - start_time: '${start_time}'
     - run_status: '${run_status}'
     - result_status_type: '${result_status_type}'
