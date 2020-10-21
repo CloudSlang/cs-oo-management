@@ -3,6 +3,7 @@
 #! @description: Triggers a flow and returns immediately.
 #!
 #! @input flow_uuid: Flow to be executed
+#! @input flow_run_name: Flow execution name shown in the execution log; the flow name if not given
 #! @input flow_inputs: JSON document describing the inputs; {} if nothing given
 #!
 #! @output flow_run_id: The flow execution ID
@@ -13,6 +14,8 @@ flow:
   name: trigger_flow
   inputs:
     - flow_uuid
+    - flow_run_name:
+        required: false
     - flow_inputs:
         required: false
   workflow:
@@ -24,9 +27,10 @@ flow:
             - body: |-
                 ${'''{
                     "flowUuid":"%s",
+                    %s
                     "inputs": %s,
                     "inputPromptUseBlank": true
-                }''' % (flow_uuid, '{}' if flow_inputs is None else flow_inputs)}
+                }''' % (flow_uuid, '' if flow_run_name is None else '"runName": "'+flow_run_name+'",','{}' if flow_inputs is None else flow_inputs)}
         publish:
           - flow_run_id: '${return_result}'
         navigate:
@@ -52,3 +56,4 @@ extensions:
         becda1dd-d089-c83d-7a86-a6be2c106a3b:
           x: 305
           'y': 162
+

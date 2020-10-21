@@ -3,6 +3,7 @@
 #! @description: Triggers the given flow and waits for the flow execution to finish.
 #!
 #! @input flow_uuid: Flow to be executed
+#! @input flow_run_name: Flow execution name shown in the execution log; the flow name if not given
 #! @input flow_inputs: No inputs if nothing given
 #! @input timeout: Expected time (in millis) to finish the flow; if not given, infinite
 #!
@@ -22,6 +23,8 @@ flow:
   name: execute_flow
   inputs:
     - flow_uuid
+    - flow_run_name:
+        required: false
     - flow_inputs:
         required: false
     - timeout:
@@ -31,6 +34,7 @@ flow:
         do:
           io.cloudslang.microfocus.rpa.central.execution.trigger_flow:
             - flow_uuid: '${flow_uuid}'
+            - flow_run_name: '${flow_run_name}'
             - flow_inputs: '${flow_inputs}'
         publish:
           - flow_run_id
@@ -169,3 +173,4 @@ extensions:
         8bc94fca-1066-7315-4bb5-313e32872530:
           x: 749
           'y': 397
+
