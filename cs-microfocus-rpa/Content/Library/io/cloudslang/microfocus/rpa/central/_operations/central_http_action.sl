@@ -5,7 +5,7 @@
 #!
 #! @input method: GET, POST, PUT, DELETE, HEAD
 #! @input body: Request body to be sent
-#! @input file: File to be sent
+#! @input file: File to be sent (POST/PUT) or downloaded (GET)
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.central._operations
@@ -31,9 +31,10 @@ flow:
             - trust_all_roots: 'true'
             - x_509_hostname_verifier: allow_all
             - use_cookies: 'false'
+            - destination_file: "${file if method.upper() == 'GET' else None}"
             - body: '${body}'
-            - content_type: "${'application/json' if file is None else 'multipart/form-data'}"
-            - multipart_files: '${file}'
+            - content_type: "${'application/json' if file is None or method.upper() == 'GET' else 'multipart/form-data'}"
+            - multipart_files: "${None if method.upper() == 'GET' else file}"
             - method: '${method}'
         publish:
           - return_result
