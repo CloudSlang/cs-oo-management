@@ -2,7 +2,7 @@
 #!!
 #! @description: Downloads all Content Packs from Central to the given folder. The flow tries to download rest of CPs even when a CP download fails. It gives the list of failed CP downloads once it finishes. The flow fails when at least one CP download fails.
 #!
-#! @input cp_folder: Folder where to download the Content Packs; any existing file having the same name as the CP being downloaded will be overwritten
+#! @input cps_folder: Folder where to download the Content Packs; any existing file having the same name as the CP being downloaded will be overwritten
 #!
 #! @output failed_cps: List of Content Packs whose download has failed or empty if nothing has failed
 #!!#
@@ -11,7 +11,7 @@ namespace: io.cloudslang.microfocus.rpa.central.content-pack
 flow:
   name: download_cps
   inputs:
-    - cp_folder
+    - cps_folder
   workflow:
     - get_cps:
         do:
@@ -25,7 +25,7 @@ flow:
         do:
           io.cloudslang.microfocus.rpa.central.content-pack.download_cp:
             - cp_id: '${cp_id}'
-            - cp_file: "${cp_folder+'/'+cp_name+'-'+cp_version+'.jar'}"
+            - cp_file: "${cps_folder+'/'+cp_name+'-'+cp_version+'.jar'}"
         navigate:
           - FAILURE: mark_failed_cp
           - SUCCESS: list_iterator
@@ -95,7 +95,7 @@ flow:
     - delete:
         do:
           io.cloudslang.base.filesystem.delete:
-            - source: "${cp_folder+'/'+cp_name+'-'+cp_version+'.jar'}"
+            - source: "${cps_folder+'/'+cp_name+'-'+cp_version+'.jar'}"
         navigate:
           - SUCCESS: list_iterator
           - FAILURE: list_iterator
