@@ -55,7 +55,7 @@ flow:
             - source: '${folder_path}'
         navigate:
           - SUCCESS: SUCCESS
-          - FAILURE: on_failure
+          - FAILURE: SUCCESS
     - on_failure:
         - delete_temp_file:
             do:
@@ -90,6 +90,9 @@ extensions:
           7714f1ec-5857-9e75-199a-0e3bdd3afe85:
             targetId: 86756514-aadf-066b-11e9-81a94bded20b
             port: SUCCESS
+          aee6eb19-27a5-a4bb-fa80-e2d87260f097:
+            targetId: 86756514-aadf-066b-11e9-81a94bded20b
+            port: FAILURE
     results:
       SUCCESS:
         86756514-aadf-066b-11e9-81a94bded20b:
