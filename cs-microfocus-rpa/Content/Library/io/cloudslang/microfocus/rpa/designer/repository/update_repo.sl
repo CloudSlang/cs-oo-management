@@ -6,8 +6,8 @@
 #!
 #! @output process_json: JSON document describing the SCM pull process
 #! @output process_id: Process ID
-#! @output status_json: JSON document descirbint the SCM pull process status
-#! @output process_status: RUNNING, PENDING, FINISHED
+#! @output status_json: JSON document describing the SCM pull process status
+#! @output process_status: RUNNING, PENDING, FINISHED, FAILED
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa.designer.repository

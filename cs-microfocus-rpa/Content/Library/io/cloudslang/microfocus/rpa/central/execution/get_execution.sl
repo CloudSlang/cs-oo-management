@@ -2,7 +2,7 @@
 #!!
 #! @description: Receives the details of the given execution
 #!
-#! @input run_id: The flow execution ID
+#! @input flow_run_id: The flow execution ID
 #!
 #! @output run_json: JSON document describing the flow run
 #! @output start_time: When the flow started (in millis)
@@ -14,12 +14,12 @@ namespace: io.cloudslang.microfocus.rpa.central.execution
 flow:
   name: get_execution
   inputs:
-    - run_id
+    - flow_run_id
   workflow:
     - central_http_action:
         do:
           io.cloudslang.microfocus.rpa.central._operations.central_http_action:
-            - url: "${'/rest/latest/executions/%s/summary' % run_id}"
+            - url: "${'/rest/latest/executions/%s/summary' % flow_run_id}"
             - method: GET
         publish:
           - run_json: '${return_result}'
