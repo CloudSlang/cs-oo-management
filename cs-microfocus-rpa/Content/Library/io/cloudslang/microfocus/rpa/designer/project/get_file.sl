@@ -34,11 +34,21 @@ flow:
         publish:
           - file_content: '${return_result}'
         navigate:
+          - SUCCESS: escape_json
+          - FAILURE: on_failure
+    - escape_json:
+        do:
+          io.cloudslang.base.json.escape_json:
+            - input_string: "${file_content.replace('\\\\r\\\\n', '\\\\n')}"
+            - escape: 'false'
+        publish:
+          - file_content: '${output_string}'
+        navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
   outputs:
     - file_json: '${file_json}'
-    - file_content: "${file_content[1:-1].replace('\\\\r\\\\n','\\n').replace('\\\\n','\\n').replace('\\\\\"','\"').replace('\\\\\\\\', '\\\\')}"
+    - file_content: '${file_content}'
   results:
     - FAILURE
     - SUCCESS
@@ -50,13 +60,16 @@ extensions:
         'y': 84
       json_path_query:
         x: 197
-        'y': 85
+        'y': 82
+      escape_json:
+        x: 360
+        'y': 86
         navigate:
-          e64cb030-57d5-162a-1e32-a17b7200c238:
+          4aa8e77e-dbbb-0935-289d-0b760d8164c3:
             targetId: afbc9a92-9983-593b-05de-ba94c44c2f2a
             port: SUCCESS
     results:
       SUCCESS:
         afbc9a92-9983-593b-05de-ba94c44c2f2a:
-          x: 361
-          'y': 92
+          x: 529
+          'y': 86
