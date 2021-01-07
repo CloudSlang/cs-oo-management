@@ -20,6 +20,7 @@ flow:
         required: false
     - ws_password:
         required: false
+        sensitive: true
     - ws_tenant:
         required: false
   workflow:

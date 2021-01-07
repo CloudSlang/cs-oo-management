@@ -16,6 +16,7 @@ flow:
         required: false
     - rpa_password:
         required: false
+        sensitive: true
     - idm_tenant:
         required: false
   workflow:
@@ -72,4 +73,3 @@ extensions:
         05f7289a-39ef-d301-224f-c04ca836dcfb:
           x: 402
           'y': 152
-
