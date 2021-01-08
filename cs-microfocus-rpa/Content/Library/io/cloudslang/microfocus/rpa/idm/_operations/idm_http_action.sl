@@ -20,6 +20,12 @@ flow:
         do:
           io.cloudslang.base.http.http_client_action:
             - url: "${'%s%s' % (get_sp('io.cloudslang.microfocus.rpa.idm_url'), url)}"
+            - proxy_host: "${get_sp('io.cloudslang.microfocus.rpa.proxy_host')}"
+            - proxy_port: "${get_sp('io.cloudslang.microfocus.rpa.proxy_port')}"
+            - proxy_username: "${get_sp('io.cloudslang.microfocus.rpa.proxy_username')}"
+            - proxy_password:
+                value: "${get_sp('io.cloudslang.microfocus.rpa.proxy_password')}"
+                sensitive: true
             - trust_all_roots: 'true'
             - x_509_hostname_verifier: allow_all
             - headers: |-
