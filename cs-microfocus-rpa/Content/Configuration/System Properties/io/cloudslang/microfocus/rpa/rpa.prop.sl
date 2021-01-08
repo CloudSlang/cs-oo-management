@@ -12,6 +12,10 @@
 #! @system_property rpa_password: The user password
 #! @system_property wait_time: Waiting time in seconds for long lasting operations (where status is being checked 
 #!                             repeatedly)
+#! @system_property proxy_host: Proxy host to access the RPA instance
+#! @system_property proxy_port: Proxy port to access the RPA instance
+#! @system_property proxy_username: Proxy user name to access the RPA instance
+#! @system_property proxy_password: Proxy user password to access the RPA instance
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.rpa
@@ -49,3 +53,15 @@ properties:
   - wait_time:
       value: '5'
       sensitive: false
+  - proxy_host:
+      value: ''
+      sensitive: false
+  - proxy_port:
+      value: '8080'
+      sensitive: false
+  - proxy_username:
+      value: ''
+      sensitive: false
+  - proxy_password:
+      value: ''
+      sensitive: true
