@@ -18,6 +18,12 @@ flow:
             - password:
                 value: "${get_sp('io.cloudslang.microfocus.rpa.rpa_password')}"
                 sensitive: true
+            - proxy_host: "${get_sp('io.cloudslang.microfocus.rpa.proxy_host')}"
+            - proxy_port: "${get_sp('io.cloudslang.microfocus.rpa.proxy_port')}"
+            - proxy_username: "${get_sp('io.cloudslang.microfocus.rpa.proxy_username')}"
+            - proxy_password:
+                value: "${get_sp('io.cloudslang.microfocus.rpa.proxy_password')}"
+                sensitive: true
             - trust_all_roots: 'true'
             - x_509_hostname_verifier: allow_all
             - content_type: application/json
