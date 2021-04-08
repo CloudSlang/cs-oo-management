@@ -1,6 +1,6 @@
 ########################################################################################################################
 #!!
-#! @description: HTTP client action (GET, POST, PUT, DELETE). It only accepts url and body; it uses basic authentication with RPA credentials (taken from RPE central system properties) so no auth token is necessary.
+#! @description: HTTP client action (GET, POST, PUT, DELETE). It only accepts url and body; it uses basic authentication with OO credentials (taken from OO central system properties) so no auth token is necessary.
 #!               It does not use cookies (to handle X-CSRF-TOKEN).
 #!
 #! @input method: GET, POST, PUT, DELETE, HEAD
@@ -24,9 +24,9 @@ flow:
           io.cloudslang.base.http.http_client_action:
             - url: "${'%s%s' % (get_sp('io.cloudslang.microfocus.oo.central_url'), url)}"
             - auth_type: basic
-            - username: "${get_sp('io.cloudslang.microfocus.oo.rpa_username')}"
+            - username: "${get_sp('io.cloudslang.microfocus.oo.oo_username')}"
             - password:
-                value: "${get_sp('io.cloudslang.microfocus.oo.rpa_password')}"
+                value: "${get_sp('io.cloudslang.microfocus.oo.oo_password')}"
                 sensitive: true
             - proxy_host: "${get_sp('io.cloudslang.microfocus.oo.proxy_host')}"
             - proxy_port: "${get_sp('io.cloudslang.microfocus.oo.proxy_port')}"

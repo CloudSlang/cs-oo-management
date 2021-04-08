@@ -1,8 +1,8 @@
 ########################################################################################################################
 #!!
-#! @description: Authenticates to RPA Designer and receives the X-CSRF-TOKEN. This token is not required for read-only (HTTP GET) operations.
+#! @description: Authenticates to OO/RPA Designer and receives the X-CSRF-TOKEN. This token is not required for read-only (HTTP GET) operations.
 #!               To authenticate, one needs to execute two dummy HTTP REST API calls; second call then generates the X-CSRF-TOKEN.
-#!               One can provide optional Workspace user's credentials (if not provided, the RPA admin credentials are used).
+#!               One can provide optional Workspace user's credentials (if not provided, the OO admin credentials are used).
 #!
 #! @input ws_user: If not provided, default admin credentials will be used.
 #! @input ws_password: If not provided, default admin credentials will be used.
@@ -28,8 +28,8 @@ flow:
         do:
           io.cloudslang.microfocus.oo.idm.authenticate.get_token:
             - generate_HPSSO: 'true'
-            - rpa_username: '${ws_user}'
-            - rpa_password: '${ws_password}'
+            - oo_username: '${ws_user}'
+            - oo_password: '${ws_password}'
             - idm_tenant: '${ws_tenant}'
         publish:
           - idm_token: '${token}'

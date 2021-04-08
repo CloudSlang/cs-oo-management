@@ -12,9 +12,9 @@ flow:
     - generate_HPSSO:
         default: 'false'
         required: false
-    - rpa_username:
+    - oo_username:
         required: false
-    - rpa_password:
+    - oo_password:
         required: false
         sensitive: true
     - idm_tenant:
@@ -38,7 +38,7 @@ flow:
             - trust_all_roots: 'true'
             - x_509_hostname_verifier: allow_all
             - headers: 'Accept: application/json'
-            - body: "${'{\"tenantName\":\"%s\",\"passwordCredentials\":{\"username\":\"%s\",\"password\":\"%s\"}}' % (get_sp(\"io.cloudslang.microfocus.oo.idm_tenant\") if idm_tenant is None else idm_tenant, get_sp(\"io.cloudslang.microfocus.oo.rpa_username\") if rpa_username is None else rpa_username, get_sp(\"io.cloudslang.microfocus.oo.rpa_password\") if rpa_password is None else rpa_password)}"
+            - body: "${'{\"tenantName\":\"%s\",\"passwordCredentials\":{\"username\":\"%s\",\"password\":\"%s\"}}' % (get_sp(\"io.cloudslang.microfocus.oo.idm_tenant\") if idm_tenant is None else idm_tenant, get_sp(\"io.cloudslang.microfocus.oo.oo_username\") if oo_username is None else oo_username, get_sp(\"io.cloudslang.microfocus.oo.oo_password\") if oo_password is None else oo_password)}"
             - content_type: application/json;charset=UTF-8
         publish:
           - token_json: '${return_result}'

@@ -14,9 +14,9 @@ flow:
           io.cloudslang.base.http.http_client_action:
             - url: "${get_sp('io.cloudslang.microfocus.oo.ssx_url')}"
             - auth_type: basic
-            - username: "${get_sp('io.cloudslang.microfocus.oo.rpa_username')}"
+            - username: "${get_sp('io.cloudslang.microfocus.oo.oo_username')}"
             - password:
-                value: "${get_sp('io.cloudslang.microfocus.oo.rpa_password')}"
+                value: "${get_sp('io.cloudslang.microfocus.oo.oo_password')}"
                 sensitive: true
             - proxy_host: "${get_sp('io.cloudslang.microfocus.oo.proxy_host')}"
             - proxy_port: "${get_sp('io.cloudslang.microfocus.oo.proxy_port')}"
