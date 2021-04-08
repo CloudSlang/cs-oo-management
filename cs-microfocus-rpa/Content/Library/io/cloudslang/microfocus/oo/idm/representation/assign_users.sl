@@ -51,7 +51,7 @@ flow:
           - SUCCESS: SUCCESS
     - set_json_properties:
         do:
-          io.cloudslang.base.json.set_json_properties:
+          io.cloudslang.microfocus.base.json.set_json_properties:
             - json_string: '${repre_json}'
             - properties: users
             - values: '${str(list(eval(original_user_ids)+eval(new_user_ids)))}'

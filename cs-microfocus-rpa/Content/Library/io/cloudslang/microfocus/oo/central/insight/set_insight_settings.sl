@@ -34,7 +34,7 @@ flow:
           - SUCCESS: SUCCESS
     - set_json_properties:
         do:
-          io.cloudslang.base.json.set_json_properties:
+          io.cloudslang.microfocus.base.json.set_json_properties:
             - json_string: '${settings_json}'
             - properties: '${settings}'
             - values: '${values}'

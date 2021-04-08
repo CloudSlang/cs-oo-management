@@ -25,7 +25,7 @@ flow:
   workflow:
     - get_cp_properties:
         do:
-          io.cloudslang.base.utils.get_cp_properties:
+          io.cloudslang.microfocus.base.utils.get_cp_properties:
             - cp_file: '${cp_file}'
         publish:
           - file_cp_version: '${cp_version}'

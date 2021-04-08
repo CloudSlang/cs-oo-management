@@ -25,7 +25,7 @@ flow:
   workflow:
     - get_repo_details:
         do:
-          io.cloudslang.base.github.get_repo_details:
+          io.cloudslang.microfocus.base.github.get_repo_details:
             - owner: "${github_repo.split('/')[0]}"
             - repo: "${github_repo.split('/')[1]}"
         publish:

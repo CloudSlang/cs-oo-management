@@ -22,7 +22,7 @@ flow:
   workflow:
     - download_file:
         do:
-          io.cloudslang.base.utils.download_file:
+          io.cloudslang.microfocus.base.utils.download_file:
             - file_url: '${cp_url}'
             - file_path: '${file_path}'
         publish:

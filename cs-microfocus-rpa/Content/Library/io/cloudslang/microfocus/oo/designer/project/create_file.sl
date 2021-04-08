@@ -49,7 +49,7 @@ flow:
           - SUCCESS: SUCCESS
     - escape_json:
         do:
-          io.cloudslang.base.json.escape_json:
+          io.cloudslang.microfocus.base.json.escape_json:
             - input_string: '${file_content}'
         publish:
           - file_content: '${output_string}'

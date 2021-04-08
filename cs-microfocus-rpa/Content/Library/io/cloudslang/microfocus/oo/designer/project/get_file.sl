@@ -38,7 +38,7 @@ flow:
           - FAILURE: on_failure
     - escape_json:
         do:
-          io.cloudslang.base.json.escape_json:
+          io.cloudslang.microfocus.base.json.escape_json:
             - input_string: "${file_content.replace('\\\\r\\\\n', '\\\\n')}"
             - escape: 'false'
         publish:
