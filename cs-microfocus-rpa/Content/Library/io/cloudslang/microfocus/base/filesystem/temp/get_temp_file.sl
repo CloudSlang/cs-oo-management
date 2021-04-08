@@ -8,7 +8,7 @@
 #! @output file_path: Temporal file full path. The file is to be created yet.
 #!!#
 ########################################################################################################################
-namespace: io.cloudslang.base.microfocus.filesystem.temp
+namespace: io.cloudslang.microfocus.base.filesystem.temp
 operation:
   name: get_temp_file
   inputs:

@@ -59,7 +59,7 @@ flow:
     - on_failure:
         - delete_temp_file:
             do:
-              io.cloudslang.base.microfocus.filesystem.temp.delete_temp_file:
+              io.cloudslang.microfocus.base.filesystem.temp.delete_temp_file:
                 - folder_path: '${folder_path}'
                 - file_path: '${downloaded_file_path}'
   outputs:

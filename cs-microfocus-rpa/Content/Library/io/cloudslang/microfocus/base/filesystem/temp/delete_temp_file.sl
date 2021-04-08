@@ -6,7 +6,7 @@
 #! @input file_path: File path (does not have to be temporal!)
 #!!#
 ########################################################################################################################
-namespace: io.cloudslang.base.microfocus.filesystem.temp
+namespace: io.cloudslang.microfocus.base.filesystem.temp
 flow:
   name: delete_temp_file
   inputs:

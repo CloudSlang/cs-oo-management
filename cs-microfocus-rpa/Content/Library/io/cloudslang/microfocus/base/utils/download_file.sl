@@ -39,7 +39,7 @@ flow:
           - FAILURE: on_failure
     - get_temp_file:
         do:
-          io.cloudslang.base.microfocus.filesystem.temp.get_temp_file:
+          io.cloudslang.microfocus.base.filesystem.temp.get_temp_file:
             - file_name: '${file_url.split("/")[-1]}'
         publish:
           - folder_path

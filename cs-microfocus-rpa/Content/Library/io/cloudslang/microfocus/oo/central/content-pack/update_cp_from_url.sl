@@ -24,7 +24,7 @@ flow:
   workflow:
     - download_file:
         do:
-          io.cloudslang.base.microfocus.utils.download_file:
+          io.cloudslang.microfocus.base.utils.download_file:
             - file_url: '${cp_url}'
             - file_path: '${cp_folder if cp_folder is None else cp_folder+"/"+cp_url.split("/")[-1]}'
         publish:
