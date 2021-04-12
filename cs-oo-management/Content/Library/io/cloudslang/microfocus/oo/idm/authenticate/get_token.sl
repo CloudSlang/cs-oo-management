@@ -35,8 +35,9 @@ flow:
             - proxy_password:
                 value: "${get_sp('io.cloudslang.microfocus.oo.proxy_password')}"
                 sensitive: true
-            - trust_all_roots: 'true'
-            - x_509_hostname_verifier: allow_all
+            - tls_version: "${get_sp('io.cloudslang.microfocus.oo.tls_version')}"
+            - trust_all_roots: "${get_sp('io.cloudslang.microfocus.oo.trust_all_roots')}"
+            - x_509_hostname_verifier: "${get_sp('io.cloudslang.microfocus.oo.x_509_hostname_verifier')}"
             - headers: 'Accept: application/json'
             - body: "${'{\"tenantName\":\"%s\",\"passwordCredentials\":{\"username\":\"%s\",\"password\":\"%s\"}}' % (get_sp(\"io.cloudslang.microfocus.oo.idm_tenant\") if idm_tenant is None else idm_tenant, get_sp(\"io.cloudslang.microfocus.oo.oo_username\") if oo_username is None else oo_username, get_sp(\"io.cloudslang.microfocus.oo.oo_password\") if oo_password is None else oo_password)}"
             - content_type: application/json;charset=UTF-8

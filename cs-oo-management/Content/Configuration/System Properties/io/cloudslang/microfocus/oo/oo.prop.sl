@@ -16,6 +16,14 @@
 #! @system_property proxy_port: Proxy port to access the OO/RPA instance
 #! @system_property proxy_username: Proxy user name to access the OO/RPA instance
 #! @system_property proxy_password: Proxy user password to access the OO/RPA instance
+#! @system_property tls_version: This input allows a list of comma separated values of the specific protocols to be
+#!                               used.Valid: SSLv3, TLSv1, TLSv1.1, TLSv1.2. Default: 'TLSv1.2'
+#! @system_property trust_all_roots: Specifies whether to enable weak security over SSL for all HTTP calls
+#! @system_property x_509_hostname_verifier: Specifies the way the server hostname must match a domain name in the
+#!                                           subject's
+#!                                           Common Name (CN) or subjectAltName field of the X.509
+#!                                           certificate.
+#!                                           Valid: 'strict', 'browser_compatible', 'allow_all'
 #!!#
 ########################################################################################################################
 namespace: io.cloudslang.microfocus.oo
@@ -65,3 +73,13 @@ properties:
   - proxy_password:
       value: ''
       sensitive: true
+  - tls_version:
+      value: TLSv1.2
+      sensitive: false
+  - trust_all_roots:
+      value: 'false'
+      sensitive: false
+  - x_509_hostname_verifier:
+      value: strict
+      sensitive: false
+

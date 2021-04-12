@@ -36,8 +36,9 @@ flow:
             - proxy_password:
                 value: "${get_sp('io.cloudslang.microfocus.oo.proxy_password')}"
                 sensitive: true
-            - trust_all_roots: 'true'
-            - x_509_hostname_verifier: allow_all
+            - tls_version: "${get_sp('io.cloudslang.microfocus.oo.tls_version')}"
+            - trust_all_roots: "${get_sp('io.cloudslang.microfocus.oo.trust_all_roots')}"
+            - x_509_hostname_verifier: "${get_sp('io.cloudslang.microfocus.oo.x_509_hostname_verifier')}"
             - use_cookies: 'true'
             - headers: "${\"\" if token is None else 'X-CSRF-TOKEN: %s' % token}"
             - body: '${body}'

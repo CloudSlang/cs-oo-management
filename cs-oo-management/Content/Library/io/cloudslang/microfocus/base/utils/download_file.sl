@@ -31,6 +31,9 @@ flow:
           io.cloudslang.base.http.http_client_action:
             - url: '${file_url}'
             - auth_type: anonymous
+            - tls_version: "${get_sp('io.cloudslang.microfocus.oo.tls_version')}"
+            - trust_all_roots: "${get_sp('io.cloudslang.microfocus.oo.trust_all_roots')}"
+            - x_509_hostname_verifier: "${get_sp('io.cloudslang.microfocus.oo.x_509_hostname_verifier')}"
             - destination_file: '${file_path}'
             - content_type: application/octet-stream
             - method: GET

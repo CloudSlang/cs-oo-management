@@ -18,6 +18,9 @@ flow:
           io.cloudslang.base.http.http_client_action:
             - url: "${'https://api.github.com%s' % url}"
             - auth_type: anonymous
+            - tls_version: "${get_sp('io.cloudslang.microfocus.oo.tls_version')}"
+            - trust_all_roots: "${get_sp('io.cloudslang.microfocus.oo.trust_all_roots')}"
+            - x_509_hostname_verifier: "${get_sp('io.cloudslang.microfocus.oo.x_509_hostname_verifier')}"
             - method: '${method}'
         publish:
           - return_result
